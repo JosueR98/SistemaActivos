@@ -20,7 +20,7 @@ import java.util.Properties;
  *
  * @author jsanchez
  */
-public class RelDatabase {
+public final class RelDatabase {
     public static final String PROPERTIES_FILE_NAME="/activosDB.properties";        
     Connection cnx;
     public RelDatabase(){
