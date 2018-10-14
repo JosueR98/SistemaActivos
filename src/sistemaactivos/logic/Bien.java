@@ -14,30 +14,23 @@ public class Bien {
     private String marca;
     private String modelo;
     private String descripcion;
-    private double precio;
-
+    private double precio_unitario;
+    
+    
     public Bien() {
-        this.codigo = -1;
+        this.codigo = 11111;
         this.marca = "Indf";
         this.modelo = "Indf";
         this.descripcion = "Indf";
-        this.precio = -1.0;
+        this.precio_unitario = 0;
     }
 
-    public Bien(int codigo, String marca, String modelo, String descripcion, double precio) {
+    public Bien(int codigo,String marca, String modelo, String descripcion, double precio_unitario) {
         this.codigo = codigo;
         this.marca = marca;
         this.modelo = modelo;
         this.descripcion = descripcion;
-        this.precio = precio;
-    }
-
-    public int getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
+        this.precio_unitario = precio_unitario;
     }
 
     public String getMarca() {
@@ -65,31 +58,27 @@ public class Bien {
     }
 
     public double getPrecio() {
-        return precio;
+        return precio_unitario;
     }
 
-    public void setPrecio(double precio) {
-        this.precio = precio;
+    public void setPrecio(double precio_unitario) {
+        this.precio_unitario = precio_unitario;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Bien other = (Bien) obj;
-        return this.codigo == other.codigo;
+    public int getCodigo() {
+        return codigo;
     }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
+    }
+    
 
     @Override
     public String toString() {
-        return "Bien{" + "codigo=" + codigo + ", marca=" + marca + ", modelo=" + modelo + ", descripcion=" + descripcion + ", precio=" + precio + '}';
+        return "Bien{" + "marca=" + marca + ", modelo=" + modelo + ", descripcion=" + descripcion + ", precio_unitario=" + precio_unitario + '}';
     }
+    
+
 
 }
