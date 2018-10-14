@@ -5,7 +5,6 @@
  */
 package sistemaactivos.data;
 
-import java.sql.PreparedStatement;
 import sistemaactivos.logic.Bien;
 
 public class BienesDB {
@@ -16,10 +15,10 @@ public class BienesDB {
     }
  
     public void BienAdd(Bien p) throws Exception{
-        String sql="insert into Bienes (codigo_bien, marca, modelo, precio, descripcion, Comprobante_codigo_comprobante)"+
-                "values(123456,'DATOS DE','PRUEBA',1000,'assfsafafsafsa',1234)";
-       // sql=String.format(sql,p.getCodigo(),p.getMarca(),p.getModelo(),p.getPrecio(),
-         //       p.getDescripcion(),55555);
+        String sql="insert into Bienes (codigo_bien, marca, modelo, precio, descripcion)"+
+                "values(%d,'%s','%s',%f,'%s')";
+        sql=String.format(sql,p.getCodigo(),p.getMarca(),p.getModelo(),p.getPrecio(),
+                p.getDescripcion(),55555);
 
         int count=db.executeUpdate(sql);
         System.out.print("Bien agregado correctamente");

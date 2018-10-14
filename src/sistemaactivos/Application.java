@@ -18,10 +18,9 @@ public class Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception {
-            System.out.print(("Bien agregado K"));
         BienesDB db = new BienesDB();
     
-        db.BienAdd(new Bien(12345,"Pantene","Mercedez","ASSDMFMSAFM",1000));
+        db.BienAdd(new Bien(00001,"Acer","Aspire","Computadora para laboratorio",300000));
         
         
     }
