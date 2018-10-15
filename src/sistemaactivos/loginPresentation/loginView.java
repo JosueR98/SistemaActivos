@@ -5,8 +5,14 @@
  */
 package sistemaactivos.loginPresentation;
 
+import java.awt.Graphics;
+import java.sql.SQLException;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import sistemaactivos.logic.Usuario;
 
 /**
  *
@@ -19,7 +25,7 @@ public class loginView extends javax.swing.JFrame implements Observer {
     
     public loginView() {
         initComponents();
-        this.setTitle("LOG IN");
+  
     }
       
     public void setController(loginController controller){
@@ -37,6 +43,12 @@ public class loginView extends javax.swing.JFrame implements Observer {
 
     public loginModel getModel() {
         return model;
+    }
+    
+    @Override
+    public void paint(Graphics r){
+        super.paint(r);
+        this.setTitle("LOG IN");
     }
  
     /**
@@ -62,6 +74,11 @@ public class loginView extends javax.swing.JFrame implements Observer {
         ClaveLabel.setText("Clave :");
 
         IngresarButton.setText("Ingresar");
+        IngresarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                IngresarButtonActionPerformed(evt);
+            }
+        });
 
         SalirButton.setText("Salir");
 
@@ -107,12 +124,30 @@ public class loginView extends javax.swing.JFrame implements Observer {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void IngresarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IngresarButtonActionPerformed
+        String id = this.idTextField.getText();
+        String clave = this.ClaveTextField.getText();
+        Usuario _user = controller.validar(id, clave);
+        if(_user != null){
+            try {
+                controller.login(_user);
+                JOptionPane.showMessageDialog(rootPane, "Ingresado Correctamente");
+                controller.exit();
+            } catch (Exception ex) {
+                Logger.getLogger(loginView.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        }else{
+          JOptionPane.showMessageDialog(rootPane, "Clave Incorrecta");
+        }
+    }//GEN-LAST:event_IngresarButtonActionPerformed
   
     
     
     @Override
     public void update(Observable o, Object arg) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.repaint();
     }
 
     

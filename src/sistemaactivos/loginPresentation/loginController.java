@@ -5,6 +5,9 @@
  */
 package sistemaactivos.loginPresentation;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import sistemaactivos.data.UsuariosDB;
 import sistemaactivos.logic.Usuario;
 
@@ -18,6 +21,7 @@ public class loginController {
     loginView view;
     
     public loginController(loginModel model, loginView view) {
+        db = new UsuariosDB();
         this.view = view;
         this.model = model;
         view.setController(this);
@@ -25,8 +29,8 @@ public class loginController {
     }
 
     public void login(Usuario typed) throws Exception{
-        model.setCurrent(typed);
-        Usuario real = db.UsuarioGet(typed.getId(), typed.getClave());
+        Usuario _user = db.UsuarioGet(typed.getId(), typed.getClave());
+        model.setCurrent(_user);
         view.setVisible(false);
     }   
 
@@ -34,6 +38,23 @@ public class loginController {
         model.setCurrent(new Usuario());
         view.setVisible(true);
         exit();
+    }
+    
+    public Usuario validar(String id, String clave){
+   
+        Usuario _user = null;
+        
+        try {
+            _user = db.UsuarioGet(id, clave);
+        } catch (SQLException ex) {
+            Logger.getLogger(loginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if(_user != null)
+            return _user;
+        else 
+            return null;
+
     }
     
     public void exit(){

@@ -4,22 +4,26 @@
  * and open the template in the editor.
  */
 package sistemaactivos;
-
-import sistemaactivos.data.UsuariosDB;
-import sistemaactivos.logic.Usuario;
+import sistemaactivos.loginPresentation.loginController;
+import sistemaactivos.loginPresentation.loginModel;
+import sistemaactivos.loginPresentation.loginView;
 
 /**
  *
  * @author Josue R
  */
+
 public class application {
+    
+     public static loginModel login_model = new loginModel();
+     public static loginView login_view = new loginView();
+     public static loginController login_controller= new loginController(login_model,login_view);
     
 
     public static void main(String[] args) throws Exception {
 
-     UsuariosDB DB = new UsuariosDB();
-     Usuario prueba = DB.UsuarioGet("admin_dependencia", "admin_clave");
+     login_view.setVisible(true);
      
-     System.out.print(prueba.getTipoUsuario());
+     
     }
 }
