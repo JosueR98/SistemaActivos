@@ -14,26 +14,20 @@ import sistemaactivos.logic.Usuario;
  * @author Josue R
  */
 public class UsuariosDB {
-    RelDatabase db;
+    static final RelDatabase db = new RelDatabase();
     
-    public UsuariosDB(){
-        db= new RelDatabase();
-    }
- 
-    public void UsuarioAdd(Usuario user) throws Exception{
-      String sql="insert into usuarios (id, clave, tipo_usuario)"+
+    public static void  UsuarioAdd(Usuario user) throws Exception{
+      String sql="insert into usuarios (id, clave, tipo)"+
                 "values('%s','%s',%d)";
         sql=String.format(sql,user.getId(),user.getClave(),user.getTipoUsuario());
         System.out.print(sql);
         int count=db.executeUpdate(sql);
-        System.out.print("Bien agregado correctamente");
         if (count==0){
-            System.out.print("Bien NO agregado correctamente");
             throw new Exception("NEIN");
         }
     }
     
-    public Usuario UsuarioGet(String id, String clave) throws SQLException{
+    public static Usuario UsuarioGet(String id, String clave) throws SQLException{
         
         String sql="select * from usuarios where id='%s' AND clave = '%s'";
         sql = String.format(sql,id,clave);
@@ -41,7 +35,7 @@ public class UsuariosDB {
         if (rs.next()) {
             String _id = rs.getString("id");
             String _clave = rs.getString("clave");
-            int usuario = rs.getInt("tipo_usuario");
+            int usuario = rs.getInt("tipo");
             return new Usuario(_id,_clave,usuario);
         }
         else{

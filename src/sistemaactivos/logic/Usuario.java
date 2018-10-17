@@ -24,19 +24,19 @@ public class Usuario {
    // Atributos propios de la clase usuario
     private String id;
     private String clave;
-    private int tipoUsuario;
+    private int tipo;
 
     public Usuario() {
         this.id = "root";
         this.clave = "root";
-        this.tipoUsuario = INDEFINIDO;
+        this.tipo = INDEFINIDO;
     }
 
     
     public Usuario(String id, String clave, int tipoUsuario) {
         this.id = id;
         this.clave = clave;
-        this.tipoUsuario = tipoUsuario;
+        this.tipo = tipoUsuario;
     }
 
     public String getId() {
@@ -56,11 +56,11 @@ public class Usuario {
     }
 
     public int getTipoUsuario() {
-        return tipoUsuario;
+        return tipo;
     }
 
     public void setTipoUsuario(int tipoUsuario) {
-        this.tipoUsuario = tipoUsuario;
+        this.tipo = tipoUsuario;
     }
     
     

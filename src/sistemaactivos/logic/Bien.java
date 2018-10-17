@@ -10,27 +10,31 @@ package sistemaactivos.logic;
  * @author Josue R
  */
 public class Bien {
-    private int codigo;
-    private String marca;
-    private String modelo;
-    private String descripcion;
-    private double precio_unitario;
-    
-    
-    public Bien() {
-        this.codigo = 11111;
-        this.marca = "Indf";
-        this.modelo = "Indf";
-        this.descripcion = "Indf";
-        this.precio_unitario = 0;
-    }
+     int codigo;
+     String marca;
+     String modelo;
+     String descripcion;
+     double precio_unitario;
+     SolicitudBien solicitud;
 
-    public Bien(int codigo,String marca, String modelo, String descripcion, double precio_unitario) {
+    public Bien() {
+    }
+    
+    public Bien(int codigo,String marca, String modelo, String descripcion, double precio_unitario, int codigo_solicitud) {
         this.codigo = codigo;
         this.marca = marca;
         this.modelo = modelo;
         this.descripcion = descripcion;
         this.precio_unitario = precio_unitario;
+        // this.solicitud = sistemaactivos.data.SolicitudesDB.get(codigo_solicitud);
+    }
+
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
 
     public String getMarca() {
@@ -57,28 +61,22 @@ public class Bien {
         this.descripcion = descripcion;
     }
 
-    public double getPrecio() {
+    public double getPrecio_unitario() {
         return precio_unitario;
     }
 
-    public void setPrecio(double precio_unitario) {
+    public void setPrecio_unitario(double precio_unitario) {
         this.precio_unitario = precio_unitario;
     }
 
-    public int getCodigo() {
-        return codigo;
+    public SolicitudBien getSolicitud() {
+        return solicitud;
     }
 
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
+    public void setSolicitud(SolicitudBien solicitud) {
+        this.solicitud = solicitud;
     }
+
     
-
-    @Override
-    public String toString() {
-        return "Bien{" + "marca=" + marca + ", modelo=" + modelo + ", descripcion=" + descripcion + ", precio_unitario=" + precio_unitario + '}';
-    }
-    
-
 
 }

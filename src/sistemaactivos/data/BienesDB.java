@@ -5,28 +5,46 @@
  */
 package sistemaactivos.data;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import sistemaactivos.logic.Bien;
 
-public class BienesDB {
-    RelDatabase db;
-    
-    public BienesDB(){
-        db= new RelDatabase();
-    }
- 
-    public void BienAdd(Bien p) throws Exception{
-        String sql="insert into Bienes (codigo_bien, marca, modelo, precio, descripcion)"+
-                "values(%d,'%s','%s',%f,'%s')";
-        sql=String.format(sql,p.getCodigo(),p.getMarca(),p.getModelo(),p.getPrecio(),
-                p.getDescripcion(),55555);
 
+/**
+ *
+ * @author Josue R
+ */
+public class BienesDB {
+    static final RelDatabase db = new RelDatabase();
+    
+    public static void  bienAdd(Bien bien) throws Exception{
+      String sql="insert into Bienes (codigo, descripcion, marca, modelo, precioUnitario, Solicitudes_codigo)"+
+                "values(%d,'%s','%s','%s',%f,%d)";
+        sql=String.format(sql,bien.getCodigo(),bien.getDescripcion(),bien.getMarca(),bien.getModelo(),
+                bien.getPrecio_unitario(),bien.getSolicitud().getCodigoSolicitud());
+        System.out.print(sql);
         int count=db.executeUpdate(sql);
-        System.out.print("Bien agregado correctamente");
         if (count==0){
-            System.out.print("Bien NO agregado correctamente");
-            throw new Exception("NEIN");
+            throw new Exception();
         }
     }
-
     
+    public static Bien UsuarioGet(String codigo) throws SQLException{
+        
+        String sql="select * from Bienes where codigo= %d";
+        sql = String.format(sql,codigo);
+        ResultSet rs =  db.executeQuery(sql);
+        if (rs.next()) {
+            int _codigo = rs.getInt("codigo");
+            String _descripcion = rs.getString("clave");
+            String _marca = rs.getString("marca");
+            String _model = rs.getString("modelo");
+            double _precioU = rs.getDouble("precioUnitario");
+            int codigo_soli = rs.getInt("Solicitudes_codigo");
+            return new Bien(_codigo,_descripcion,_marca,_model,_precioU , codigo_soli);
+        }
+        else{
+            return null;
+        }
+    }
 }

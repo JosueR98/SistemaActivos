@@ -5,6 +5,7 @@
  */
 package sistemaactivos.logic;
 
+import java.util.List;
 import java.util.Date;
 
 /**
@@ -12,21 +13,26 @@ import java.util.Date;
  * @author Josue R
  */
 public class SolicitudBien {
-    private int codigoSolicitud;
-    private int estado; // 1- Recibida 2- Cancelada 3-Procesada
-    private Date fecha;
-    private ComprobanteAdquisicion comprobante;
-    
-    public SolicitudBien() {
-        codigoSolicitud = 11111;
-        estado = 0;
-        fecha = new Date();
-    }
+     int codigoSolicitud;
+     Date fecha;
+     List<Bien> lista_bienes;
+     int estado; // 1- Recibida 2- Cancelada 3-Procesada
+     int cantidad_bienes;
+     double montoTotal;
 
-    public SolicitudBien(int codigoSolicitud, int estado, Date fecha) {
+    public SolicitudBien() {
+    }
+     
+    
+    public SolicitudBien(int codigoSolicitud, Date fecha, List<Bien> lista_bienes, int estado) {
         this.codigoSolicitud = codigoSolicitud;
-        this.estado = estado;
         this.fecha = fecha;
+        this.lista_bienes = lista_bienes;
+        this.estado = estado;
+        this.cantidad_bienes = lista_bienes.size();
+        for(Bien _bien : lista_bienes){
+            this.montoTotal += _bien.getPrecio_unitario();
+        }
     }
 
     public int getCodigoSolicitud() {
@@ -37,14 +43,6 @@ public class SolicitudBien {
         this.codigoSolicitud = codigoSolicitud;
     }
 
-    public int getEstado() {
-        return estado;
-    }
-
-    public void setEstado(int estado) {
-        this.estado = estado;
-    }
-
     public Date getFecha() {
         return fecha;
     }
@@ -53,36 +51,36 @@ public class SolicitudBien {
         this.fecha = fecha;
     }
 
-    public ComprobanteAdquisicion getComprobante() {
-        return comprobante;
+    public List<Bien> getLista_bienes() {
+        return lista_bienes;
     }
 
-    public void setComprobante(ComprobanteAdquisicion comprobante) {
-        this.comprobante = comprobante;
+    public void setLista_bienes(List<Bien> lista_bienes) {
+        this.lista_bienes = lista_bienes;
     }
 
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final SolicitudBien other = (SolicitudBien) obj;
-        if (this.codigoSolicitud != other.codigoSolicitud) {
-            return false;
-        }
-        return true;
+    public int getEstado() {
+        return estado;
     }
 
-    @Override
-    public String toString() {
-        return "SolicitudBien{" + "codigoSolicitud=" + codigoSolicitud + ", estado=" + estado + ", fecha=" + fecha + ", comprobante=" + comprobante + '}';
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+
+    public int getCantidad_bienes() {
+        return cantidad_bienes;
+    }
+
+    public void setCantidad_bienes(int cantidad_bienes) {
+        this.cantidad_bienes = cantidad_bienes;
+    }
+
+    public double getMontoTotal() {
+        return montoTotal;
+    }
+
+    public void setMontoTotal(double montoTotal) {
+        this.montoTotal = montoTotal;
     }
     
 }
