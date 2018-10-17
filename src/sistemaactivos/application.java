@@ -14,7 +14,7 @@ import sistemaactivos.loginPresentation.loginView;
  */
 
 public class application {
-    
+    //
      public static loginModel login_model = new loginModel();
      public static loginView login_view = new loginView();
      public static loginController login_controller= new loginController(login_model,login_view);
