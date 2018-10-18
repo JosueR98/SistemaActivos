@@ -23,7 +23,7 @@ public class application {
 
     public static void main(String[] args) throws Exception {
 
-     login_view.setVisible(false);
-     login_controller.ingresoAdmin();
+     login_view.setVisible(true);
+     //login_controller.ingresoAdmin();
     }
 }

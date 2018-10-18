@@ -26,10 +26,10 @@ public class SolicitudesDB {
     java.sql.Date sqlDate=new java.sql.Date(soli.getFecha().getDate());
     String currentTime = sdf1.format(soli.getFecha());
     
-      String sql="insert into solicitudes (codigo, fecha, montoTotal, estado)"+
-                "values(%d,'%s',%f,%d)";
+      String sql="insert into solicitudes (codigo, fecha, montoTotal,cantidad, estado)"+
+                "values(%d,'%s',%f,%d,%d)";
       
-        sql=String.format(sql,0,currentTime,soli.getMontoTotal(),soli.getEstado());
+        sql=String.format(sql,0,currentTime,soli.getMontoTotal(),soli.getCantidad_bienes(),soli.getEstado());
      
         int count=db.executeUpdate(sql);
   
@@ -61,11 +61,8 @@ public class SolicitudesDB {
             _solicitud.setCodigoSolicitud(rs.getInt("codigo"));
             _solicitud.setFecha(rs.getDate("fecha"));
             _solicitud.setEstado(rs.getInt("estado"));
-            
             List<Bien> list = activos.data.BienesDB.BienGetBySoli(_solicitud);
             _solicitud.setLista_bienes(list);
-           
-         
             return _solicitud;
         }
         else{

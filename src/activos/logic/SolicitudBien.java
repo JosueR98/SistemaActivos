@@ -75,6 +75,11 @@ public class SolicitudBien {
 
     public void setLista_bienes(List<Bien> lista_bienes) {
         this.lista_bienes = lista_bienes;
+        this.setCantidad_bienes(lista_bienes.size());
+        montoTotal = 0;
+           for(Bien _bien : this.lista_bienes){
+            this.montoTotal += _bien.getPrecio_unitario();
+           }
     }
 
     public int getEstado() {

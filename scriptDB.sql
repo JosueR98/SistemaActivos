@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS `activosDB`.`Solicitudes` (
   `codigo` INT NOT NULL AUTO_INCREMENT,
   `fecha` DATE NOT NULL,
   `montoTotal` DOUBLE NOT NULL,
+  `cantidad` INT NOT NULL,
   `estado` INT NOT NULL DEFAULT 0,
   PRIMARY KEY (`codigo`),
   UNIQUE INDEX `codigo_UNIQUE` (`codigo` ASC) VISIBLE)

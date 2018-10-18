@@ -62,15 +62,28 @@ public class loginView extends javax.swing.JFrame implements Observer {
         idLabel = new javax.swing.JLabel();
         ClaveLabel = new javax.swing.JLabel();
         idTextField = new javax.swing.JTextField();
-        ClaveTextField = new javax.swing.JTextField();
         IngresarButton = new javax.swing.JButton();
         SalirButton = new javax.swing.JButton();
+        ClaveTextField = new javax.swing.JPasswordField();
+        FONDO = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocation(new java.awt.Point(550, 300));
+        setUndecorated(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        idLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        idLabel.setForeground(new java.awt.Color(255, 255, 255));
         idLabel.setText("ID : ");
+        getContentPane().add(idLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
+        ClaveLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        ClaveLabel.setForeground(new java.awt.Color(255, 255, 255));
         ClaveLabel.setText("Clave :");
+        getContentPane().add(ClaveLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
+
+        idTextField.setText("admin_dependencia");
+        getContentPane().add(idTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 180, -1));
 
         IngresarButton.setText("Ingresar");
         IngresarButton.addActionListener(new java.awt.event.ActionListener() {
@@ -78,48 +91,23 @@ public class loginView extends javax.swing.JFrame implements Observer {
                 IngresarButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(IngresarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 99, -1, -1));
 
         SalirButton.setText("Salir");
+        SalirButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SalirButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(SalirButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 99, 73, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(idLabel)
-                            .addComponent(ClaveLabel))
-                        .addGap(21, 21, 21)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(ClaveTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
-                            .addComponent(idTextField)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(55, 55, 55)
-                        .addComponent(IngresarButton)
-                        .addGap(37, 37, 37)
-                        .addComponent(SalirButton, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(29, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(idLabel)
-                    .addComponent(idTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ClaveLabel)
-                    .addComponent(ClaveTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(IngresarButton)
-                    .addComponent(SalirButton))
-                .addContainerGap(39, Short.MAX_VALUE))
-        );
+        ClaveTextField.setText("clave_admin_dependencia");
+        getContentPane().add(ClaveTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 180, -1));
+
+        FONDO.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        FONDO.setForeground(new java.awt.Color(255, 255, 255));
+        FONDO.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/fondo.jpg"))); // NOI18N
+        getContentPane().add(FONDO, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 290, 150));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -145,6 +133,11 @@ public class loginView extends javax.swing.JFrame implements Observer {
           JOptionPane.showMessageDialog(rootPane, "Clave Incorrecta");
         }
     }//GEN-LAST:event_IngresarButtonActionPerformed
+
+    private void SalirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirButtonActionPerformed
+        // TODO add your handling code here:
+        controller.exit();
+    }//GEN-LAST:event_SalirButtonActionPerformed
   
     
     
@@ -159,7 +152,8 @@ public class loginView extends javax.swing.JFrame implements Observer {
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ClaveLabel;
-    private javax.swing.JTextField ClaveTextField;
+    private javax.swing.JPasswordField ClaveTextField;
+    private javax.swing.JLabel FONDO;
     private javax.swing.JButton IngresarButton;
     private javax.swing.JButton SalirButton;
     private javax.swing.JLabel idLabel;
