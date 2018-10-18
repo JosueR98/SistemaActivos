@@ -23,6 +23,19 @@ public class SolicitudBien {
 
     public SolicitudBien() {
     }
+
+    public SolicitudBien(Date fecha, List<Bien> lista_bienes, int estado) throws SQLException {
+        this.fecha = fecha;
+        this.lista_bienes = lista_bienes;
+        this.estado = estado;
+        this.cantidad_bienes = lista_bienes.size();
+        
+        for(Bien _bien : this.lista_bienes){
+            _bien.setSolicitud(this);
+            this.montoTotal += _bien.getPrecio_unitario();
+        }
+ 
+    }
      
     
     public SolicitudBien(int codigoSolicitud, Date fecha, List<Bien> lista_bienes, int estado) throws SQLException {
@@ -87,6 +100,23 @@ public class SolicitudBien {
 
     public void setMontoTotal(double montoTotal) {
         this.montoTotal = montoTotal;
+    }
+
+    @Override
+    public String toString() {
+        String cadena = "";
+        cadena += codigoSolicitud + ", ";
+        cadena += fecha.toString() + ", ";
+        cadena += estado + ", ";
+        cadena += cantidad_bienes + ", ";
+        cadena += 55 + ", Bienes{";
+        
+        
+        for(Bien _bien : this.lista_bienes){
+            cadena += _bien.toString() + "} " ;
+        }
+        
+     return cadena;   
     }
     
 }

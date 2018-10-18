@@ -21,6 +21,13 @@ public class Bien {
 
     public Bien() {
     }
+
+    public Bien(String marca, String modelo, String descripcion, double precio_unitario) {
+        this.marca = marca;
+        this.modelo = modelo;
+        this.descripcion = descripcion;
+        this.precio_unitario = precio_unitario;
+    }
     
     public Bien(int codigo,String marca, String modelo, String descripcion, double precio_unitario) {
         this.codigo = codigo;
@@ -28,7 +35,6 @@ public class Bien {
         this.modelo = modelo;
         this.descripcion = descripcion;
         this.precio_unitario = precio_unitario;
-
     }
 
     public int getCodigo() {
@@ -82,4 +88,13 @@ public class Bien {
      public void setSolicitud(SolicitudBien solicitud) throws SQLException {
          this.solicitud = solicitud;
     }
+
+    @Override
+    public String toString() {
+        return "Bien{" + "codigo=" + codigo + ", marca=" + marca + ", modelo=" + modelo + ", descripcion=" + descripcion + ", precio_unitario=" + precio_unitario + ", solicitud=" + solicitud.getCodigoSolicitud() + '}';
+    }
+
+   
+     
+     
 }

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import static java.util.Collections.list;
 import java.util.List;
 import sistemaactivos.logic.Bien;
+import sistemaactivos.logic.SolicitudBien;
 
 
 /**
@@ -21,60 +22,75 @@ public class BienesDB {
     static final RelDatabase db = new RelDatabase();
     
     public static void  bienAdd(Bien bien) throws Exception{
-      String sql="insert into Bienes (codigo, descripcion, marca, modelo, precioUnitario, Solicitudes_codigo)"+
-                "values(%d,'%s','%s','%s',%f,%d)";
+      String sql="insert into bienes (codigo, descripcion, marca, modelo, precioUnitario, Solicitudes_codigo)"+
+                "values(0,'%s','%s','%s',%f,%d)";
   
-        sql=String.format(sql,bien.getCodigo(),bien.getDescripcion(),bien.getMarca(),bien.getModelo(),
+        sql=String.format(sql,bien.getDescripcion(),bien.getMarca(),bien.getModelo(),
                 bien.getPrecio_unitario(),bien.getSolicitud().getCodigoSolicitud());
-       
+       System.out.print(sql);
         int count=db.executeUpdate(sql);
         if (count==0){
             throw new Exception();
         }
+        
+        
+        // Obteniendo consecutivo
+        int consecutivo = -1;
+        ResultSet rs = db.executeQuery("SELECT max(codigo) FROM bienes");
+        try {
+            if (rs.next()) {
+                consecutivo = rs.getInt(1);
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+       
+        bien.setCodigo(consecutivo);
     }
     
     public static Bien BienGet(int codigo) throws SQLException{
         
+        Bien _bien = new Bien();
         String sql="select * from Bienes where codigo= %d";
         sql = String.format(sql,codigo);
         ResultSet rs =  db.executeQuery(sql);
         if (rs.next()) {
-            int _codigo = rs.getInt("codigo");
-            String _descripcion = rs.getString("descripcion");
-            String _marca = rs.getString("marca");
-            String _model = rs.getString("modelo");
-            double _precioU = rs.getDouble("precioUnitario");
-            int codigo_soli = rs.getInt("Solicitudes_codigo");
             
-            Bien b = new Bien(_codigo,_descripcion,_marca,_model,_precioU);
-            b.setSolicitud(codigo_soli);
-            return b;
+            _bien.setCodigo(rs.getInt("codigo"));
+            _bien.setDescripcion(rs.getString("descripcion"));
+            _bien.setMarca(rs.getString("marca"));
+            _bien.setModelo(rs.getString("modelo"));
+            _bien.setPrecio_unitario(rs.getDouble("precioUnitario"));
+            _bien.setSolicitud(rs.getInt("Solicitudes_codigo"));
+
+            return _bien;
         }
         else{
             return null;
         }
     }
     
-    public static List<Bien> BienGetBySoli(int codigo_solicitud){
+    public static List<Bien> BienGetBySoli(SolicitudBien solicitud){
           List<Bien> resultado = new ArrayList<Bien>();
-   
+          Bien _bien =null;
         try {
             String sql="select * from "+
                     "bienes "+
                     "where Solicitudes_codigo = %d";
             
-            sql=String.format(sql,codigo_solicitud);
+            sql=String.format(sql,solicitud.getCodigoSolicitud());
             ResultSet rs =  db.executeQuery(sql);
             while (rs.next()) {
-            int _codigo = rs.getInt("codigo");
-            String _descripcion = rs.getString("descripcion");
-            String _marca = rs.getString("marca");
-            String _model = rs.getString("modelo");
-            double _precioU = rs.getDouble("precioUnitario");
-            int codigo_soli = rs.getInt("Solicitudes_codigo");
-            Bien b = new Bien(_codigo,_descripcion,_marca,_model,_precioU);
-            b.setSolicitud(codigo_soli);
-            resultado.add(b);
+            _bien = new Bien();
+            _bien.setCodigo(rs.getInt("codigo"));
+            _bien.setDescripcion(rs.getString("descripcion"));
+            _bien.setMarca(rs.getString("marca"));
+            _bien.setModelo(rs.getString("modelo"));
+            _bien.setPrecio_unitario(rs.getDouble("precioUnitario"));
+            _bien.setSolicitud(solicitud);
+
+            resultado.add(_bien);
+      
             }
         } catch (SQLException ex) { }
         
@@ -82,6 +98,6 @@ public class BienesDB {
         
         return resultado;
         
-      
+
     }
 }

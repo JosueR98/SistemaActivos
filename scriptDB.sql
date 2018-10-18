@@ -18,7 +18,7 @@ USE `activosDB` ;
 -- Table `activosDB`.`Solicitudes`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `activosDB`.`Solicitudes` (
-  `codigo` INT NOT NULL,
+  `codigo` INT NOT NULL AUTO_INCREMENT,
   `fecha` DATE NOT NULL,
   `montoTotal` DOUBLE NOT NULL,
   `estado` INT NOT NULL DEFAULT 0,
@@ -31,7 +31,7 @@ ENGINE = InnoDB;
 -- Table `activosDB`.`Bienes`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `activosDB`.`Bienes` (
-  `codigo` INT NOT NULL,
+  `codigo` INT NOT NULL AUTO_INCREMENT,
   `descripcion` BLOB NULL,
   `marca` VARCHAR(45) NOT NULL,
   `modelo` VARCHAR(45) NULL,

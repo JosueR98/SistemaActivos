@@ -5,12 +5,9 @@
  */
 package sistemaactivos.data;
 
-import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
-import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import sistemaactivos.logic.Bien;
 import sistemaactivos.logic.SolicitudBien;
@@ -32,29 +29,49 @@ public class SolicitudesDB {
       String sql="insert into solicitudes (codigo, fecha, montoTotal, estado)"+
                 "values(%d,'%s',%f,%d)";
       
-        sql=String.format(sql,soli.getCodigoSolicitud(),currentTime,soli.getMontoTotal(),soli.getEstado());
+        sql=String.format(sql,0,currentTime,soli.getMontoTotal(),soli.getEstado());
      
         int count=db.executeUpdate(sql);
+  
         if (count==0){
             throw new Exception();
         }
+        
+        // Obteniendo consecutivo
+        int consecutivo = -1;
+        ResultSet rs = db.executeQuery("SELECT max(codigo) FROM solicitudes");
+        try {
+            if (rs.next()) {
+                consecutivo = rs.getInt(1);
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+       
+        soli.setCodigoSolicitud(consecutivo);
     }
     
     public static SolicitudBien SolicitudGet(int codigo) throws SQLException{
         
+        SolicitudBien _solicitud = new SolicitudBien();
         String sql="select * from solicitudes where codigo= %d";
         sql = String.format(sql,codigo);
         ResultSet rs =  db.executeQuery(sql);
         if (rs.next()) {
-            int cod = rs.getInt("codigo");
-            Date d = rs.getDate("fecha");
-            List<Bien> list = sistemaactivos.data.BienesDB.BienGetBySoli(codigo);
-            int estado = rs.getInt("estado");
+            _solicitud.setCodigoSolicitud(rs.getInt("codigo"));
+            _solicitud.setFecha(rs.getDate("fecha"));
+            _solicitud.setEstado(rs.getInt("estado"));
+            
+            List<Bien> list = sistemaactivos.data.BienesDB.BienGetBySoli(_solicitud);
+            _solicitud.setLista_bienes(list);
+           
          
-            return new SolicitudBien(cod,d,list,estado);
+            return _solicitud;
         }
         else{
             return null;
         }
     }
+    
+   
 }

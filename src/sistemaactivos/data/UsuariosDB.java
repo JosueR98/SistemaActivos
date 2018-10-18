@@ -23,7 +23,7 @@ public class UsuariosDB {
         System.out.print(sql);
         int count=db.executeUpdate(sql);
         if (count==0){
-            throw new Exception("NEIN");
+            throw new Exception();
         }
     }
     
@@ -31,12 +31,13 @@ public class UsuariosDB {
         
         String sql="select * from usuarios where id='%s' AND clave = '%s'";
         sql = String.format(sql,id,clave);
+        Usuario _user = new Usuario();
         ResultSet rs =  db.executeQuery(sql);
         if (rs.next()) {
-            String _id = rs.getString("id");
-            String _clave = rs.getString("clave");
-            int usuario = rs.getInt("tipo");
-            return new Usuario(_id,_clave,usuario);
+            _user.setId(rs.getString("id"));
+            _user.setClave( rs.getString("clave"));
+            _user.setTipoUsuario(rs.getInt("tipo"));
+            return _user;
         }
         else{
             return null;

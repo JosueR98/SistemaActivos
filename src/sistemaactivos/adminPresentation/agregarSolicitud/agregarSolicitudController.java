@@ -3,36 +3,36 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sistemaactivos.adminPresentation;
+package sistemaactivos.adminPresentation.agregarSolicitud;
 
 /**
  *
  * @author Josue R
  */
-public class AdminController {
-     AdminModel model;  
-     AdminView view;
+public class agregarSolicitudController {
+    agregarSolicitudModel model;  
+    agregarSolicitudView view;
     
-    public AdminController(AdminModel model, AdminView view) {
+    public agregarSolicitudController(agregarSolicitudModel model, agregarSolicitudView view) {
         this.view = view;
         this.model = model;
         view.setController(this);
         view.setModel(model);
     }
 
-    public AdminModel getModel() {
+    public agregarSolicitudModel getModel() {
         return model;
     }
 
-    public void setModel(AdminModel model) {
+    public void setModel(agregarSolicitudModel model) {
         this.model = model;
     }
 
-    public AdminView getView() {
+    public agregarSolicitudView getView() {
         return view;
     }
 
-    public void setView(AdminView view) {
+    public void setView(agregarSolicitudView view) {
         this.view = view;
     }
     

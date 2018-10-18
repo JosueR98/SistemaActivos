@@ -6,6 +6,9 @@
 package sistemaactivos.adminPresentation;
 
 import java.util.Observable;
+import sistemaactivos.adminPresentation.agregarSolicitud.agregarSolicitudController;
+import sistemaactivos.adminPresentation.agregarSolicitud.agregarSolicitudModel;
+import sistemaactivos.adminPresentation.agregarSolicitud.agregarSolicitudView;
 import sistemaactivos.logic.Usuario;
 
 /**
@@ -15,9 +18,17 @@ import sistemaactivos.logic.Usuario;
 public class AdminModel extends Observable {
     
      Usuario current;
-
+     
+     //Agregar
+     agregarSolicitudModel agregarModel;
+     agregarSolicitudController agregarControlador;
+     agregarSolicitudView agregarView;
+     
     public AdminModel() {
         current = sistemaactivos.loginPresentation.loginModel.getCurrent();
+        agregarModel = new agregarSolicitudModel();
+        agregarView = new agregarSolicitudView();
+        agregarControlador = new agregarSolicitudController(agregarModel,agregarView);
     }
     
     public Usuario getCurrent() {

@@ -28,28 +28,8 @@ public class application {
 
     public static void main(String[] args) throws Exception {
 
-     //login_view.setVisible(false);
-    // login_controller.ingresoAdmin();
-     
-     // Creando nueva solicitud 
-     List<Bien> listaBienes = new ArrayList<>();
-     Bien _bien = new Bien(1,"acer","aspire","computadora para laboratorio",3330000);
-     Bien _bien2 = new Bien(2,"acer","aspire","computadora para laboratorio",3330000);
-     Bien _bien3 = new Bien(3,"acer","aspire","computadora para laboratorio",3330000);
-     
-     listaBienes.add(_bien);
-     listaBienes.add(_bien2);
-     listaBienes.add(_bien3);
-     
-     
-     SolicitudBien solicitud = new SolicitudBien(
-     100, new Date(), listaBienes, 2
-     );
-     
-     sistemaactivos.data.SolicitudesDB.SolicitudAdd(solicitud);
-   
-     sistemaactivos.data.BienesDB.bienAdd(_bien);
-      sistemaactivos.data.BienesDB.bienAdd(_bien2);
-       sistemaactivos.data.BienesDB.bienAdd(_bien3);
+     login_view.setVisible(false);
+     login_controller.ingresoAdmin();
+    
     }
 }
