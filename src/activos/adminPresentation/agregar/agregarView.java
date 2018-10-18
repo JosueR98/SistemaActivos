@@ -120,8 +120,8 @@ public class agregarView extends javax.swing.JFrame implements Observer {
                             .addComponent(PrecioUnitarioTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(CantidadSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
-                        .addComponent(AgregarButton)
-                        .addGap(54, 54, 54))
+                        .addComponent(AgregarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(22, 22, 22))
                     .addComponent(jScrollPane1))
                 .addContainerGap())
         );
@@ -207,7 +207,7 @@ public class agregarView extends javax.swing.JFrame implements Observer {
             JOptionPane.showMessageDialog(rootPane,e.getMessage());
             limpiar();
         }
-
+        
         
         
         

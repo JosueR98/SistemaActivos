@@ -42,8 +42,8 @@
                           <Component id="CantidadSpinner" min="-2" pref="49" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="110" max="32767" attributes="0"/>
-                      <Component id="AgregarButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
+                      <Component id="AgregarButton" min="-2" pref="73" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
               </Group>
