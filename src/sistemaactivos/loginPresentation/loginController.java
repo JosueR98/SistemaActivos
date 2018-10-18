@@ -8,6 +8,9 @@ package sistemaactivos.loginPresentation;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import sistemaactivos.adminPresentation.AdminController;
+import sistemaactivos.adminPresentation.AdminModel;
+import sistemaactivos.adminPresentation.AdminView;
 import sistemaactivos.logic.Usuario;
 
 /**
@@ -53,7 +56,14 @@ public class loginController {
             return null;
 
     }
-    
+      public void ingresoAdmin(){
+       AdminModel _model = new AdminModel();
+       AdminView _view = new AdminView();
+       AdminController _control = new AdminController(_model,_view);
+       _view.setVisible(true);
+       view.setVisible(false);
+    }
+      
     public void exit(){
         System.exit(0);
     }

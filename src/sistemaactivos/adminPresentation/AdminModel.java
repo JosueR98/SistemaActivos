@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sistemaactivos.loginPresentation;
+package sistemaactivos.adminPresentation;
 
 import java.util.Observable;
 import sistemaactivos.logic.Usuario;
@@ -12,26 +12,18 @@ import sistemaactivos.logic.Usuario;
  *
  * @author Josue R
  */
-public class loginModel extends Observable {
+public class AdminModel extends Observable {
     
-    static Usuario current;
+     Usuario current;
 
-    public loginModel() {
-        current = new Usuario();
+    public AdminModel() {
+        current = sistemaactivos.loginPresentation.loginModel.getCurrent();
     }
     
-    public static Usuario getCurrent() {
+    public Usuario getCurrent() {
         return current;
     }
 
-    public void setCurrent(Usuario current) {
-        this.current = current;
-        setChanged();
-        notifyObservers();
-    }
-    
-  
-    
     @Override
     public void addObserver(java.util.Observer o) {
         super.addObserver(o);

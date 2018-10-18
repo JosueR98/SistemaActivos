@@ -5,6 +5,8 @@
  */
 package sistemaactivos.logic;
 
+import java.sql.SQLException;
+
 /**
  *
  * @author Josue R
@@ -20,13 +22,13 @@ public class Bien {
     public Bien() {
     }
     
-    public Bien(int codigo,String marca, String modelo, String descripcion, double precio_unitario, int codigo_solicitud) {
+    public Bien(int codigo,String marca, String modelo, String descripcion, double precio_unitario) {
         this.codigo = codigo;
         this.marca = marca;
         this.modelo = modelo;
         this.descripcion = descripcion;
         this.precio_unitario = precio_unitario;
-        // this.solicitud = sistemaactivos.data.SolicitudesDB.get(codigo_solicitud);
+
     }
 
     public int getCodigo() {
@@ -73,10 +75,11 @@ public class Bien {
         return solicitud;
     }
 
-    public void setSolicitud(SolicitudBien solicitud) {
-        this.solicitud = solicitud;
+    public void setSolicitud(int solicitud) throws SQLException {
+         this.solicitud = sistemaactivos.data.SolicitudesDB.SolicitudGet(solicitud);
     }
-
     
-
+     public void setSolicitud(SolicitudBien solicitud) throws SQLException {
+         this.solicitud = solicitud;
+    }
 }

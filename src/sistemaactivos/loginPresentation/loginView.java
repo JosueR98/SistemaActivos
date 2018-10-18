@@ -6,7 +6,6 @@
 package sistemaactivos.loginPresentation;
 
 import java.awt.Graphics;
-import java.sql.SQLException;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.logging.Level;
@@ -133,7 +132,11 @@ public class loginView extends javax.swing.JFrame implements Observer {
             try {
                 controller.login(_user);
                 JOptionPane.showMessageDialog(rootPane, "Ingresado Correctamente");
-                controller.exit();
+                 
+                switch(_user.getTipoUsuario()){
+                    case 1: controller.ingresoAdmin(); break;
+                    // case para cada tipo de usuario
+                }
             } catch (Exception ex) {
                 Logger.getLogger(loginView.class.getName()).log(Level.SEVERE, null, ex);
             }

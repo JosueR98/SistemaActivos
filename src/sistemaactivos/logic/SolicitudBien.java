@@ -5,6 +5,7 @@
  */
 package sistemaactivos.logic;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Date;
 
@@ -24,15 +25,20 @@ public class SolicitudBien {
     }
      
     
-    public SolicitudBien(int codigoSolicitud, Date fecha, List<Bien> lista_bienes, int estado) {
+    public SolicitudBien(int codigoSolicitud, Date fecha, List<Bien> lista_bienes, int estado) throws SQLException {
         this.codigoSolicitud = codigoSolicitud;
         this.fecha = fecha;
         this.lista_bienes = lista_bienes;
         this.estado = estado;
         this.cantidad_bienes = lista_bienes.size();
-        for(Bien _bien : lista_bienes){
+        
+        
+        
+        for(Bien _bien : this.lista_bienes){
+            _bien.setSolicitud(this);
             this.montoTotal += _bien.getPrecio_unitario();
         }
+ 
     }
 
     public int getCodigoSolicitud() {
