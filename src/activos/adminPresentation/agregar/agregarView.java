@@ -8,6 +8,7 @@ package activos.adminPresentation.agregar;
 import activos.logic.Bien;
 import activos.logic.SolicitudBien;
 import java.awt.Graphics;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,12 +18,14 @@ import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Josue R
  */
 public class agregarView extends javax.swing.JFrame implements Observer {
+
     agregarModel model;
     agregarController controller;
 
@@ -42,7 +45,7 @@ public class agregarView extends javax.swing.JFrame implements Observer {
     public void setController(agregarController controller) {
         this.controller = controller;
     }
-    
+
     /**
      * Creates new form agregarSolicitudView
      */
@@ -50,9 +53,40 @@ public class agregarView extends javax.swing.JFrame implements Observer {
         initComponents();
     }
 
-      public void paint(Graphics g){
+    public void paint(Graphics g) {
         super.paint(g);
         this.setTitle("Agregar Solicitud");
+
+        DefaultTableModel modelo = new DefaultTableModel();
+
+
+        modelo.addColumn("Descripcion");
+        modelo.addColumn("Marca");
+        modelo.addColumn("Modelo");
+        modelo.addColumn("Precio Unitario");
+        modelo.addColumn("Cantidad");
+
+        String[] datos = new String[5];
+
+        this.BienesTable.setModel(modelo);
+        
+      
+        if(!model.getBienes().isEmpty()){
+        
+        for(int i=0; i<model.getBienes().size(); i++) {
+            datos[0] =  model.getBienes().get(i).getDescripcion();
+            datos[1] =  model.getBienes().get(i).getMarca();
+            datos[2] =  model.getBienes().get(i).getModelo();
+            datos[3] = "" +  model.getBienes().get(i).getPrecio_unitario();
+            datos[4] = "" +  model.getBienes().get(i).getCantidad();
+            modelo.addRow(datos);
+            
+            for(int e=0;e<model.getBienes().get(i).getCantidad()-1;e++){
+                i++;
+            }
+        }   
+        this.total.setText(("" + model.getTotal() + ""));
+    }
     }
 
     /**
@@ -76,6 +110,11 @@ public class agregarView extends javax.swing.JFrame implements Observer {
         jScrollPane1 = new javax.swing.JScrollPane();
         DescripcionTextField = new javax.swing.JTextPane();
         CantidadSpinner = new javax.swing.JSpinner();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        BienesTable = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        total = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -91,7 +130,7 @@ public class agregarView extends javax.swing.JFrame implements Observer {
 
         jLabel5.setText("Cantidad :");
 
-        AgregarButton.setText("+");
+        AgregarButton.setText("Agregar Solicitud");
         AgregarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AgregarButtonActionPerformed(evt);
@@ -100,6 +139,30 @@ public class agregarView extends javax.swing.JFrame implements Observer {
 
         jScrollPane1.setViewportView(DescripcionTextField);
 
+        BienesTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(BienesTable);
+
+        jButton1.setText("Agregar Bienes");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Total :");
+
+        total.setEditable(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -107,24 +170,33 @@ public class agregarView extends javax.swing.JFrame implements Observer {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(MarcaTextField)
-                    .addComponent(ModeloTextField)
+                    .addComponent(jScrollPane2)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(PrecioUnitarioTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(CantidadSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
-                        .addComponent(AgregarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(22, 22, 22))
-                    .addComponent(jScrollPane1))
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(MarcaTextField)
+                            .addComponent(ModeloTextField)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(PrecioUnitarioTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(CantidadSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1)))
+                    .addComponent(AgregarButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel6)
+                .addGap(18, 18, 18)
+                .addComponent(total, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(118, 118, 118))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -156,8 +228,15 @@ public class agregarView extends javax.swing.JFrame implements Observer {
                             .addComponent(CantidadSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(23, 23, 23)
-                        .addComponent(AgregarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(29, Short.MAX_VALUE))
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(total, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(AgregarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -165,14 +244,33 @@ public class agregarView extends javax.swing.JFrame implements Observer {
 
     private void AgregarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarButtonActionPerformed
 
+        try {
+            model.setSolicitud(new SolicitudBien(new Date(), model.getBienes(), 1));
+            activos.data.SolicitudesDB.SolicitudAdd(model.getSolicitud()); 
+
+            for (Bien _bien : model.getBienes()) {
+                activos.data.BienesDB.bienAdd(_bien);
+            }
+
+            JOptionPane.showMessageDialog(rootPane, "Solicitud ingresada correctamente");
+
+            this.setVisible(false);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(agregarView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(agregarView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_AgregarButtonActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
         Bien _bien = new Bien();
-        List<Bien> lista = new ArrayList<>();
-        SolicitudBien _solicitud = new SolicitudBien();
         double precio = 1.0;
         String marca = "", modelo = "", descripcion = "";
         int cantidad = 0;
         boolean res = true;
-        do {
+        
             try {
                 _bien = new Bien();
                 descripcion = this.DescripcionTextField.getText();
@@ -204,54 +302,27 @@ public class agregarView extends javax.swing.JFrame implements Observer {
 
                 for (int i = 0; i < cantidad; i++) {
                     _bien = new Bien(marca, modelo, descripcion, precio);
-                    lista.add(_bien);
+                     model.bienes.add(_bien);
+                     _bien.setCantidad(cantidad);
                 }
 
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(rootPane, e.getMessage());
                 this.limpiar();
-
             }
-
-            //Pregunta...
-
-            int option = JOptionPane.showConfirmDialog(null, "Desea agregar mas bienes?", "Mensaje", JOptionPane.YES_NO_OPTION);
-            if (option == JOptionPane.YES_OPTION) {
-                res = true;
-                limpiar();
-            }
-            if(option == JOptionPane.NO_OPTION){
-                res = false;
-            }
-
-        } while (res);
-
-        try {
-            _solicitud = new SolicitudBien(new Date(), lista, 1);
-            activos.data.SolicitudesDB.SolicitudAdd(_solicitud);
-
-            for (int i = 0; i < cantidad; i++) {
-                _bien = lista.get(i);
-                activos.data.BienesDB.bienAdd(_bien);
-            }
-
-            JOptionPane.showMessageDialog(rootPane, "Solicitud ingresada correctamente");
-
-            this.setVisible(false);
-
-        } catch (SQLException ex) {
-            Logger.getLogger(agregarView.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(agregarView.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_AgregarButtonActionPerformed
-
+       
+            this.update(model, res);
+            limpiar();
+    }//GEN-LAST:event_jButton1ActionPerformed
+        
+    
+    
     @Override
     public void update(Observable o, Object arg) {
-      //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.repaint();//  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    private void limpiar(){
+
+    private void limpiar() {
         this.CantidadSpinner.setValue(0);
         this.DescripcionTextField.setText("");
         this.MarcaTextField.setText("");
@@ -264,16 +335,21 @@ public class agregarView extends javax.swing.JFrame implements Observer {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AgregarButton;
+    private javax.swing.JTable BienesTable;
     private javax.swing.JSpinner CantidadSpinner;
     private javax.swing.JTextPane DescripcionTextField;
     private javax.swing.JTextField MarcaTextField;
     private javax.swing.JTextField ModeloTextField;
     private javax.swing.JTextField PrecioUnitarioTextField;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextField total;
     // End of variables declaration//GEN-END:variables
 }

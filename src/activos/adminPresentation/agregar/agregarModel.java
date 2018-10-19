@@ -8,6 +8,10 @@ package activos.adminPresentation.agregar;
 import java.util.Observable;
 import java.util.Observer;
 import activos.logic.Usuario;
+import java.util.List;
+import activos.logic.Bien;
+import activos.logic.SolicitudBien;
+import java.util.ArrayList;
 
 /**
  *
@@ -17,9 +21,11 @@ public class agregarModel extends Observable {
         
      Usuario current;
      List<Bien> bienes;
+     SolicitudBien solicitud;
      
     public agregarModel() {
         current = activos.loginPresentation.loginModel.getCurrent();
+        bienes = new ArrayList<>();
     }
     
     public Usuario getCurrent() {
@@ -32,4 +38,31 @@ public class agregarModel extends Observable {
         setChanged();
         notifyObservers();
     }
+
+    public List<Bien> getBienes() {
+        return bienes;
+    }
+
+    public void setBienes(List<Bien> bienes) {
+        this.bienes = bienes;
+    }
+
+    public SolicitudBien getSolicitud() {
+        return solicitud;
+    }
+
+    public void setSolicitud(SolicitudBien solicitud) {
+        this.solicitud = solicitud;
+    }
+    
+    public double getTotal(){
+        double total = 0;
+        for(Bien bien: bienes){
+            total += bien.getPrecio_unitario();
+        }
+        return total;
+    }
+    
+    
+    
 }
