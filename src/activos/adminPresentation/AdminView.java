@@ -6,6 +6,8 @@
 package activos.adminPresentation;
 
 import activos.data.RelDatabase;
+import activos.logic.Bien;
+import activos.logic.SolicitudBien;
 import java.awt.Graphics;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -58,8 +60,9 @@ public class AdminView extends javax.swing.JFrame implements Observer{
         RelDatabase r = new RelDatabase();
         String query = "SELECT * FROM solicitudes";
         DefaultTableModel modelo = new DefaultTableModel();
-        
-        modelo.addColumn("Codigo");
+         modelo.addColumn("Codigo");
+        modelo.addColumn("Descripcion");
+       
         modelo.addColumn("Fecha");
         modelo.addColumn("Precio Total");
         modelo.addColumn("Cantidad");
@@ -67,18 +70,35 @@ public class AdminView extends javax.swing.JFrame implements Observer{
         
         this.jTable1.setModel(modelo);
         
-        String[] datos = new String[5];
+        String[] datos = new String[6];
         
         try{
            ResultSet result = r.executeQuery(query);
             
             while(result.next()){
-                datos[0] = result.getString(1);
-                datos[1] = result.getDate(2).toString();
-                datos[2] = "" + result.getDouble(3);
-                datos[3] =  "" + result.getInt(4);
-                datos[4] = "" + result.getInt(5);
+                Bien b = activos.data.BienesDB.algunBienPorSolicitud(result.getInt(1));
+                
+                datos[1] = b.getDescripcion();
+                datos[0] = "" + result.getInt(1);
+                
+                datos[2] = result.getDate(2).toString();
+                datos[3] = "" + result.getDouble(3);
+                datos[4] =  "" + result.getInt(4);
+                int estado = result.getInt(5);
+                switch(estado){
+                    case 1: datos[5] = "Recibida"; break;
+                    case 2: datos[5] = "Procesada";break;
+                    case 3: datos[5] = "Cancelada";break;
+                    case 4: datos[5] = "rechazada";break;
+                }
                 modelo.addRow(datos);
+                this.jTable1.getColumnModel().getColumn(0).setPreferredWidth(20);
+                this.jTable1.getColumnModel().getColumn(1).setPreferredWidth(200);
+                this.jTable1.getColumnModel().getColumn(2).setPreferredWidth(15);
+                this.jTable1.getColumnModel().getColumn(3).setPreferredWidth(15);
+                this.jTable1.getColumnModel().getColumn(4).setPreferredWidth(20);
+                this.jTable1.getColumnModel().getColumn(5).setPreferredWidth(25);
+                
                 
             }
         } catch (SQLException ex) {
@@ -100,7 +120,6 @@ public class AdminView extends javax.swing.JFrame implements Observer{
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -132,19 +151,16 @@ public class AdminView extends javax.swing.JFrame implements Observer{
             }
         });
 
-        jButton3.setText("Ver Solicitud");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
             .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 752, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
+                .addGap(283, 283, 283)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,9 +169,7 @@ public class AdminView extends javax.swing.JFrame implements Observer{
                 .addGap(9, 9, 9)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE))
         );
 
         pack();
@@ -184,7 +198,6 @@ public class AdminView extends javax.swing.JFrame implements Observer{
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables

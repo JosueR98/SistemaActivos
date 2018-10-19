@@ -8,6 +8,7 @@ package activos.adminPresentation.agregar;
 import activos.logic.Bien;
 import activos.logic.SolicitudBien;
 import java.awt.Graphics;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -163,54 +164,86 @@ public class agregarView extends javax.swing.JFrame implements Observer {
     }// </editor-fold>//GEN-END:initComponents
 
     private void AgregarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarButtonActionPerformed
-        Bien _bien  = new Bien();
+
+        Bien _bien = new Bien();
         List<Bien> lista = new ArrayList<>();
         SolicitudBien _solicitud = new SolicitudBien();
-        double precio; int cantidad;
-        try{
-        String descripcion = this.DescripcionTextField.getText();
-        if(descripcion.isEmpty()) throw new Exception("Campo de descripcion no puede estar vacio");
-        String marca = this.MarcaTextField.getText();
-        if(marca.isEmpty()) throw new Exception("Campo de marca no puede estar vacio");
-        String modelo = this.ModeloTextField.getText();
-        if(modelo.isEmpty()) throw new Exception("Campo de modelo no puede estar vacio");
-        String precioU = this.PrecioUnitarioTextField.getText();
-        if(precioU.isEmpty()) throw new Exception("Campo de precio no puede estar vacio");
-        if(controller.esNumero(precioU)){
-        precio = (double)Double.parseDouble(precioU);
-        cantidad = (Integer) this.CantidadSpinner.getValue();
-        if(cantidad == 0) throw new Exception("Cantidad no puede ser 0"); 
-        }else{
-         throw new Exception("El precio ingresado contiene caracteres invalidos.");
+        double precio = 1.0;
+        String marca = "", modelo = "", descripcion = "";
+        int cantidad = 0;
+        boolean res = true;
+        do {
+            try {
+                _bien = new Bien();
+                descripcion = this.DescripcionTextField.getText();
+                if (descripcion.isEmpty()) {
+                    throw new Exception("Campo de descripcion no puede estar vacio");
+                }
+                marca = this.MarcaTextField.getText();
+                if (marca.isEmpty()) {
+                    throw new Exception("Campo de marca no puede estar vacio");
+                }
+                modelo = this.ModeloTextField.getText();
+                if (modelo.isEmpty()) {
+                    throw new Exception("Campo de modelo no puede estar vacio");
+                }
+                String precioU = this.PrecioUnitarioTextField.getText();
+                if (precioU.isEmpty()) {
+                    throw new Exception("Campo de precio no puede estar vacio");
+                }
+                if (controller.esNumero(precioU)) {
+                    precio = (double) Double.parseDouble(precioU);
+                    cantidad = (Integer) this.CantidadSpinner.getValue();
+                    if (cantidad == 0) {
+                        throw new Exception("Cantidad no puede ser 0");
+                    }
+                } else {
+                    throw new Exception("El precio ingresado contiene caracteres invalidos.");
+
+                }
+
+                for (int i = 0; i < cantidad; i++) {
+                    _bien = new Bien(marca, modelo, descripcion, precio);
+                    lista.add(_bien);
+                }
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(rootPane, e.getMessage());
+                this.limpiar();
+
+            }
+
+            //Pregunta...
+
+            int option = JOptionPane.showConfirmDialog(null, "Desea agregar mas bienes?", "Mensaje", JOptionPane.YES_NO_OPTION);
+            if (option == JOptionPane.YES_OPTION) {
+                res = true;
+                limpiar();
+            }
+            if(option == JOptionPane.NO_OPTION){
+                res = false;
+            }
+
+        } while (res);
+
+        try {
+            _solicitud = new SolicitudBien(new Date(), lista, 1);
+            activos.data.SolicitudesDB.SolicitudAdd(_solicitud);
+
+            for (int i = 0; i < cantidad; i++) {
+                _bien = lista.get(i);
+                activos.data.BienesDB.bienAdd(_bien);
+            }
+
+            JOptionPane.showMessageDialog(rootPane, "Solicitud ingresada correctamente");
+
+            this.setVisible(false);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(agregarView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(agregarView.class.getName()).log(Level.SEVERE, null, ex);
         }
-                
-        
-        for(int i=0;i<cantidad;i++){
-            _bien = new Bien(marca,modelo,descripcion,precio);
-            lista.add(_bien);
-        }
-        
-        
-        _solicitud = new SolicitudBien(new Date(),lista,1);
-        activos.data.SolicitudesDB.SolicitudAdd(_solicitud);
-           
-        
-        for(int i=0;i<cantidad;i++){
-            _bien = lista.get(i);
-            activos.data.BienesDB.bienAdd(_bien);
-        }
-        
-        JOptionPane.showMessageDialog(rootPane, "Solicitud ingresada correctamente");
-        this.setVisible(false);
-        
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(rootPane,e.getMessage());
-            limpiar();
-        }
-        
-        
-        
-        
     }//GEN-LAST:event_AgregarButtonActionPerformed
 
     @Override

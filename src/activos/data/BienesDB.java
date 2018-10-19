@@ -97,7 +97,31 @@ public class BienesDB {
         
         
         return resultado;
+    }
+    
+     public static Bien algunBienPorSolicitud(int solicitud){
+          List<Bien> resultado = new ArrayList<Bien>();
+          Bien _bien =new Bien();
+        try {
+            String sql="select * from "+
+                    "bienes "+
+                    "where Solicitudes_codigo = %d";
+            
+            sql=String.format(sql,solicitud);
+            ResultSet rs =  db.executeQuery(sql);
+            if (rs.next()) {
+            _bien.setCodigo(rs.getInt("codigo"));
+            _bien.setDescripcion(rs.getString("descripcion"));
+            _bien.setMarca(rs.getString("marca"));
+            _bien.setModelo(rs.getString("modelo"));
+            _bien.setPrecio_unitario(rs.getDouble("precioUnitario"));
+            _bien.setSolicitud(solicitud);
+      
+            }
+        } catch (SQLException ex) { }
         
-
+        
+        
+        return _bien;
     }
 }

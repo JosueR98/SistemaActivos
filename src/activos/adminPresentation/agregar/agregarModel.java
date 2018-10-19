@@ -16,7 +16,8 @@ import activos.logic.Usuario;
 public class agregarModel extends Observable {
         
      Usuario current;
-
+     List<Bien> bienes;
+     
     public agregarModel() {
         current = activos.loginPresentation.loginModel.getCurrent();
     }
