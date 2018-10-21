@@ -29,6 +29,7 @@ public class agregarView extends javax.swing.JFrame implements Observer {
     agregarModel model;
     agregarController controller;
 
+    
     public agregarModel getModel() {
         return model;
     }
@@ -119,7 +120,6 @@ public class agregarView extends javax.swing.JFrame implements Observer {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(800, 600));
         setResizable(false);
 
         jLabel1.setText("Descripcion :");
@@ -254,9 +254,9 @@ public class agregarView extends javax.swing.JFrame implements Observer {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(total, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(AgregarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(16, 16, 16))
         );
 
         pack();
@@ -285,6 +285,9 @@ public class agregarView extends javax.swing.JFrame implements Observer {
         
         this.model._controladorPadre.getView().update(model, evt);
         this.model._controladorPadre.getView().setVisible(true);
+       
+        
+        this.model.setSolicitud(new SolicitudBien());
     }//GEN-LAST:event_AgregarButtonActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -343,6 +346,7 @@ public class agregarView extends javax.swing.JFrame implements Observer {
         // TODO add your handling code here
          this.setVisible(false);
          this.model._controladorPadre.getView().setVisible(true);
+         model.setSolicitud(new SolicitudBien());
     }//GEN-LAST:event_jButton2ActionPerformed
         
     

@@ -5,6 +5,7 @@
  */
 package activos.adminPresentation.verEspecifica;
 
+import activos.adminPresentation.AdminController;
 import activos.logic.SolicitudBien;
 import java.sql.SQLException;
 import java.util.Observable;
@@ -14,8 +15,11 @@ import java.util.Observable;
  * @author Josue R
  */
 public class verModel extends Observable {
-    SolicitudBien solicitud;
-
+    private SolicitudBien solicitud;
+    
+    
+    public AdminController _controladorPadre;
+    
     public verModel(int solicitud) throws SQLException {
         this.solicitud = activos.data.SolicitudesDB.SolicitudGet(solicitud);
     }
@@ -35,6 +39,14 @@ public class verModel extends Observable {
         super.notifyObservers(); //To change body of generated methods, choose Tools | Templates.
         setChanged();
         notifyObservers();
+    }
+
+    public AdminController getControladorPadre() {
+        return _controladorPadre;
+    }
+
+    public void setControladorPadre(AdminController _controladorPadre) {
+        this._controladorPadre = _controladorPadre;
     }
     
     

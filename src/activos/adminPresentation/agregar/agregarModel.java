@@ -60,6 +60,7 @@ public class agregarModel extends Observable {
 
     public void setSolicitud(SolicitudBien solicitud) {
         this.solicitud = solicitud;
+        bienes.clear();
     }
     
     public double getTotal(){

@@ -222,9 +222,14 @@ public class AdminView extends javax.swing.JFrame implements Observer{
     }
     private void borrarSeleccionadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarSeleccionadoActionPerformed
         // TODO add your handling code here:
-
-        int rowIndex = this.jTable1.getSelectedRow();
-        int codigo = Integer.parseInt((String) this.jTable1.getValueAt(rowIndex, 0));
+        int codigo =0;int rowIndex = 0;
+       try{
+         rowIndex = this.jTable1.getSelectedRow();
+         codigo = Integer.parseInt((String) this.jTable1.getValueAt(rowIndex, 0));
+       }catch(Exception e){
+           JOptionPane.showMessageDialog(rootPane, "No has seleccionado ninguna celda.");
+           return;
+       }
         String tipo = (String) this.jTable1.getValueAt(rowIndex, 4);
      
         //Verificaciones
@@ -251,13 +256,18 @@ public class AdminView extends javax.swing.JFrame implements Observer{
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        
-        int rowIndex = this.jTable1.getSelectedRow();
-        int codigo = Integer.parseInt((String) this.jTable1.getValueAt(rowIndex, 0));
-        
+        int rowIndex = 0;int codigo = 0;
+        try{
+         rowIndex = this.jTable1.getSelectedRow();
+         codigo = Integer.parseInt((String) this.jTable1.getValueAt(rowIndex, 0));
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(rootPane, "No has seleccionado ninguna celda.");
+            return;
+        }
     
         try {
             model.verTrio(codigo);
+            model.verModel.setControladorPadre(controller);
             model.verView.setVisible(true);
             this.setVisible(false);
         } catch (SQLException ex) {
