@@ -18,6 +18,7 @@ public class AdminController {
         this.model = model;
         view.setController(this);
         view.setModel(model);
+        model.agregarModel.setControllerPadre(this);
     }
 
     public AdminModel getModel() {
@@ -38,5 +39,10 @@ public class AdminController {
     
     public void exit(){
         System.exit(0);
+    }
+
+    public void verEspecifica(int codigo) {
+    
+       
     }
 }

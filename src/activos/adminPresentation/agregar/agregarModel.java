@@ -5,6 +5,7 @@
  */
 package activos.adminPresentation.agregar;
 
+import activos.adminPresentation.AdminController;
 import java.util.Observable;
 import java.util.Observer;
 import activos.logic.Usuario;
@@ -23,9 +24,15 @@ public class agregarModel extends Observable {
      List<Bien> bienes;
      SolicitudBien solicitud;
      
+     AdminController _controladorPadre;
+     
     public agregarModel() {
         current = activos.loginPresentation.loginModel.getCurrent();
         bienes = new ArrayList<>();
+    }
+    
+    public void setControllerPadre(AdminController cp){
+        this._controladorPadre = cp;
     }
     
     public Usuario getCurrent() {

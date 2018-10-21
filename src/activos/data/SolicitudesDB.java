@@ -56,6 +56,7 @@ public class SolicitudesDB {
         SolicitudBien _solicitud = new SolicitudBien();
         String sql="select * from solicitudes where codigo= %d";
         sql = String.format(sql,codigo);
+        
         ResultSet rs =  db.executeQuery(sql);
         if (rs.next()) {
             _solicitud.setCodigoSolicitud(rs.getInt("codigo"));
@@ -67,6 +68,24 @@ public class SolicitudesDB {
         }
         else{
             return null;
+        }
+    }
+    
+    public static void delete(int codigo) throws SQLException{
+        //Borrar los bienes asocicados a ese codigo
+        String queryA = "delete from bienes where Solicitudes_codigo = %d";
+        queryA = String.format(queryA, codigo);
+        int count = db.executeUpdate(queryA);
+        if(count == 0){
+            throw new SQLException("No existe registro en bien asociado con codigo de solitiud " + codigo);
+        }
+        
+        //Borrar la solicitud
+         String queryB = "delete from solicitudes where codigo = %d";
+        queryB = String.format(queryB, codigo);
+        int countB = db.executeUpdate(queryB);
+        if(countB == 0){
+            throw new SQLException("No existe registro con codigo de solitiud " + codigo);
         }
     }
     

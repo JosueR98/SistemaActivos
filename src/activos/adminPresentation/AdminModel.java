@@ -9,7 +9,11 @@ import java.util.Observable;
 import activos.adminPresentation.agregar.agregarController;
 import activos.adminPresentation.agregar.agregarModel;
 import activos.adminPresentation.agregar.agregarView;
+import activos.adminPresentation.verEspecifica.verController;
+import activos.adminPresentation.verEspecifica.verModel;
+import activos.adminPresentation.verEspecifica.verView;
 import activos.logic.Usuario;
+import java.sql.SQLException;
 
 /**
  *
@@ -24,11 +28,22 @@ public class AdminModel extends Observable {
      agregarController agregarControlador;
      agregarView agregarView;
      
+     //Ver
+     verModel verModel;
+     verController verController;
+     verView verView;
+     
     public AdminModel() {
         current = activos.loginPresentation.loginModel.getCurrent();
         agregarModel = new agregarModel();
         agregarView = new agregarView();
         agregarControlador = new agregarController(agregarModel,agregarView);
+    }
+    
+    public void verTrio(int codigo) throws SQLException{
+        verModel = new verModel(codigo);
+        verView = new verView();
+        verController = new verController(verModel,verView);
     }
     
     public Usuario getCurrent() {
@@ -41,4 +56,14 @@ public class AdminModel extends Observable {
         setChanged();
         notifyObservers();
     }
+
+    public agregarController getAgregarControlador() {
+        return agregarControlador;
+    }
+
+    public verController getVerController() {
+        return verController;
+    }
+    
+    
 }

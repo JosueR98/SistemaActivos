@@ -119,7 +119,7 @@ public class loginView extends javax.swing.JFrame implements Observer {
         if(_user != null){
             try {
                 controller.login(_user);
-                JOptionPane.showMessageDialog(rootPane, "Ingresado Correctamente");
+                //JOptionPane.showMessageDialog(rootPane, "Ingresado Correctamente");
                  
                 switch(_user.getTipoUsuario()){
                     case 1: controller.ingresoAdmin(); break;
