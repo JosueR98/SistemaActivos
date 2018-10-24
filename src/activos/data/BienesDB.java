@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import static java.util.Collections.list;
 import java.util.List;
 import activos.logic.Bien;
-import activos.logic.SolicitudBien;
+import activos.logic.Solicitud;
 
 
 /**
@@ -70,7 +70,7 @@ public class BienesDB {
         }
     }
     
-    public static List<Bien> BienGetBySoli(SolicitudBien solicitud){
+    public static List<Bien> BienGetBySoli(Solicitud solicitud){
           List<Bien> resultado = new ArrayList<Bien>();
           Bien _bien =null;
         try {

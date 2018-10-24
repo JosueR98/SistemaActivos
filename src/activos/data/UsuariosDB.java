@@ -43,4 +43,21 @@ public class UsuariosDB {
             return null;
         }
     }
+    
+      public static Usuario UsuarioGet(String id) throws SQLException{
+        
+        String sql="select * from usuarios where id='%s'";
+        sql = String.format(sql,id);
+        Usuario _user = new Usuario();
+        ResultSet rs =  db.executeQuery(sql);
+        if (rs.next()) {
+            _user.setId(rs.getString("id"));
+            _user.setClave( rs.getString("clave"));
+            _user.setTipoUsuario(rs.getInt("tipo"));
+            return _user;
+        }
+        else{
+            return null;
+        }
+    }
 }

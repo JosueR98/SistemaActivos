@@ -6,7 +6,7 @@
 package activos.adminPresentation.verEspecifica;
 
 import activos.adminPresentation.AdminController;
-import activos.logic.SolicitudBien;
+import activos.logic.Solicitud;
 import java.sql.SQLException;
 import java.util.Observable;
 
@@ -15,7 +15,7 @@ import java.util.Observable;
  * @author Josue R
  */
 public class verModel extends Observable {
-    private SolicitudBien solicitud;
+    private Solicitud solicitud;
     
     
     public AdminController _controladorPadre;
@@ -24,7 +24,7 @@ public class verModel extends Observable {
         this.solicitud = activos.data.SolicitudesDB.SolicitudGet(solicitud);
     }
 
-    public SolicitudBien getSolicitud() {
+    public Solicitud getSolicitud() {
         return solicitud;
     }
 

@@ -12,15 +12,29 @@ import java.sql.SQLException;
  * @author Josue R
  */
 public class Bien {
+   
+     public static int FALSE = 0;
+     public static int TRUE = 1;
+     
      int codigo;
      String marca;
      String modelo;
      String descripcion;
      double precio_unitario;
-     SolicitudBien solicitud;
+     Solicitud solicitud;
+     Usuario registrador;
+     int esActivo;
+     
+   // Atributo comodin  
      int cantidad;
 
     public Bien() {
+        codigo = -1;
+        marca = modelo = descripcion = "INDEFINIDA";
+        precio_unitario = 1.0;
+        registrador = null;
+        esActivo = FALSE;
+        solicitud = null;
     }
 
     public Bien(String marca, String modelo, String descripcion, double precio_unitario) {
@@ -28,6 +42,9 @@ public class Bien {
         this.modelo = modelo;
         this.descripcion = descripcion;
         this.precio_unitario = precio_unitario;
+        esActivo = FALSE;
+        solicitud = null;
+        registrador = null;
     }
     
     public Bien(int codigo,String marca, String modelo, String descripcion, double precio_unitario) {
@@ -78,7 +95,7 @@ public class Bien {
         this.precio_unitario = precio_unitario;
     }
 
-    public SolicitudBien getSolicitud() {
+    public Solicitud getSolicitud() {
         return solicitud;
     }
 
@@ -86,14 +103,30 @@ public class Bien {
          this.solicitud = activos.data.SolicitudesDB.SolicitudGet(solicitud);
     }
     
-     public void setSolicitud(SolicitudBien solicitud) throws SQLException {
+     public void setSolicitud(Solicitud solicitud) throws SQLException {
          this.solicitud = solicitud;
     }
 
-    @Override
-    public String toString() {
-        return "Bien{" + "codigo=" + codigo + ", marca=" + marca + ", modelo=" + modelo + ", descripcion=" + descripcion + ", precio_unitario=" + precio_unitario + ", solicitud=" + solicitud.getCodigoSolicitud() + '}';
+    public Usuario getRegistrador() {
+        return registrador;
     }
+
+    public void setRegistrador(Usuario registrador) {
+        this.registrador = registrador;
+    }
+    
+    public void setRegistrador(String id_registrador) throws SQLException {
+        this.registrador = activos.data.UsuariosDB.UsuarioGet(id_registrador);
+    }
+
+    public int getEsActivo() {
+        return esActivo;
+    }
+
+    public void setEsActivo(int esActivo) {
+        this.esActivo = esActivo;
+    }
+
 
     public int getCantidad() {
         return cantidad;
@@ -102,8 +135,4 @@ public class Bien {
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
-
-   
-     
-     
 }

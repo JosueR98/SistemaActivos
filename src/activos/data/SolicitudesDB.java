@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import activos.logic.Bien;
-import activos.logic.SolicitudBien;
+import activos.logic.Solicitud;
 
 /**
  *
@@ -19,7 +19,7 @@ import activos.logic.SolicitudBien;
 public class SolicitudesDB {
      static final RelDatabase db = new RelDatabase();
     
-    public static void SolicitudAdd(SolicitudBien soli) throws Exception{
+    public static void SolicitudAdd(Solicitud soli) throws Exception{
         
    
     SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd"); 
@@ -51,9 +51,9 @@ public class SolicitudesDB {
         soli.setCodigoSolicitud(consecutivo);
     }
     
-    public static SolicitudBien SolicitudGet(int codigo) throws SQLException{
+    public static Solicitud SolicitudGet(int codigo) throws SQLException{
         
-        SolicitudBien _solicitud = new SolicitudBien();
+        Solicitud _solicitud = new Solicitud();
         String sql="select * from solicitudes where codigo= %d";
         sql = String.format(sql,codigo);
         

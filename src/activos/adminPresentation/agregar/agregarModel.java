@@ -11,7 +11,7 @@ import java.util.Observer;
 import activos.logic.Usuario;
 import java.util.List;
 import activos.logic.Bien;
-import activos.logic.SolicitudBien;
+import activos.logic.Solicitud;
 import java.util.ArrayList;
 
 /**
@@ -22,7 +22,7 @@ public class agregarModel extends Observable {
         
      Usuario current;
      List<Bien> bienes;
-     SolicitudBien solicitud;
+     Solicitud solicitud;
      
      AdminController _controladorPadre;
      
@@ -54,11 +54,11 @@ public class agregarModel extends Observable {
         this.bienes = bienes;
     }
 
-    public SolicitudBien getSolicitud() {
+    public Solicitud getSolicitud() {
         return solicitud;
     }
 
-    public void setSolicitud(SolicitudBien solicitud) {
+    public void setSolicitud(Solicitud solicitud) {
         this.solicitud = solicitud;
         bienes.clear();
     }

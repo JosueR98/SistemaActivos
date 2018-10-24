@@ -6,7 +6,7 @@
 package activos.adminPresentation.agregar;
 
 import activos.logic.Bien;
-import activos.logic.SolicitudBien;
+import activos.logic.Solicitud;
 import java.awt.Graphics;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -266,7 +266,7 @@ public class agregarView extends javax.swing.JFrame implements Observer {
     private void AgregarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarButtonActionPerformed
 
         try {
-            model.setSolicitud(new SolicitudBien(new Date(), model.getBienes(), 1));
+            model.setSolicitud(new Solicitud(new Date(), model.getBienes(), 1));
             activos.data.SolicitudesDB.SolicitudAdd(model.getSolicitud()); 
 
             for (Bien _bien : model.getBienes()) {
@@ -287,7 +287,7 @@ public class agregarView extends javax.swing.JFrame implements Observer {
         this.model._controladorPadre.getView().setVisible(true);
        
         
-        this.model.setSolicitud(new SolicitudBien());
+        this.model.setSolicitud(new Solicitud());
     }//GEN-LAST:event_AgregarButtonActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -346,7 +346,7 @@ public class agregarView extends javax.swing.JFrame implements Observer {
         // TODO add your handling code here
          this.setVisible(false);
          this.model._controladorPadre.getView().setVisible(true);
-         model.setSolicitud(new SolicitudBien());
+         model.setSolicitud(new Solicitud());
     }//GEN-LAST:event_jButton2ActionPerformed
         
     

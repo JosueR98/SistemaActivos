@@ -5,6 +5,9 @@
  */
 package activos.logic;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  *
@@ -19,17 +22,24 @@ public class Usuario {
     public static final int REGISTRADOR_BIENES = 4;
     public static final int JEFE_RRH = 5;
     public static final int JEFE_OCBB_RH= 7;
-       
+    public static final int FUNCIONARIO = 8;
+
     
-   // Atributos propios de la clase usuario
     private String id;
     private String clave;
     private int tipo;
-
+    private Dependencia dependencia;
+    private Funcionario funcionario;
+    private List<Bien> listaBienes; // Si y solo si tipo = REGISTRADOR_BIENES
+    
+    
     public Usuario() {
-        this.id = "root";
-        this.clave = "root";
+        this.id = "indefinido";
+        this.clave = "indefinido";
         this.tipo = INDEFINIDO;
+        dependencia = null;
+        funcionario = null;
+        listaBienes = new ArrayList<>();
     }
 
     
@@ -37,6 +47,9 @@ public class Usuario {
         this.id = id;
         this.clave = clave;
         this.tipo = tipoUsuario;
+        dependencia = null;
+        funcionario = null;
+        listaBienes = new ArrayList<>();
     }
 
     public String getId() {
@@ -63,10 +76,40 @@ public class Usuario {
         this.tipo = tipoUsuario;
     }
 
-    @Override
-    public String toString() {
-        return "Usuario{" + "id=" + id + ", clave=" + clave + ", tipo=" + tipo + '}';
+    public Dependencia getDependencia() {
+        return dependencia;
     }
+
+    public void setDependencia(Dependencia dependencia) {
+        this.dependencia = dependencia;
+    }
+    
+    public void setDependencia(int dependencia) {
+      //  this.dependencia = activos.data.DependenciasDB.get(dependencia);
+    }
+
+    public Funcionario getFuncionario() {
+        return funcionario;
+    }
+
+    public void setFuncionario(int funcionario) {
+     //   this.funcionario = activos.data.FuncionariosDB.get(funcionario);
+    }
+
+    public List<Bien> getListaBienes() {
+        return listaBienes;
+    }
+
+    public void setListaBienes(List<Bien> listaBienes) {
+        this.listaBienes = listaBienes;
+        for(Bien bien : this.listaBienes){
+            bien.setRegistrador(this);
+        }
+    }
+    
+    
+
+  
     
     
     

@@ -13,7 +13,7 @@ import java.util.Date;
  *
  * @author Josue R
  */
-public class SolicitudBien {
+public class Solicitud {
      int codigoSolicitud;
      Date fecha;
      List<Bien> lista_bienes;
@@ -21,10 +21,10 @@ public class SolicitudBien {
      int cantidad_bienes;
      double montoTotal;
 
-    public SolicitudBien() {
+    public Solicitud() {
     }
 
-    public SolicitudBien(Date fecha, List<Bien> lista_bienes, int estado) throws SQLException {
+    public Solicitud(Date fecha, List<Bien> lista_bienes, int estado) throws SQLException {
         this.fecha = fecha;
         this.lista_bienes = lista_bienes;
         this.estado = estado;
@@ -37,7 +37,7 @@ public class SolicitudBien {
  
     }
      
-    public SolicitudBien(int codigoSolicitud, Date fecha, List<Bien> lista_bienes, int estado) throws SQLException {
+    public Solicitud(int codigoSolicitud, Date fecha, List<Bien> lista_bienes, int estado) throws SQLException {
         this.codigoSolicitud = codigoSolicitud;
         this.fecha = fecha;
         this.lista_bienes = lista_bienes;
