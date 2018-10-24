@@ -15,7 +15,7 @@ import activos.loginPresentation.loginView;
  */
 
 public class application {
-    // Ultimos cambios
+    // Ultimos cambios xD
      public static loginModel login_model = new loginModel();
      public static loginView login_view = new loginView();
      public static loginController login_controller= new loginController(login_model,login_view);
