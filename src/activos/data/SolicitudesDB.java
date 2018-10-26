@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import activos.logic.Bien;
+import activos.logic.Dependencia;
 import activos.logic.Solicitud;
 
 /**
@@ -26,11 +27,11 @@ public class SolicitudesDB {
     java.sql.Date sqlDate=new java.sql.Date(soli.getFecha().getDate());
     String currentTime = sdf1.format(soli.getFecha());
     
-      String sql="insert into solicitudes (codigo, fecha, montoTotal,cantidad, estado)"+
-                "values(%d,'%s',%f,%d,%d)";
+      String sql="insert into Solicitudes (codigo, fecha, montoTotal,cantidad, estado, tipo, Dependencias_codigo)"+
+                "values(%d,'%s',%f,%d,%d,%d,%d)";
       
-        sql=String.format(sql,0,currentTime,soli.getMontoTotal(),soli.getCantidad_bienes(),soli.getEstado());
-     
+        sql=String.format(sql,0,currentTime,soli.getMontoTotal(),soli.getCantidad_bienes(),soli.getEstado(),soli.getTipo(),soli.getDependencia().getCodigoPostal());
+        System.out.print(sql);
         int count=db.executeUpdate(sql);
   
         if (count==0){
@@ -54,7 +55,7 @@ public class SolicitudesDB {
     public static Solicitud SolicitudGet(int codigo) throws SQLException{
         
         Solicitud _solicitud = new Solicitud();
-        String sql="select * from solicitudes where codigo= %d";
+        String sql="select * from solicitudes where codigo= %d" ;
         sql = String.format(sql,codigo);
         
         ResultSet rs =  db.executeQuery(sql);
@@ -64,6 +65,9 @@ public class SolicitudesDB {
             _solicitud.setEstado(rs.getInt("estado"));
             List<Bien> list = activos.data.BienesDB.BienGetBySoli(_solicitud);
             _solicitud.setLista_bienes(list);
+            _solicitud.setTipo(rs.getInt("tipo"));
+            _solicitud.setMotivoC(rs.getString("motivoC"));
+  
             return _solicitud;
         }
         else{
@@ -89,5 +93,23 @@ public class SolicitudesDB {
         }
     }
     
+     public static void aceptar(int codigo) throws SQLException{
+        String str= "update solicitudes set estado = 2 where codigo= %d";
+        str =  String.format(str, codigo);
+        int count = db.executeUpdate(str);
+        if(count == 0){
+            throw new SQLException("No existe registro en bien asociado con codigo de solitiud " + codigo);
+        }
+        
+    }
+    
+   public static void reclinar(int codigo, String motivo) throws SQLException{
+        String str= "update solicitudes set estado= 3, motivoC= '%s' where codigo= %d";
+        str =  String.format(str, motivo, codigo);
+        int count = db.executeUpdate(str);
+        if(count == 0){
+            throw new SQLException("No existe registro en bien asociado con codigo de solitiud " + codigo);
+        }
+    }
    
 }

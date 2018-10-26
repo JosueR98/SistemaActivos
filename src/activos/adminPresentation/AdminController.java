@@ -18,7 +18,7 @@ public class AdminController {
         this.model = model;
         view.setController(this);
         view.setModel(model);
-        model.agregarModel.setControllerPadre(this);
+        model.getAgregarModel().setControllerPadre(this);
       
     }
 

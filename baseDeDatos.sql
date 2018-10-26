@@ -21,7 +21,8 @@ CREATE TABLE IF NOT EXISTS `activos`.`Dependencias` (
   `codigo` INT(45) NOT NULL,
   `nombre` VARCHAR(45) NOT NULL,
   `Ubicacion` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`codigo`))
+  PRIMARY KEY (`codigo`),
+  UNIQUE INDEX `codigo_UNIQUE` (`codigo` ASC) VISIBLE)
 ENGINE = InnoDB;
 
 
@@ -62,22 +63,6 @@ CREATE TABLE IF NOT EXISTS `activos`.`Usuarios` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-insert into Dependencias(codigo,nombre,ubicacion) values(1234,'Benjamin Nuñez','Lagunilla-Heredia');
-
-insert into Funcionarios(cedula,nombre,puesto) values(403013010,"Oscar Campos", "Administrador");
-insert into Funcionarios(cedula,nombre,puesto) values(104294103,"Gabriel Jimenez", "Secretario del OCCB");
-insert into Funcionarios(cedula,nombre,puesto) values(204030103,"Jose Quiroz", "Jefe del OCCB");
-insert into Funcionarios(cedula,nombre,puesto) values(304014014,"Josue Ramirez", "Registrador de bienes");
-insert into Funcionarios(cedula,nombre,puesto) values(550240204,"Daniel Ortega", "Jefe de RRHH");
-insert into Funcionarios(cedula,nombre,puesto) values(634203014,"Bryan Ruiz", "Varios puestos");
-
-
-insert into Usuarios(id,clave,tipo,Dependencias_codigo,Funcionarios_cedula) values("admin_dependencia","clave_admin_dependencia",1,1234,403013010);
-insert into Usuarios(id,clave,tipo,Dependencias_codigo,Funcionarios_cedula) values("secretaria_OCCB","clave_secretaria_OCCB",2,1234,104294103);
-insert into Usuarios(id,clave,tipo,Dependencias_codigo,Funcionarios_cedula) values("jefe_OCCB","clave_jefe_OCCB",3,1234,204030103);
-insert into Usuarios(id,clave,tipo,Dependencias_codigo,Funcionarios_cedula) values("registrador","clave_registrador",4,1234,304014014);
-insert into Usuarios(id,clave,tipo,Dependencias_codigo,Funcionarios_cedula) values("jefe_RRHH","clave_jefe_RRHH",5,1234,550240204);
-insert into Usuarios(id,clave,tipo,Dependencias_codigo,Funcionarios_cedula) values("jefe_OCCB_RRHH","clave_jefe_OCCB_RRHH",7,1234,634203014);
 
 -- -----------------------------------------------------
 -- Table `activos`.`Solicitudes`
@@ -86,9 +71,10 @@ CREATE TABLE IF NOT EXISTS `activos`.`Solicitudes` (
   `codigo` INT(45) NOT NULL AUTO_INCREMENT,
   `fecha` DATE NOT NULL,
   `montoTotal` DOUBLE NOT NULL,
-  `cantidad` TINYINT(5) NULL,
-  `estado` TINYINT(5) NULL,
-  `tipo` VARCHAR(25) NULL,
+  `cantidad` TINYINT(5) NOT NULL,
+  `estado` TINYINT(5) NOT NULL,
+  `tipo` TINYINT(5) NOT NULL,
+  `motivoC` VARCHAR(45) NULL DEFAULT 'No cancelada',
   `Dependencias_codigo` INT(45) NOT NULL,
   UNIQUE INDEX `codigo_UNIQUE` (`codigo` ASC) VISIBLE,
   INDEX `fk_Solicitudes_Dependencias1_idx` (`Dependencias_codigo` ASC) VISIBLE,
@@ -110,21 +96,19 @@ CREATE TABLE IF NOT EXISTS `activos`.`Bienes` (
   `marca` VARCHAR(45) NOT NULL,
   `modelo` VARCHAR(45) NULL,
   `precioUnitario` DOUBLE NOT NULL,
-  `esActivo` TINYINT NULL DEFAULT 0,
   `Solicitudes_codigo` INT(45) NOT NULL,
-  `Registador_id` VARCHAR(45) NULL DEFAULT 'No asignado',
+  `Usuarios_id` VARCHAR(45) NULL DEFAULT 'No asignado',
   INDEX `fk_Bienes_Solicitudes1_idx` (`Solicitudes_codigo` ASC) VISIBLE,
-  INDEX `fk_Bienes_Usuarios1_idx` (`Registador_id` ASC) VISIBLE,
-  UNIQUE INDEX `Registador_id_UNIQUE` (`Registador_id` ASC) VISIBLE,
   PRIMARY KEY (`codigo`),
   UNIQUE INDEX `codigo_UNIQUE` (`codigo` ASC) VISIBLE,
+  INDEX `fk_Bienes_Usuarios1_idx` (`Usuarios_id` ASC) VISIBLE,
   CONSTRAINT `fk_Bienes_Solicitudes1`
     FOREIGN KEY (`Solicitudes_codigo`)
     REFERENCES `activos`.`Solicitudes` (`codigo`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Bienes_Usuarios1`
-    FOREIGN KEY (`Registador_id`)
+    FOREIGN KEY (`Usuarios_id`)
     REFERENCES `activos`.`Usuarios` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -137,7 +121,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `activos`.`Activos` (
   `codigo` INT(45) NOT NULL AUTO_INCREMENT,
   `categoria` VARCHAR(45) NOT NULL,
-  `descripcion` VARCHAR(200) NULL,
+  `descripcion` VARCHAR(200) NOT NULL,
   `Dependencias_codigo` INT(45) NOT NULL,
   PRIMARY KEY (`codigo`),
   UNIQUE INDEX `codigo_UNIQUE` (`codigo` ASC) VISIBLE,
@@ -149,6 +133,22 @@ CREATE TABLE IF NOT EXISTS `activos`.`Activos` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+insert into Dependencias(codigo,nombre,ubicacion) values(1234,'Benjamin Nuñez','Lagunilla-Heredia');
+
+insert into Funcionarios(cedula,nombre,puesto) values(403013010,"Oscar Campos", "Administrador");
+insert into Funcionarios(cedula,nombre,puesto) values(104294103,"Gabriel Jimenez", "Secretario del OCCB");
+insert into Funcionarios(cedula,nombre,puesto) values(204030103,"Jose Quiroz", "Jefe del OCCB");
+insert into Funcionarios(cedula,nombre,puesto) values(304014014,"Josue Ramirez", "Registrador de bienes");
+insert into Funcionarios(cedula,nombre,puesto) values(550240204,"Daniel Ortega", "Jefe de RRHH");
+insert into Funcionarios(cedula,nombre,puesto) values(634203014,"Bryan Ruiz", "Varios puestos");
+
+
+insert into Usuarios(id,clave,tipo,Dependencias_codigo,Funcionarios_cedula) values("admin_dependencia","clave_admin_dependencia",1,1234,403013010);
+insert into Usuarios(id,clave,tipo,Dependencias_codigo,Funcionarios_cedula) values("secretaria_OCCB","clave_secretaria_OCCB",2,1234,104294103);
+insert into Usuarios(id,clave,tipo,Dependencias_codigo,Funcionarios_cedula) values("jefe_OCCB","clave_jefe_OCCB",3,1234,204030103);
+insert into Usuarios(id,clave,tipo,Dependencias_codigo,Funcionarios_cedula) values("registrador","clave_registrador",4,1234,304014014);
+insert into Usuarios(id,clave,tipo,Dependencias_codigo,Funcionarios_cedula) values("jefe_RRHH","clave_jefe_RRHH",5,1234,550240204);
+insert into Usuarios(id,clave,tipo,Dependencias_codigo,Funcionarios_cedula) values("jefe_OCCB_RRHH","clave_jefe_OCCB_RRHH",7,1234,634203014);
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

@@ -17,7 +17,6 @@ import java.util.Observable;
 public class verModel extends Observable {
     private Solicitud solicitud;
     
-    
     public AdminController _controladorPadre;
     
     public verModel(int solicitud) throws SQLException {

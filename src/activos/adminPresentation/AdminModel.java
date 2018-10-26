@@ -12,6 +12,7 @@ import activos.adminPresentation.agregar.agregarView;
 import activos.adminPresentation.verEspecifica.verController;
 import activos.adminPresentation.verEspecifica.verModel;
 import activos.adminPresentation.verEspecifica.verView;
+import activos.logic.Dependencia;
 import activos.logic.Usuario;
 import java.sql.SQLException;
 
@@ -21,20 +22,21 @@ import java.sql.SQLException;
  */
 public class AdminModel extends Observable {
     
-     Usuario current;
-     
+    private Usuario usuarioActual;
+    private  Dependencia dependenciaActual;
      //Agregar
-     agregarModel agregarModel;
-     agregarController agregarControlador;
-     agregarView agregarView;
+   private  agregarModel agregarModel;
+   private agregarController agregarControlador;
+   private  agregarView agregarView;
      
      //Ver
-     verModel verModel;
-     verController verController;
-     verView verView;
+   private  verModel verModel;
+   private  verController verController;
+   private  verView verView;
      
     public AdminModel() {
-        current = activos.loginPresentation.loginModel.getCurrent();
+        usuarioActual = activos.loginPresentation.loginModel.getUsuarioActual();
+        dependenciaActual = activos.loginPresentation.loginModel.getDependenciaActual();
         agregarModel = new agregarModel();
         agregarView = new agregarView();
         agregarControlador = new agregarController(agregarModel,agregarView);
@@ -46,8 +48,8 @@ public class AdminModel extends Observable {
         verController = new verController(verModel,verView);
     }
     
-    public Usuario getCurrent() {
-        return current;
+    public Usuario getUsuarioActual() {
+        return usuarioActual;
     }
 
     @Override
@@ -57,13 +59,35 @@ public class AdminModel extends Observable {
         notifyObservers();
     }
 
+    public Dependencia getDependenciaActual() {
+        return dependenciaActual;
+    }
+
+    public agregarModel getAgregarModel() {
+        return agregarModel;
+    }
+
     public agregarController getAgregarControlador() {
         return agregarControlador;
+    }
+
+    public agregarView getAgregarView() {
+        return agregarView;
+    }
+
+    public verModel getVerModel() {
+        return verModel;
     }
 
     public verController getVerController() {
         return verController;
     }
+
+    public verView getVerView() {
+        return verView;
+    }
+    
+  
     
     
 }

@@ -34,23 +34,34 @@ public class Usuario {
     
     
     public Usuario() {
-        this.id = "indefinido";
-        this.clave = "indefinido";
-        this.tipo = INDEFINIDO;
-        dependencia = null;
-        funcionario = null;
-        listaBienes = new ArrayList<>();
     }
 
-    
-    public Usuario(String id, String clave, int tipoUsuario) {
+    // Para agregar uno nuevo
+    public Usuario(String id, String clave, int tipoUsuario, Funcionario funcionario, Dependencia dependencia) {
         this.id = id;
         this.clave = clave;
         this.tipo = tipoUsuario;
-        dependencia = null;
-        funcionario = null;
-        listaBienes = new ArrayList<>();
+        this.dependencia = dependencia;
+        this.funcionario = funcionario;
     }
+    
+    
+    //Para obtener
+
+    public Usuario(String id, String clave, int tipo, Dependencia dependencia, Funcionario funcionario, List<Bien> listaBienes) {
+        this.id = id;
+        this.clave = clave;
+        this.tipo = tipo;
+        this.dependencia = dependencia;
+        this.funcionario = funcionario;
+        this.listaBienes = listaBienes;
+        
+           for(Bien bien : this.listaBienes){
+            bien.setRegistrador(this);
+        }
+    }
+    
+    
 
     public String getId() {
         return id;
@@ -106,11 +117,6 @@ public class Usuario {
             bien.setRegistrador(this);
         }
     }
-    
-    
-
-  
-    
     
     
 }

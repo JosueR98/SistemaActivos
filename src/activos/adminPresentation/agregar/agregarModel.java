@@ -11,6 +11,7 @@ import java.util.Observer;
 import activos.logic.Usuario;
 import java.util.List;
 import activos.logic.Bien;
+import activos.logic.Dependencia;
 import activos.logic.Solicitud;
 import java.util.ArrayList;
 
@@ -20,23 +21,26 @@ import java.util.ArrayList;
  */
 public class agregarModel extends Observable {
         
-     Usuario current;
-     List<Bien> bienes;
-     Solicitud solicitud;
+     private Usuario usuarioActual;
+     private Dependencia dependenciaActual; 
+     private List<Bien> bienes;
+     private Solicitud solicitud;
      
-     AdminController _controladorPadre;
+     private AdminController _controladorPadre;
      
     public agregarModel() {
-        current = activos.loginPresentation.loginModel.getCurrent();
+        usuarioActual = activos.loginPresentation.loginModel.getUsuarioActual();
+        dependenciaActual = activos.loginPresentation.loginModel.getDependenciaActual();
         bienes = new ArrayList<>();
+        solicitud = new Solicitud();
     }
     
     public void setControllerPadre(AdminController cp){
         this._controladorPadre = cp;
     }
     
-    public Usuario getCurrent() {
-        return current;
+    public Usuario getUsuarioActual() {
+        return usuarioActual;
     }
 
     @Override
@@ -60,7 +64,6 @@ public class agregarModel extends Observable {
 
     public void setSolicitud(Solicitud solicitud) {
         this.solicitud = solicitud;
-        bienes.clear();
     }
     
     public double getTotal(){
@@ -69,6 +72,14 @@ public class agregarModel extends Observable {
             total += bien.getPrecio_unitario();
         }
         return total;
+    }
+
+    public Dependencia getDependenciaActual() {
+        return dependenciaActual;
+    }
+
+    public AdminController getControladorPadre() {
+        return _controladorPadre;
     }
     
     

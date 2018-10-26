@@ -5,6 +5,7 @@
  */
 package activos.loginPresentation;
 
+import activos.logic.Dependencia;
 import java.awt.Graphics;
 import java.util.Observable;
 import java.util.Observer;
@@ -65,6 +66,7 @@ public class loginView extends javax.swing.JFrame implements Observer {
         IngresarButton = new javax.swing.JButton();
         SalirButton = new javax.swing.JButton();
         ClaveTextField = new javax.swing.JPasswordField();
+        Dependencia = new javax.swing.JComboBox<>();
         FONDO = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -82,7 +84,7 @@ public class loginView extends javax.swing.JFrame implements Observer {
         ClaveLabel.setText("Clave :");
         getContentPane().add(ClaveLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
 
-        idTextField.setText("admin_dependencia");
+        idTextField.setText("secretaria_OCCB");
         getContentPane().add(idTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 180, -1));
 
         IngresarButton.setText("Ingresar");
@@ -91,7 +93,7 @@ public class loginView extends javax.swing.JFrame implements Observer {
                 IngresarButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(IngresarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 99, -1, -1));
+        getContentPane().add(IngresarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, -1, -1));
 
         SalirButton.setText("Salir");
         SalirButton.addActionListener(new java.awt.event.ActionListener() {
@@ -99,15 +101,18 @@ public class loginView extends javax.swing.JFrame implements Observer {
                 SalirButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(SalirButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 99, 73, -1));
+        getContentPane().add(SalirButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 150, 73, -1));
 
-        ClaveTextField.setText("clave_admin_dependencia");
+        ClaveTextField.setText("clave_secretaria_OCCB");
         getContentPane().add(ClaveTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 180, -1));
+
+        Dependencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Benjamin Nunez", "Omar Dengo", " " }));
+        getContentPane().add(Dependencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, 180, -1));
 
         FONDO.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         FONDO.setForeground(new java.awt.Color(255, 255, 255));
         FONDO.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/fondo.jpg"))); // NOI18N
-        getContentPane().add(FONDO, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 290, 150));
+        getContentPane().add(FONDO, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 290, 210));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -115,14 +120,17 @@ public class loginView extends javax.swing.JFrame implements Observer {
     private void IngresarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IngresarButtonActionPerformed
         String id = this.idTextField.getText();
         String clave = this.ClaveTextField.getText();
+       String nombreDependencia = this.Dependencia.getPrototypeDisplayValue();
+        Dependencia dependencia = new Dependencia(1234,"Benjamin","Lagunilla-Heredia");
         Usuario _user = controller.validar(id, clave);
         if(_user != null){
             try {
-                controller.login(_user);
+                controller.login(_user,dependencia);
                 //JOptionPane.showMessageDialog(rootPane, "Ingresado Correctamente");
                  
                 switch(_user.getTipoUsuario()){
                     case 1: controller.ingresoAdmin(); break;
+                    case 2: controller.ingresoAdmin(); break;
                     // case para cada tipo de usuario
                 }
             } catch (Exception ex) {
@@ -153,6 +161,7 @@ public class loginView extends javax.swing.JFrame implements Observer {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ClaveLabel;
     private javax.swing.JPasswordField ClaveTextField;
+    private javax.swing.JComboBox<String> Dependencia;
     private javax.swing.JLabel FONDO;
     private javax.swing.JButton IngresarButton;
     private javax.swing.JButton SalirButton;

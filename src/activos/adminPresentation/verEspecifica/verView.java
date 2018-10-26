@@ -6,8 +6,12 @@
 package activos.adminPresentation.verEspecifica;
 
 import java.awt.Graphics;
+import java.sql.SQLException;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -19,7 +23,7 @@ public class verView extends javax.swing.JFrame implements Observer {
     private verModel model;
     private verController controller;
 
-
+    
     /**
      * Creates new form verView
      */
@@ -51,6 +55,12 @@ public class verView extends javax.swing.JFrame implements Observer {
         Tabla = new javax.swing.JTable();
         Codigo = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        Aceptar = new javax.swing.JButton();
+        rechazar = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        tipo = new javax.swing.JTextField();
+        motivoCLABEL = new javax.swing.JLabel();
+        motivoC = new javax.swing.JTextField();
 
         jTextField4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -113,11 +123,48 @@ public class verView extends javax.swing.JFrame implements Observer {
         }
 
         Codigo.setEditable(false);
+        Codigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CodigoActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Atras");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        Aceptar.setText("Aceptar");
+        Aceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AceptarActionPerformed(evt);
+            }
+        });
+
+        rechazar.setText("Rechazar");
+        rechazar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rechazarActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("Tipo :");
+
+        tipo.setEditable(false);
+        tipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tipoActionPerformed(evt);
+            }
+        });
+
+        motivoCLABEL.setText("Motivo cancelacion : ");
+
+        motivoC.setEditable(false);
+        motivoC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                motivoCActionPerformed(evt);
             }
         });
 
@@ -127,49 +174,66 @@ public class verView extends javax.swing.JFrame implements Observer {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3))
-                                .addGap(51, 51, 51)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(Fecha)
-                                    .addComponent(CantidadBienes)
-                                    .addComponent(MontoTotal)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(204, 204, 204)
+                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(Codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(CantidadBienes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 604, Short.MAX_VALUE)
+                                            .addComponent(MontoTotal, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(Fecha, javax.swing.GroupLayout.Alignment.LEADING))
+                                        .addGap(34, 34, 34))))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(motivoCLABEL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel6))
-                                .addGap(72, 72, 72)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(Estado)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 501, Short.MAX_VALUE)))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(Codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(139, 139, 139)))
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(tipo, javax.swing.GroupLayout.DEFAULT_SIZE, 604, Short.MAX_VALUE)
+                                            .addComponent(Estado, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(motivoC, javax.swing.GroupLayout.Alignment.LEADING))
+                                        .addGap(34, 34, 34)))))))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(71, 71, 71)
+                .addComponent(Aceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(rechazar, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(137, 137, 137))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
-                            .addComponent(Codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jButton1))
-                .addGap(18, 18, 18)
+                            .addComponent(Codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(Fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -181,15 +245,27 @@ public class verView extends javax.swing.JFrame implements Observer {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(MontoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(Estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(motivoCLABEL)
+                    .addComponent(motivoC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(23, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Aceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rechazar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         pack();
@@ -212,26 +288,86 @@ public class verView extends javax.swing.JFrame implements Observer {
       
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void CodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CodigoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CodigoActionPerformed
+
+    private void AceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarActionPerformed
+        // TODO add your handling code here:
+        model.getSolicitud().setEstado(3);
+        try {
+            activos.data.SolicitudesDB.aceptar(model.getSolicitud().getCodigoSolicitud());
+        } catch (SQLException ex) {
+            Logger.getLogger(verView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     //   this.model._controladorPadre.getView().update(model, evt);
+        this.setVisible(false);
+        model._controladorPadre.getView().setVisible(true);
+    }//GEN-LAST:event_AceptarActionPerformed
+
+    private void rechazarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rechazarActionPerformed
+        // TODO add your handling code here:
+        String razon;
+        razon= JOptionPane.showInputDialog("Digite el motivo del rechazo");
+        model.getSolicitud().setMotivoC(razon);
+        model.getSolicitud().setEstado(2);
+        try {
+            activos.data.SolicitudesDB.reclinar(model.getSolicitud().getCodigoSolicitud(), razon);
+        } catch (SQLException ex) {
+            Logger.getLogger(verView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.setVisible(false);
+        model._controladorPadre.getView().setVisible(true);
+    }//GEN-LAST:event_rechazarActionPerformed
+
+    private void motivoCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_motivoCActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_motivoCActionPerformed
+
+    private void tipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tipoActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public void paint(Graphics g){
         super.paint(g);
        this.setTitle("Ver Especifica");
+       if(activos.loginPresentation.loginModel.getUsuarioActual().getTipoUsuario()!= 2){
+           Aceptar.setVisible(false);
+           rechazar.setVisible(false);
+       }
        this.CantidadBienes.setText("" + model.getSolicitud().getCantidad_bienes());
        this.Codigo.setText("" + model.getSolicitud().getCodigoSolicitud());
     
        String _estado = "";
           switch(model.getSolicitud().getEstado()){
                     case 1: _estado = "Recibida"; break;
-                    case 2: _estado = "Procesada";break;
+                    case 2: _estado = "Por verificar";break;
                     case 3: _estado = "Cancelada";break;
-                    case 4: _estado = "rechazada";break;
+                    case 4: _estado = "Procesada";break;
+                    case 5: _estado = "Espera de rotulacion";break;
                 }
        this.Estado.setText(_estado);
        this.Fecha.setText(model.getSolicitud().getFecha().toString());
        this.MontoTotal.setText("" + model.getSolicitud().getMontoTotal());
+       int _tipo =  model.getSolicitud().getTipo();
+       System.out.print(model.getSolicitud().getTipo());
+       String tipoS = "";
+                switch(_tipo){
+                    case 1: tipoS = "Compra"; break;
+                    case 2: tipoS = "Donacion"; break;
+                    case 3: tipoS = "Produccion"; break;
+                }
+       this.tipo.setText(tipoS);
        
+       if(model.getSolicitud().getEstado() != 3){
+           this.motivoC.setVisible(false);
+           this.motivoCLABEL.setVisible(false);
+       }else{
+           this.motivoC.setText(model.getSolicitud().getMotivoC());
+       }
        cargarTablaBienes();
        
      
@@ -251,6 +387,7 @@ public class verView extends javax.swing.JFrame implements Observer {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Aceptar;
     private javax.swing.JTextField CantidadBienes;
     private javax.swing.JTextField Codigo;
     private javax.swing.JTextField Estado;
@@ -262,10 +399,15 @@ public class verView extends javax.swing.JFrame implements Observer {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField motivoC;
+    private javax.swing.JLabel motivoCLABEL;
+    private javax.swing.JButton rechazar;
+    private javax.swing.JTextField tipo;
     // End of variables declaration//GEN-END:variables
 
     private void cargarTablaBienes() {
@@ -275,11 +417,13 @@ public class verView extends javax.swing.JFrame implements Observer {
         modelo.addColumn("Marca");
         modelo.addColumn("Modelo");
         modelo.addColumn("Precio Unitario");
-
-        String[] datos = new String[5];
+        modelo.addColumn("Registrador Asignado");
+        String[] datos = new String[6];
 
         this.Tabla.setModel(modelo);
-              
+            
+     
+     
         if(!model.getSolicitud().getLista_bienes().isEmpty()){
         
         for(int i=0; i<model.getSolicitud().getLista_bienes().size(); i++) {
@@ -288,10 +432,20 @@ public class verView extends javax.swing.JFrame implements Observer {
             datos[2] =  model.getSolicitud().getLista_bienes().get(i).getMarca();
             datos[3] =  model.getSolicitud().getLista_bienes().get(i).getModelo();
             datos[4] = "" +  model.getSolicitud().getLista_bienes().get(i).getPrecio_unitario();
+            if(model.getSolicitud().getLista_bienes().get(i).getRegistrador() != null){
+            datos[5] = "" + model.getSolicitud().getLista_bienes().get(i).getRegistrador().getId();
+            }else
+                datos[5] = "No Asignado";
             
             modelo.addRow(datos);
  
         }   
+    }else
+            System.out.print("Hola");
+    
+
     }
-    }
+    
+  
 }
+

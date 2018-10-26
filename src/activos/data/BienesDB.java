@@ -8,7 +8,6 @@ package activos.data;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import static java.util.Collections.list;
 import java.util.List;
 import activos.logic.Bien;
 import activos.logic.Solicitud;
@@ -22,12 +21,12 @@ public class BienesDB {
     static final RelDatabase db = new RelDatabase();
     
     public static void  bienAdd(Bien bien) throws Exception{
-      String sql="insert into bienes (codigo, descripcion, marca, modelo, precioUnitario, Solicitudes_codigo)"+
-                "values(0,'%s','%s','%s',%f,%d)";
+      String sql="insert into bienes (codigo, descripcion, marca, modelo, precioUnitario, Solicitudes_codigo, Usuarios_id)"+
+                "values(0,'%s','%s','%s',%f,%d,NULL)";
   
         sql=String.format(sql,bien.getDescripcion(),bien.getMarca(),bien.getModelo(),
                 bien.getPrecio_unitario(),bien.getSolicitud().getCodigoSolicitud());
-       System.out.print(sql);
+
         int count=db.executeUpdate(sql);
         if (count==0){
             throw new Exception();
@@ -55,14 +54,13 @@ public class BienesDB {
         sql = String.format(sql,codigo);
         ResultSet rs =  db.executeQuery(sql);
         if (rs.next()) {
-            
             _bien.setCodigo(rs.getInt("codigo"));
             _bien.setDescripcion(rs.getString("descripcion"));
             _bien.setMarca(rs.getString("marca"));
             _bien.setModelo(rs.getString("modelo"));
             _bien.setPrecio_unitario(rs.getDouble("precioUnitario"));
             _bien.setSolicitud(rs.getInt("Solicitudes_codigo"));
-
+            _bien.setRegistrador(rs.getString("Registador_id"));
             return _bien;
         }
         else{

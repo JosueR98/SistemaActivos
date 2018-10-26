@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import activos.adminPresentation.AdminController;
 import activos.adminPresentation.AdminModel;
 import activos.adminPresentation.AdminView;
+import activos.logic.Dependencia;
 import activos.logic.Usuario;
 
 /**
@@ -28,14 +29,14 @@ public class loginController {
         view.setModel(model);
     }
 
-    public void login(Usuario typed) throws Exception{
+    public void login(Usuario typed, Dependencia choosed) throws Exception{
         Usuario _user = activos.data.UsuariosDB.UsuarioGet(typed.getId(), typed.getClave());
-        model.setCurrent(_user);
+        model.setCurrent(_user,choosed);
         view.setVisible(false);
     }   
 
     public void logout(){
-        model.setCurrent(new Usuario());
+        model.setCurrent(new Usuario(), new Dependencia());
         view.setVisible(true);
         exit();
     }

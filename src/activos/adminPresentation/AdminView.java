@@ -6,7 +6,6 @@
 package activos.adminPresentation;
 
 import activos.data.RelDatabase;
-import activos.logic.Bien;
 import java.awt.Graphics;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -52,7 +51,13 @@ public class AdminView extends javax.swing.JFrame implements Observer{
     
     public void paint(Graphics g){
         super.paint(g);
-        this.setTitle("Administrador de la dependencia");
+         if(activos.loginPresentation.loginModel.getUsuarioActual().getTipoUsuario()==2){
+            jButton1.setVisible(false);
+            borrarSeleccionado.setVisible(false);
+            this.setTitle("Secretaria de la dependencia");
+        }
+        else
+            this.setTitle("Administrador de la dependencia");
         
         //
         muestraTabla();
@@ -76,7 +81,6 @@ public class AdminView extends javax.swing.JFrame implements Observer{
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(500, 250));
-        setPreferredSize(new java.awt.Dimension(800, 600));
         setResizable(false);
         setSize(new java.awt.Dimension(800, 600));
 
@@ -169,7 +173,7 @@ public class AdminView extends javax.swing.JFrame implements Observer{
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        model.agregarView.setVisible(true);
+        model.getAgregarView().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -180,12 +184,13 @@ public class AdminView extends javax.swing.JFrame implements Observer{
     
     private void muestraTabla(){
         RelDatabase r = new RelDatabase();
-        String query = "SELECT * FROM solicitudes";
+        String query = "SELECT * FROM solicitudes where Dependencias_codigo = " + model.getDependenciaActual().getCodigoPostal();
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("Codigo");
         modelo.addColumn("Fecha");
         modelo.addColumn("Precio Total");
-        modelo.addColumn("Cantidad");
+     //   modelo.addColumn("Cantidad");
+        modelo.addColumn("Tipo");
         modelo.addColumn("Estado");
         
         String[] datos = new String[6];
@@ -198,13 +203,20 @@ public class AdminView extends javax.swing.JFrame implements Observer{
                 datos[0] = "" + result.getInt(1);
                 datos[1] = result.getDate(2).toString();
                 datos[2] = "" + result.getDouble(3);
-                datos[3] =  "" + result.getInt(4);
+                int tipo =  result.getInt(6);
+                switch(tipo){
+                    case 1: datos[3] = "Compra"; break;
+                    case 2: datos[3] = "Donacion"; break;
+                    case 3: datos[3] = "Produccion"; break;
+                    
+                }
                 int estado = result.getInt(5);
                 switch(estado){
                     case 1: datos[4] = "Recibida"; break;
-                    case 2: datos[4] = "Procesada";break;
+                    case 2: datos[4]= "Por verificar";break;
                     case 3: datos[4] = "Cancelada";break;
-                    case 4: datos[4] = "rechazada";break;
+                    case 4: datos[4]= "Procesada";break;
+                    case 5: datos[4] = "Espera de rotulacion";break;
                 }
                 modelo.addRow(datos);
             }
@@ -267,8 +279,8 @@ public class AdminView extends javax.swing.JFrame implements Observer{
     
         try {
             model.verTrio(codigo);
-            model.verModel.setControladorPadre(controller);
-            model.verView.setVisible(true);
+            model.getVerModel().setControladorPadre(controller);
+            model.getVerView().setVisible(true);
             this.setVisible(false);
         } catch (SQLException ex) {
             Logger.getLogger(AdminView.class.getName()).log(Level.SEVERE, null, ex);

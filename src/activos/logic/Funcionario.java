@@ -14,6 +14,10 @@ public class Funcionario {
     private String nombre;
     private String puesto;
 
+    public Funcionario() {
+    }
+
+    
     public Funcionario(int cedula, String nombre, String puesto) {
         this.cedula = cedula;
         this.nombre = nombre;

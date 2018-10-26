@@ -5,6 +5,7 @@
  */
 package activos.loginPresentation;
 
+import activos.logic.Dependencia;
 import java.util.Observable;
 import activos.logic.Usuario;
 
@@ -14,23 +15,27 @@ import activos.logic.Usuario;
  */
 public class loginModel extends Observable {
     
-    static Usuario current;
-
+    static Usuario usuarioActual;
+    static Dependencia dependenciaActual;
+    
     public loginModel() {
-        current = new Usuario();
+        usuarioActual = new Usuario();
     }
     
-    public static Usuario getCurrent() {
-        return current;
+    public static Usuario getUsuarioActual() {
+        return usuarioActual;
     }
 
-    public void setCurrent(Usuario current) {
-        this.current = current;
+    public static Dependencia getDependenciaActual() {
+        return dependenciaActual;
+    }
+
+    public void setCurrent(Usuario usuarioActual, Dependencia dependencia) {
+        this.usuarioActual = usuarioActual;
+        this.dependenciaActual = dependencia;
         setChanged();
         notifyObservers();
     }
-    
-  
     
     @Override
     public void addObserver(java.util.Observer o) {

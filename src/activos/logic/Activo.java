@@ -16,14 +16,13 @@ public class Activo {
     private Dependencia dependencia;
 
     public Activo() {
-        codigo = -1;
-        categoria = descripcion = "INDEFINIDA";
-        dependencia = null;
     }
 
-    public Activo(int codigo, String categoria) {
+    public Activo(int codigo, String categoria, String descripcion, Dependencia depe) {
         this.codigo = codigo;
         this.categoria = categoria;
+        this.descripcion = descripcion;
+        this.dependencia = depe;
     }
 
     public String getCategoria() {
@@ -58,8 +57,5 @@ public class Activo {
         this.dependencia = dependencia;
     }
     
-     public void setDependencia(int dependencia) {
-        // this.dependencia = activos.data.DependenciasDB.get(dependencia);
-    }
     
 }

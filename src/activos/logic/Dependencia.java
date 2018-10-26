@@ -12,31 +12,51 @@ import java.util.List;
  * @author Josue R
  */
 public class Dependencia {
-    private String codigoPostal;
+    private int codigoPostal;
     private String nombre;
     private String ubicacion;
     private List<Usuario> usuarios;
     private List<Solicitud> solicitudes;
+    private List<Activo> activos;
 
-    public Dependencia(String codigoPostal, String nombre, String ubicacion) {
+    public Dependencia(int codigoPostal, String nombre, String ubicacion) {
         this.codigoPostal = codigoPostal;
         this.nombre = nombre;
         this.ubicacion = ubicacion;
         this.usuarios = null;
         this.solicitudes = null;
+        this.activos =  null;
     }
 
     public Dependencia() {
-        codigoPostal = nombre = ubicacion = "INDEFINIDO";
-        usuarios = null;
-        solicitudes = null;
     }
 
-    public String getCodigoPostal() {
+    public Dependencia(int codigoPostal, String nombre, String ubicacion, List<Usuario> usuarios, List<Solicitud> solicitudes, List<Activo> activos) {
+        this.codigoPostal = codigoPostal;
+        this.nombre = nombre;
+        this.ubicacion = ubicacion;
+        this.usuarios = usuarios;
+        this.solicitudes = solicitudes;
+        this.activos = activos;
+        
+        for(Usuario user: this.usuarios){
+            user.setDependencia(this);
+        }
+        for( Solicitud soli : this.solicitudes){
+            soli.setDependencia(this);
+        }
+        for(Activo activo : this.activos){
+            activo.setDependencia(this);
+        }
+        
+    }
+
+    
+    public int getCodigoPostal() {
         return codigoPostal;
     }
 
-    public void setCodigoPostal(String codigoPostal) {
+    public void setCodigoPostal(int codigoPostal) {
         this.codigoPostal = codigoPostal;
     }
 
