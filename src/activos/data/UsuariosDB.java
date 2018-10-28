@@ -5,11 +5,11 @@
  */
 package activos.data;
 
-import activos.logic.Bien;
 import activos.logic.Dependencia;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import activos.logic.Usuario;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -70,8 +70,8 @@ public class UsuariosDB {
         }
     }
 
-    static List<Usuario> getListaPorDependencia(Dependencia _dependencia) throws SQLException {
-       List<Usuario> salida = null;
+    public static List<Usuario> getListaPorDependencia(Dependencia _dependencia) throws SQLException {
+       List<Usuario> salida = new ArrayList<>();
        Usuario _usuario = null;
        String sql="select * from usuarios where Dependencias_codigo= %d" ;
         sql = String.format(sql,_dependencia.getCodigoPostal());
@@ -82,10 +82,6 @@ public class UsuariosDB {
             _usuario.setClave(rs.getString("clave"));
             _usuario.setDependencia(_dependencia);
             _usuario.setTipoUsuario(rs.getInt("tipo"));
-         /*   if(_usuario.getTipoUsuario() == 4){
-                List<Bien> bienes = activos.data.BienesDB.listaPorRegistrador(_usuario);
-                _usuario.setListaBienes(bienes);
-            }  */
             _usuario.setFuncionario(rs.getInt("Funcionarios_cedula"));
             salida.add(_usuario);
         }

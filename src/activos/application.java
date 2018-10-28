@@ -5,10 +5,11 @@
  */
 package activos;
 import activos.logic.Dependencia;
-import activos.logic.Usuario;
+import activos.logic.Puesto;
 import activos.loginPresentation.loginController;
 import activos.loginPresentation.loginModel;
 import activos.loginPresentation.loginView;
+import java.util.List;
 
 
 /**
@@ -29,5 +30,6 @@ public class application {
     // login_controller.ingresoAdmin();
      //Usuario user = activos.data.UsuariosDB.get("admin_dependencia","clave_admin_dependencia", new Dependencia(1234,"Benjamin Nuñez","Lagunilla-Heredia"));
      //System.out.print(user.toString());
+
     }
 }

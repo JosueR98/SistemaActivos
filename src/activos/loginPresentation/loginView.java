@@ -132,7 +132,12 @@ public class loginView extends javax.swing.JFrame implements Observer {
         String clave = this.ClaveTextField.getText();
         String nombreDependencia = this.Dependencia.getPrototypeDisplayValue();
         Dependencia dependencia = new Dependencia(1234,"Benjamin","Lagunilla-Heredia");
-        Usuario _user = controller.validar(id, clave, dependencia);
+        Usuario _user = null;
+        try {
+            _user = controller.validar(id, clave, dependencia);
+        } catch (Exception ex) {
+            Logger.getLogger(loginView.class.getName()).log(Level.SEVERE, null, ex);
+        }
         if(_user != null){
             try {
                 controller.login(_user,dependencia);

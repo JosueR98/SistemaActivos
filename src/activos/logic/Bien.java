@@ -45,8 +45,7 @@ public class Bien {
         this.registrador = registrador;
     }
     
-  
-
+ 
     public int getCodigo() {
         return codigo;
     }
@@ -91,7 +90,7 @@ public class Bien {
         return solicitud;
     }
 
-    public void setSolicitud(int solicitud) throws SQLException {
+    public void setSolicitud(int solicitud) throws SQLException, Exception {
          this.solicitud = activos.data.SolicitudesDB.get(solicitud);
     }
     
@@ -118,11 +117,5 @@ public class Bien {
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
-
-    @Override
-    public String toString() {
-        return "Bien{" + "codigo=" + codigo + ", marca=" + marca + ", modelo=" + modelo + ", descripcion=" + descripcion + ", precio_unitario=" + precio_unitario + ", solicitud=" + solicitud + ", registrador=" + registrador + ", cantidad=" + cantidad + '}';
-    }
-    
     
 }

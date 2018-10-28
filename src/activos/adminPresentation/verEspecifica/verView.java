@@ -413,7 +413,15 @@ public class verView extends javax.swing.JFrame implements Observer {
     // End of variables declaration//GEN-END:variables
 
     private void cargarTablaBienes() {
-       DefaultTableModel modelo = new DefaultTableModel();
+       DefaultTableModel modelo = new DefaultTableModel(){
+
+    @Override
+    public boolean isCellEditable(int row, int column) {
+       return false;
+    }
+};
+       
+       
         modelo.addColumn("Codigo");
         modelo.addColumn("Descripcion");
         modelo.addColumn("Marca");

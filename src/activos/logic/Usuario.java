@@ -14,28 +14,24 @@ import java.util.List;
  * @author Josue R
  */
 public class Usuario {
-    // Usuarios por numero
+    // Usuarios por tipo
     public static final int INDEFINIDO = 0;
     public static final int ADMINISTRADOR_DEPENDENCIA = 1;
     public static final int SECRETARIA_OCCB = 2;
     public static final int JEFE_OCCB = 3;
     public static final int REGISTRADOR_BIENES = 4;
     public static final int JEFE_RRH = 5;
-    public static final int JEFE_OCBB_RH= 7;
-    public static final int FUNCIONARIO = 8;
+    public static final int JEFE_OCBB_RHH= 7;
 
-    
     private String id;
     private String clave;
     private int tipo;
     private Dependencia dependencia;
     private Funcionario funcionario;
     
-    
     public Usuario() {
     }
 
-    // Para agregar uno nuevo
     public Usuario(String id, String clave, int tipoUsuario, Funcionario funcionario, Dependencia dependencia) {
         this.id = id;
         this.clave = clave;
@@ -43,28 +39,15 @@ public class Usuario {
         this.dependencia = dependencia;
         this.funcionario = funcionario;
     }
-    
-    
-    //Para obtener
 
-    public Usuario(String id, String clave, int tipo, Dependencia dependencia, Funcionario funcionario, List<Bien> listaBienes){
+    public Usuario(String id, String clave, int tipo, Dependencia dependencia) {
         this.id = id;
         this.clave = clave;
         this.tipo = tipo;
         this.dependencia = dependencia;
-        this.funcionario = funcionario;
-    }
-
-    public Usuario(String id, String clave, int tipo, Dependencia dependencia, Funcionario funcionario) {
-        this.id = id;
-        this.clave = clave;
-        this.tipo = tipo;
-        this.dependencia = dependencia;
-        this.funcionario = funcionario;
     }
     
     
-
     public String getId() {
         return id;
     }

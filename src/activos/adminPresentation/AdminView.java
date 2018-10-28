@@ -8,7 +8,6 @@ package activos.adminPresentation;
 import activos.data.RelDatabase;
 import activos.logic.Solicitud;
 import java.awt.Graphics;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Observable;
@@ -51,6 +50,7 @@ public class AdminView extends javax.swing.JFrame implements Observer{
         initComponents();
     }
     
+    @Override
     public void paint(Graphics g){
         super.paint(g);
          if(activos.loginPresentation.loginModel.getUsuarioActual().getTipoUsuario()==2){
@@ -65,6 +65,8 @@ public class AdminView extends javax.swing.JFrame implements Observer{
             //
             muestraTabla();
         } catch (SQLException ex) {
+            Logger.getLogger(AdminView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
             Logger.getLogger(AdminView.class.getName()).log(Level.SEVERE, null, ex);
         }
         
@@ -188,7 +190,7 @@ public class AdminView extends javax.swing.JFrame implements Observer{
        
     }//GEN-LAST:event_jTable1FocusGained
     
-    private void muestraTabla() throws SQLException{
+    private void muestraTabla() throws SQLException, Exception{
         RelDatabase r = new RelDatabase();
         
         List<Solicitud> solicitudes = activos.data.SolicitudesDB.getListaPorDependencia(model.getDependenciaActual());

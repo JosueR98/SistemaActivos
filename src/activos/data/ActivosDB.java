@@ -6,7 +6,7 @@
 package activos.data;
 
 import activos.logic.Activo;
-import activos.logic.Funcionario;
+import activos.logic.Puesto;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -22,10 +22,10 @@ public class ActivosDB {
      
      
     public static void add(Activo activo) throws Exception{
-      String sql="insert into Activos (categoria, descripcion, Funcionarios_cedula)"+
-                "values('%s','%s', %d)";
+      String sql="insert into Activos (codigo, categoria, descripcion, Puestos_codigo)"+
+                "values(0,'%s','%s',%d)";
   
-        sql=String.format(sql,activo.getCategoria(),activo.getDescripcion(),activo.getEncargado().getCedula());
+        sql=String.format(sql,activo.getCategoria(),activo.getDescripcion(),activo.getEncargado().getCodigo());
 
         int count=db.executeUpdate(sql);
         if (count==0){
@@ -55,7 +55,7 @@ public class ActivosDB {
             _activo.setCodigo(rs.getInt("codigo"));
             _activo.setCategoria(rs.getString("categoria"));
             _activo.setDescripcion(rs.getString("descripcion"));
-            _activo.setEncargado(rs.getInt("Funcionarios_cedula"));
+            _activo.setEncargado(rs.getInt("Puestos_codigo"));
 
             return _activo;
         }
@@ -64,18 +64,18 @@ public class ActivosDB {
         }
     }
 
-    public static List<Activo> getListaPorFuncionario(Funcionario _funcionario) throws SQLException {
+    public static List<Activo> getListaPorPuesto(Puesto _puesto) throws SQLException {
         List<Activo> activoos = new ArrayList<>();
         Activo _activo = null;
-        String sql="select * from activos where Funcionarios_cedula= %d" ;
-        sql = String.format(sql,_funcionario.getCedula());
+        String sql="select * from activos where Puestos_codigo= %d" ;
+        sql = String.format(sql,_puesto.getCodigo());
         ResultSet rs =  db.executeQuery(sql);
         while(rs.next()){
             _activo = new Activo();
             _activo.setCodigo(rs.getInt("codigo"));
-            _activo.setDescripcion(rs.getString("descripcion"));
             _activo.setCategoria(rs.getString("categoria"));
-            _activo.setEncargado(_funcionario);
+            _activo.setDescripcion(rs.getString("descripcion"));
+            _activo.setEncargado(_puesto);
             activoos.add(_activo);
         }
         return activoos;

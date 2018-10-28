@@ -91,10 +91,12 @@ public class BienesDB {
             resultado.add(_bien);
             }
         } catch (SQLException ex) { }
+        
+        
         return resultado;
     }
 
-    static List<Bien> listaPorRegistrador(Usuario _usuario) {
+    static List<Bien> listaPorRegistrador(Usuario _usuario) throws Exception {
        List<Bien> salida = null;
             
        Bien _bien = null;
@@ -105,8 +107,8 @@ public class BienesDB {
             
             sql=String.format(sql,_usuario.getId());
             ResultSet rs =  db.executeQuery(sql);
-            if(!rs.next())return null;
-            else{
+            
+            if(rs.next()){
             while (rs.next()) {
             _bien = new Bien();
             _bien.setCodigo(rs.getInt("codigo"));
@@ -122,8 +124,6 @@ public class BienesDB {
         } catch (SQLException ex) {
             return null;
         }
-        
-        
         return salida;
     }
      

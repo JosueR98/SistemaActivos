@@ -5,11 +5,9 @@
  */
 package activos.data;
 
-import activos.logic.Activo;
 import activos.logic.Funcionario;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
 /**
  *
@@ -19,12 +17,12 @@ public class FuncionariosDB {
 
      static final RelDatabase db = new RelDatabase();
      
-     
+
     public static void add(Funcionario funcionario) throws Exception{
-      String sql="insert into bienes (cedula, nombre, puesto)"+
+      String sql="insert into Funcionarios (cedula, nombre, correo)"+
                 "values(%d,'%s','%s')";
   
-        sql=String.format(sql,funcionario.getCedula(),funcionario.getNombre(),funcionario.getPuesto());
+        sql=String.format(sql,funcionario.getCedula(),funcionario.getNombre(),funcionario.getCorreo());
 
         int count=db.executeUpdate(sql);
         if (count==0){
@@ -41,12 +39,11 @@ public class FuncionariosDB {
             _funcionario = new Funcionario();
             _funcionario.setCedula(rs.getInt("cedula"));
             _funcionario.setNombre(rs.getString("nombre"));
-            _funcionario.setPuesto(rs.getString("puesto"));
+            _funcionario.setCorreo(rs.getString("correo"));
             return _funcionario;
         }
         else{
             return null;
         }
     }
-    
 }

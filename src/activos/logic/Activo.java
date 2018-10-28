@@ -15,13 +15,12 @@ public class Activo {
     private int codigo;
     private String categoria;
     private String descripcion;
-    private Funcionario encargado;
+    private Puesto encargado;
     
-
     public Activo() {
     }
 
-    public Activo(int codigo, String categoria, String descripcion, Funcionario encargado) {
+    public Activo(int codigo, String categoria, String descripcion, Puesto encargado) {
         this.codigo = codigo;
         this.categoria = categoria;
         this.descripcion = descripcion;
@@ -52,16 +51,16 @@ public class Activo {
         this.codigo = codigo;
     }
 
-    public Funcionario getEncargado() {
+    public Puesto getEncargado() {
         return encargado;
     }
 
-    public void setEncargado(Funcionario encargado) {
+    public void setEncargado(Puesto encargado) {
         this.encargado = encargado;
     }
     
      public void setEncargado(int encargado) throws SQLException {
-         this.encargado = activos.data.FuncionariosDB.get(encargado);
+         this.encargado = activos.data.PuestosDB.get(encargado);
     }
     
 }

@@ -31,7 +31,7 @@ public class SolicitudesDB {
                 "values(%d,'%s',%f,%d,%d,%d,%d)";
       
         sql=String.format(sql,0,currentTime,soli.getMontoTotal(),soli.getCantidad_bienes(),soli.getEstado(),soli.getTipo(),soli.getDependencia().getCodigoPostal());
-        System.out.print(sql);
+
         int count=db.executeUpdate(sql);
   
         if (count==0){

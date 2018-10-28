@@ -60,8 +60,7 @@ public class agregarView extends javax.swing.JFrame implements Observer {
     public void paint(Graphics g) {
         super.paint(g);
         if(tipo != -1){
-            this.TipoSelector.setVisible(false);
-            this.tipoLabel.setVisible(false);
+            this.TipoSelector.setEditable(false);
         }
         this.setTitle("Agregar Solicitud");
         muestraTabla();

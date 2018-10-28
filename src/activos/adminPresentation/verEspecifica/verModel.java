@@ -20,7 +20,7 @@ public class verModel extends Observable {
     
     public AdminController _controladorPadre;
     
-    public verModel(int solicitud) throws SQLException {
+    public verModel(int solicitud) throws SQLException, Exception {
         this.solicitud = activos.data.SolicitudesDB.get(solicitud);
     }
 
@@ -28,7 +28,7 @@ public class verModel extends Observable {
         return solicitud;
     }
 
-    public void setSolicitud(int solicitud) throws SQLException {
+    public void setSolicitud(int solicitud) throws SQLException, Exception {
        this.solicitud = activos.data.SolicitudesDB.get(solicitud);
        setChanged();
        notifyObservers();
