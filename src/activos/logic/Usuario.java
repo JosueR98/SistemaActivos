@@ -5,6 +5,7 @@
  */
 package activos.logic;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,7 +49,7 @@ public class Usuario {
     
     //Para obtener
 
-    public Usuario(String id, String clave, int tipo, Dependencia dependencia, Funcionario funcionario, List<Bien> listaBienes) {
+    public Usuario(String id, String clave, int tipo, Dependencia dependencia, Funcionario funcionario, List<Bien> listaBienes) throws Exception {
         this.id = id;
         this.clave = clave;
         this.tipo = tipo;
@@ -56,9 +57,20 @@ public class Usuario {
         this.funcionario = funcionario;
         this.listaBienes = listaBienes;
         
+        if(this.tipo == REGISTRADOR_BIENES){
            for(Bien bien : this.listaBienes){
             bien.setRegistrador(this);
-        }
+           }
+        }else
+            throw new Exception("No es registrador");
+    }
+
+    public Usuario(String id, String clave, int tipo, Dependencia dependencia, Funcionario funcionario) {
+        this.id = id;
+        this.clave = clave;
+        this.tipo = tipo;
+        this.dependencia = dependencia;
+        this.funcionario = funcionario;
     }
     
     
@@ -95,27 +107,39 @@ public class Usuario {
         this.dependencia = dependencia;
     }
     
-    public void setDependencia(int dependencia) {
-      //  this.dependencia = activos.data.DependenciasDB.get(dependencia);
+    public void setDependencia(int dependencia) throws SQLException {
+       this.dependencia = activos.data.DependenciasDB.get(dependencia);
     }
 
     public Funcionario getFuncionario() {
         return funcionario;
     }
 
-    public void setFuncionario(int funcionario) {
-     //   this.funcionario = activos.data.FuncionariosDB.get(funcionario);
+    public void setFuncionario(int funcionario) throws SQLException {
+        this.funcionario = activos.data.FuncionariosDB.get(funcionario);
     }
-
+    
+     public void setFuncionario(Funcionario funcionario) throws SQLException {
+        this.funcionario = funcionario;
+    }
+    
     public List<Bien> getListaBienes() {
         return listaBienes;
     }
 
-    public void setListaBienes(List<Bien> listaBienes) {
+    public void setListaBienes(List<Bien> listaBienes) throws Exception {
         this.listaBienes = listaBienes;
-        for(Bien bien : this.listaBienes){
+        if(this.tipo == REGISTRADOR_BIENES){
+           for(Bien bien : this.listaBienes){
             bien.setRegistrador(this);
-        }
+           }
+        }else
+            throw new Exception("No es registrador");
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" + "id=" + id + ", clave=" + clave + ", tipo=" + tipo + ", dependencia=" + dependencia + ", funcionario=" + funcionario + ", listaBienes=" + listaBienes + '}';
     }
     
     

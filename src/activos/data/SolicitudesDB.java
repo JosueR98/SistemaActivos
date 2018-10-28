@@ -12,6 +12,7 @@ import java.util.List;
 import activos.logic.Bien;
 import activos.logic.Dependencia;
 import activos.logic.Solicitud;
+import java.util.ArrayList;
 
 /**
  *
@@ -20,9 +21,8 @@ import activos.logic.Solicitud;
 public class SolicitudesDB {
      static final RelDatabase db = new RelDatabase();
     
-    public static void SolicitudAdd(Solicitud soli) throws Exception{
+    public static void add(Solicitud soli) throws Exception{
         
-   
     SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd"); 
     java.sql.Date sqlDate=new java.sql.Date(soli.getFecha().getDate());
     String currentTime = sdf1.format(soli.getFecha());
@@ -52,7 +52,7 @@ public class SolicitudesDB {
         soli.setCodigoSolicitud(consecutivo);
     }
     
-    public static Solicitud SolicitudGet(int codigo) throws SQLException{
+    public static Solicitud get(int codigo) throws SQLException{
         
         Solicitud _solicitud = new Solicitud();
         String sql="select * from solicitudes where codigo= %d" ;
@@ -63,11 +63,11 @@ public class SolicitudesDB {
             _solicitud.setCodigoSolicitud(rs.getInt("codigo"));
             _solicitud.setFecha(rs.getDate("fecha"));
             _solicitud.setEstado(rs.getInt("estado"));
-            List<Bien> list = activos.data.BienesDB.BienGetBySoli(_solicitud);
-            _solicitud.setLista_bienes(list);
             _solicitud.setTipo(rs.getInt("tipo"));
             _solicitud.setMotivoC(rs.getString("motivoC"));
-  
+            _solicitud.setDependencia(rs.getInt("Dependencias_codigo"));
+            List<Bien> list = activos.data.BienesDB.listaPorSolicitud(_solicitud);
+            _solicitud.setLista_bienes(list);
             return _solicitud;
         }
         else{
@@ -75,6 +75,28 @@ public class SolicitudesDB {
         }
     }
     
+    public static List<Solicitud> getListaPorDependencia(Dependencia dependencia) throws SQLException{
+        List<Solicitud> solicitudes = new ArrayList<>();
+        Solicitud _solicitud = null;
+        String sql="select * from solicitudes where Dependencias_codigo= %d" ;
+        sql = String.format(sql,dependencia.getCodigoPostal());
+        ResultSet rs =  db.executeQuery(sql);
+        while(rs.next()){
+            _solicitud = new Solicitud();
+            _solicitud.setCodigoSolicitud(rs.getInt("codigo"));
+            _solicitud.setFecha(rs.getDate("fecha"));
+            _solicitud.setEstado(rs.getInt("estado"));
+             List<Bien> list = activos.data.BienesDB.listaPorSolicitud(_solicitud);
+            _solicitud.setLista_bienes(list);
+            _solicitud.setTipo(rs.getInt("tipo"));
+            _solicitud.setMotivoC(rs.getString("motivoC"));
+            _solicitud.setDependencia(dependencia);
+            solicitudes.add(_solicitud);
+        }
+        return solicitudes;
+    }
+  
+     
     public static void delete(int codigo) throws SQLException{
         //Borrar los bienes asocicados a ese codigo
         String queryA = "delete from bienes where Solicitudes_codigo = %d";

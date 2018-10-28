@@ -6,9 +6,11 @@
 package activos.adminPresentation;
 
 import activos.data.RelDatabase;
+import activos.logic.Solicitud;
 import java.awt.Graphics;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.logging.Level;
@@ -59,8 +61,12 @@ public class AdminView extends javax.swing.JFrame implements Observer{
         else
             this.setTitle("Administrador de la dependencia");
         
-        //
-        muestraTabla();
+        try {
+            //
+            muestraTabla();
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminView.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }
 
@@ -182,35 +188,31 @@ public class AdminView extends javax.swing.JFrame implements Observer{
        
     }//GEN-LAST:event_jTable1FocusGained
     
-    private void muestraTabla(){
+    private void muestraTabla() throws SQLException{
         RelDatabase r = new RelDatabase();
-        String query = "SELECT * FROM solicitudes where Dependencias_codigo = " + model.getDependenciaActual().getCodigoPostal();
+        
+        List<Solicitud> solicitudes = activos.data.SolicitudesDB.getListaPorDependencia(model.getDependenciaActual());
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("Codigo");
         modelo.addColumn("Fecha");
         modelo.addColumn("Precio Total");
-     //   modelo.addColumn("Cantidad");
         modelo.addColumn("Tipo");
         modelo.addColumn("Estado");
         
         String[] datos = new String[6];
-        
-        try{
-           ResultSet result = r.executeQuery(query);
-            
-            while(result.next()){
+        for(Solicitud solicitud : solicitudes){
                 
-                datos[0] = "" + result.getInt(1);
-                datos[1] = result.getDate(2).toString();
-                datos[2] = "" + result.getDouble(3);
-                int tipo =  result.getInt(6);
+                datos[0] = "" + solicitud.getCodigoSolicitud();
+                datos[1] = solicitud.getFecha().toString();
+                datos[2] = "" + solicitud.getMontoTotal();
+                int tipo =  solicitud.getTipo();
                 switch(tipo){
                     case 1: datos[3] = "Compra"; break;
                     case 2: datos[3] = "Donacion"; break;
                     case 3: datos[3] = "Produccion"; break;
                     
                 }
-                int estado = result.getInt(5);
+                int estado = solicitud.getEstado();
                 switch(estado){
                     case 1: datos[4] = "Recibida"; break;
                     case 2: datos[4]= "Por verificar";break;
@@ -220,15 +222,14 @@ public class AdminView extends javax.swing.JFrame implements Observer{
                 }
                 modelo.addRow(datos);
             }
+        
                 this.jTable1.setModel(modelo);
                 this.jTable1.getColumnModel().getColumn(0).setPreferredWidth(20);
                 this.jTable1.getColumnModel().getColumn(1).setPreferredWidth(200);
                 this.jTable1.getColumnModel().getColumn(2).setPreferredWidth(15);
                 this.jTable1.getColumnModel().getColumn(3).setPreferredWidth(15);
                 this.jTable1.getColumnModel().getColumn(4).setPreferredWidth(20);
-        } catch (SQLException ex) {
-            Logger.getLogger(AdminView.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    
         
         
     }

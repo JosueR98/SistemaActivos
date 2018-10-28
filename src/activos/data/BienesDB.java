@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import activos.logic.Bien;
 import activos.logic.Solicitud;
+import activos.logic.Usuario;
 
 
 /**
@@ -20,7 +21,7 @@ import activos.logic.Solicitud;
 public class BienesDB {
     static final RelDatabase db = new RelDatabase();
     
-    public static void  bienAdd(Bien bien) throws Exception{
+    public static void  add(Bien bien) throws Exception{
       String sql="insert into bienes (codigo, descripcion, marca, modelo, precioUnitario, Solicitudes_codigo, Usuarios_id)"+
                 "values(0,'%s','%s','%s',%f,%d,NULL)";
   
@@ -47,7 +48,7 @@ public class BienesDB {
         bien.setCodigo(consecutivo);
     }
     
-    public static Bien BienGet(int codigo) throws SQLException{
+    public static Bien get(int codigo) throws SQLException{
         
         Bien _bien = new Bien();
         String sql="select * from Bienes where codigo= %d";
@@ -68,7 +69,7 @@ public class BienesDB {
         }
     }
     
-    public static List<Bien> BienGetBySoli(Solicitud solicitud){
+    public static List<Bien> listaPorSolicitud(Solicitud solicitud){
           List<Bien> resultado = new ArrayList<Bien>();
           Bien _bien =null;
         try {
@@ -86,40 +87,46 @@ public class BienesDB {
             _bien.setModelo(rs.getString("modelo"));
             _bien.setPrecio_unitario(rs.getDouble("precioUnitario"));
             _bien.setSolicitud(solicitud);
-
+            _bien.setRegistrador(rs.getString("Usuarios_id"));
             resultado.add(_bien);
-      
             }
         } catch (SQLException ex) { }
-        
-        
-        
         return resultado;
     }
-    
-     public static Bien algunBienPorSolicitud(int solicitud){
-          List<Bien> resultado = new ArrayList<Bien>();
-          Bien _bien =new Bien();
+
+    static List<Bien> listaPorRegistrador(Usuario _usuario) {
+       List<Bien> salida = null;
+            
+       Bien _bien = null;
         try {
             String sql="select * from "+
                     "bienes "+
-                    "where Solicitudes_codigo = %d";
+                    "where Usuarios_id = '%s'";
             
-            sql=String.format(sql,solicitud);
+            sql=String.format(sql,_usuario.getId());
             ResultSet rs =  db.executeQuery(sql);
-            if (rs.next()) {
+            if(!rs.next())return null;
+            else{
+            while (rs.next()) {
+            _bien = new Bien();
             _bien.setCodigo(rs.getInt("codigo"));
             _bien.setDescripcion(rs.getString("descripcion"));
             _bien.setMarca(rs.getString("marca"));
             _bien.setModelo(rs.getString("modelo"));
             _bien.setPrecio_unitario(rs.getDouble("precioUnitario"));
-            _bien.setSolicitud(solicitud);
-      
+            _bien.setSolicitud(rs.getInt("Solicitudes_codigo"));
+            _bien.setRegistrador(_usuario);
+            salida.add(_bien);
             }
-        } catch (SQLException ex) { }
+            }
+        } catch (SQLException ex) {
+            return null;
+        }
         
         
-        
-        return _bien;
+        return salida;
     }
+     
+
+    
 }

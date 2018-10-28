@@ -37,7 +37,7 @@ public class Solicitud {
     private int cantidad_bienes;
     private double montoTotal;
     private int tipo;
-    private String motivoC;
+    private String motivoC; 
     private Dependencia dependencia;
      
     public Solicitud() {
@@ -99,11 +99,12 @@ public class Solicitud {
         return lista_bienes;
     }
 
-    public void setLista_bienes(List<Bien> lista_bienes) {
+    public void setLista_bienes(List<Bien> lista_bienes) throws SQLException {
         this.lista_bienes = lista_bienes;
         this.cantidad_bienes = this.lista_bienes.size();
         montoTotal = 0;
            for(Bien _bien : this.lista_bienes){
+            _bien.setSolicitud(this);
             this.montoTotal += _bien.getPrecio_unitario();
            }
     }
@@ -144,8 +145,8 @@ public class Solicitud {
         this.dependencia = dependencia;
     }
     
-      public void setDependencia(int dependencia) {
-      //  this.dependencia = activos.data.DependenciasDB.get(dependencia);
+      public void setDependencia(int dependencia) throws SQLException {
+       this.dependencia = activos.data.DependenciasDB.get(dependencia);
     }
 
     public String getMotivoC() {

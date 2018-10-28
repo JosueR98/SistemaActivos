@@ -5,6 +5,8 @@
  */
 package activos.logic;
 
+import java.util.List;
+
 /**
  *
  * @author Josue R
@@ -13,8 +15,10 @@ public class Funcionario {
     private int cedula;
     private String nombre;
     private String puesto;
-
+    private List<Activo> activos;
+    
     public Funcionario() {
+        activos  = null;
     }
 
     
@@ -22,6 +26,22 @@ public class Funcionario {
         this.cedula = cedula;
         this.nombre = nombre;
         this.puesto = puesto;
+         activos  = null;
+    }
+
+    public Funcionario(int cedula, String nombre, String puesto, List<Activo> activos) {
+        this.cedula = cedula;
+        this.nombre = nombre;
+        this.puesto = puesto;
+        this.activos = activos;
+    }
+
+    public List<Activo> getActivos() {
+        return activos;
+    }
+
+    public void setActivos(List<Activo> activos) {
+        this.activos = activos;
     }
 
     public int getCedula() {

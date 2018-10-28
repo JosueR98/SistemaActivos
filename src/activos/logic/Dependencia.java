@@ -17,7 +17,7 @@ public class Dependencia {
     private String ubicacion;
     private List<Usuario> usuarios;
     private List<Solicitud> solicitudes;
-    private List<Activo> activos;
+
 
     public Dependencia(int codigoPostal, String nombre, String ubicacion) {
         this.codigoPostal = codigoPostal;
@@ -25,11 +25,12 @@ public class Dependencia {
         this.ubicacion = ubicacion;
         this.usuarios = null;
         this.solicitudes = null;
-        this.activos =  null;
     }
 
     public Dependencia() {
     }
+
+    
 
     public Dependencia(int codigoPostal, String nombre, String ubicacion, List<Usuario> usuarios, List<Solicitud> solicitudes, List<Activo> activos) {
         this.codigoPostal = codigoPostal;
@@ -37,18 +38,15 @@ public class Dependencia {
         this.ubicacion = ubicacion;
         this.usuarios = usuarios;
         this.solicitudes = solicitudes;
-        this.activos = activos;
-        
+
         for(Usuario user: this.usuarios){
             user.setDependencia(this);
         }
+        
         for( Solicitud soli : this.solicitudes){
             soli.setDependencia(this);
         }
-        for(Activo activo : this.activos){
-            activo.setDependencia(this);
-        }
-        
+
     }
 
     

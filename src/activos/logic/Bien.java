@@ -93,7 +93,7 @@ public class Bien {
     }
 
     public void setSolicitud(int solicitud) throws SQLException {
-         this.solicitud = activos.data.SolicitudesDB.SolicitudGet(solicitud);
+         this.solicitud = activos.data.SolicitudesDB.get(solicitud);
     }
     
      public void setSolicitud(Solicitud solicitud) throws SQLException {
@@ -109,7 +109,7 @@ public class Bien {
     }
     
     public void setRegistrador(String id_registrador) throws SQLException {
-        this.registrador = activos.data.UsuariosDB.UsuarioGet(id_registrador);
+        this.registrador = activos.data.UsuariosDB.get(id_registrador);
     }
 
     public int getCantidad() {
@@ -119,4 +119,11 @@ public class Bien {
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
+
+    @Override
+    public String toString() {
+        return "Bien{" + "codigo=" + codigo + ", marca=" + marca + ", modelo=" + modelo + ", descripcion=" + descripcion + ", precio_unitario=" + precio_unitario + ", solicitud=" + solicitud + ", registrador=" + registrador + ", cantidad=" + cantidad + '}';
+    }
+    
+    
 }

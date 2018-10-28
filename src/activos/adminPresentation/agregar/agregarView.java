@@ -305,10 +305,10 @@ public class agregarView extends javax.swing.JFrame implements Observer {
         try {
             model.setSolicitud(new Solicitud(new Date(), model.getBienes(),tipo, model.getDependenciaActual()));
 
-            activos.data.SolicitudesDB.SolicitudAdd(model.getSolicitud()); 
+            activos.data.SolicitudesDB.add(model.getSolicitud()); 
 
             for (Bien _bien : model.getBienes()) {
-                activos.data.BienesDB.bienAdd(_bien);
+                activos.data.BienesDB.add(_bien);
             }
 
             JOptionPane.showMessageDialog(rootPane, "Solicitud ingresada correctamente");

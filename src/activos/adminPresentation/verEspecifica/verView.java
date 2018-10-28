@@ -331,9 +331,11 @@ public class verView extends javax.swing.JFrame implements Observer {
     /**
      * @param args the command line arguments
      */
+    @Override
     public void paint(Graphics g){
-        super.paint(g);
+       super.paint(g);
        this.setTitle("Ver Especifica");
+       
        if(activos.loginPresentation.loginModel.getUsuarioActual().getTipoUsuario()!= 2){
            Aceptar.setVisible(false);
            rechazar.setVisible(false);

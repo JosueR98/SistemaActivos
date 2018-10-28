@@ -5,8 +5,6 @@
  */
 package activos.adminPresentation.verEspecifica;
 
-import activos.adminPresentation.AdminController;
-
 /**
  *
  * @author Josue R
@@ -38,6 +36,7 @@ public class verController {
 
     public void setView(verView view) {
         this.view = view;
+      
     }
 
     

@@ -84,7 +84,12 @@ public class loginView extends javax.swing.JFrame implements Observer {
         ClaveLabel.setText("Clave :");
         getContentPane().add(ClaveLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
 
-        idTextField.setText("secretaria_OCCB");
+        idTextField.setText("admin_dependencia");
+        idTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                idTextFieldActionPerformed(evt);
+            }
+        });
         getContentPane().add(idTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 180, -1));
 
         IngresarButton.setText("Ingresar");
@@ -103,7 +108,12 @@ public class loginView extends javax.swing.JFrame implements Observer {
         });
         getContentPane().add(SalirButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 150, 73, -1));
 
-        ClaveTextField.setText("clave_secretaria_OCCB");
+        ClaveTextField.setText("clave_admin_dependencia");
+        ClaveTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ClaveTextFieldActionPerformed(evt);
+            }
+        });
         getContentPane().add(ClaveTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 180, -1));
 
         Dependencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Benjamin Nunez", "Omar Dengo", " " }));
@@ -120,9 +130,9 @@ public class loginView extends javax.swing.JFrame implements Observer {
     private void IngresarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IngresarButtonActionPerformed
         String id = this.idTextField.getText();
         String clave = this.ClaveTextField.getText();
-       String nombreDependencia = this.Dependencia.getPrototypeDisplayValue();
+        String nombreDependencia = this.Dependencia.getPrototypeDisplayValue();
         Dependencia dependencia = new Dependencia(1234,"Benjamin","Lagunilla-Heredia");
-        Usuario _user = controller.validar(id, clave);
+        Usuario _user = controller.validar(id, clave, dependencia);
         if(_user != null){
             try {
                 controller.login(_user,dependencia);
@@ -146,6 +156,14 @@ public class loginView extends javax.swing.JFrame implements Observer {
         // TODO add your handling code here:
         controller.exit();
     }//GEN-LAST:event_SalirButtonActionPerformed
+
+    private void ClaveTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClaveTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ClaveTextFieldActionPerformed
+
+    private void idTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_idTextFieldActionPerformed
   
     
     

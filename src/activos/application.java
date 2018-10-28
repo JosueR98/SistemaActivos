@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package activos;
+import activos.logic.Dependencia;
+import activos.logic.Usuario;
 import activos.loginPresentation.loginController;
 import activos.loginPresentation.loginModel;
 import activos.loginPresentation.loginView;
@@ -24,6 +26,8 @@ public class application {
     public static void main(String[] args) throws Exception {
 
     login_view.setVisible(true);
-     //login_controller.ingresoAdmin();
+    // login_controller.ingresoAdmin();
+     //Usuario user = activos.data.UsuariosDB.get("admin_dependencia","clave_admin_dependencia", new Dependencia(1234,"Benjamin Nuñez","Lagunilla-Heredia"));
+     //System.out.print(user.toString());
     }
 }

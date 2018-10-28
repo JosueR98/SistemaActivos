@@ -122,13 +122,13 @@ CREATE TABLE IF NOT EXISTS `activos`.`Activos` (
   `codigo` INT(45) NOT NULL AUTO_INCREMENT,
   `categoria` VARCHAR(45) NOT NULL,
   `descripcion` VARCHAR(200) NOT NULL,
-  `Dependencias_codigo` INT(45) NOT NULL,
+  `Funcionarios_cedula` INT(45) NOT NULL,
   PRIMARY KEY (`codigo`),
   UNIQUE INDEX `codigo_UNIQUE` (`codigo` ASC) VISIBLE,
-  INDEX `fk_Activos_Dependencias1_idx` (`Dependencias_codigo` ASC) VISIBLE,
-  CONSTRAINT `fk_Activos_Dependencias1`
-    FOREIGN KEY (`Dependencias_codigo`)
-    REFERENCES `activos`.`Dependencias` (`codigo`)
+  INDEX `fk_Activos_Funcionarios1_idx` (`Funcionarios_cedula` ASC) VISIBLE,
+  CONSTRAINT `fk_Activos_Funcionarios1`
+    FOREIGN KEY (`Funcionarios_cedula`)
+    REFERENCES `activos`.`Funcionarios` (`cedula`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -149,6 +149,7 @@ insert into Usuarios(id,clave,tipo,Dependencias_codigo,Funcionarios_cedula) valu
 insert into Usuarios(id,clave,tipo,Dependencias_codigo,Funcionarios_cedula) values("registrador","clave_registrador",4,1234,304014014);
 insert into Usuarios(id,clave,tipo,Dependencias_codigo,Funcionarios_cedula) values("jefe_RRHH","clave_jefe_RRHH",5,1234,550240204);
 insert into Usuarios(id,clave,tipo,Dependencias_codigo,Funcionarios_cedula) values("jefe_OCCB_RRHH","clave_jefe_OCCB_RRHH",7,1234,634203014);
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

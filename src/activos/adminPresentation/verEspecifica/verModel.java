@@ -9,6 +9,7 @@ import activos.adminPresentation.AdminController;
 import activos.logic.Solicitud;
 import java.sql.SQLException;
 import java.util.Observable;
+import java.util.Observer;
 
 /**
  *
@@ -20,7 +21,7 @@ public class verModel extends Observable {
     public AdminController _controladorPadre;
     
     public verModel(int solicitud) throws SQLException {
-        this.solicitud = activos.data.SolicitudesDB.SolicitudGet(solicitud);
+        this.solicitud = activos.data.SolicitudesDB.get(solicitud);
     }
 
     public Solicitud getSolicitud() {
@@ -28,18 +29,19 @@ public class verModel extends Observable {
     }
 
     public void setSolicitud(int solicitud) throws SQLException {
-       this.solicitud = activos.data.SolicitudesDB.SolicitudGet(solicitud);
+       this.solicitud = activos.data.SolicitudesDB.get(solicitud);
        setChanged();
-        notifyObservers();
+       notifyObservers();
     }
 
     @Override
-    public void notifyObservers() {
-        super.notifyObservers(); //To change body of generated methods, choose Tools | Templates.
+    public synchronized void addObserver(Observer o) {
+        super.addObserver(o); //To change body of generated methods, choose Tools | Templates.
         setChanged();
         notifyObservers();
     }
 
+ 
     public AdminController getControladorPadre() {
         return _controladorPadre;
     }

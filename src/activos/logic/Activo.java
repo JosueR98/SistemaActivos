@@ -5,6 +5,8 @@
  */
 package activos.logic;
 
+import java.sql.SQLException;
+
 /**
  *
  * @author Josue R
@@ -13,16 +15,17 @@ public class Activo {
     private int codigo;
     private String categoria;
     private String descripcion;
-    private Dependencia dependencia;
+    private Funcionario encargado;
+    
 
     public Activo() {
     }
 
-    public Activo(int codigo, String categoria, String descripcion, Dependencia depe) {
+    public Activo(int codigo, String categoria, String descripcion, Funcionario encargado) {
         this.codigo = codigo;
         this.categoria = categoria;
         this.descripcion = descripcion;
-        this.dependencia = depe;
+        this.encargado = encargado;
     }
 
     public String getCategoria() {
@@ -49,13 +52,16 @@ public class Activo {
         this.codigo = codigo;
     }
 
-    public Dependencia getDependencia() {
-        return dependencia;
+    public Funcionario getEncargado() {
+        return encargado;
     }
 
-    public void setDependencia(Dependencia dependencia) {
-        this.dependencia = dependencia;
+    public void setEncargado(Funcionario encargado) {
+        this.encargado = encargado;
     }
     
+     public void setEncargado(int encargado) throws SQLException {
+         this.encargado = activos.data.FuncionariosDB.get(encargado);
+    }
     
 }

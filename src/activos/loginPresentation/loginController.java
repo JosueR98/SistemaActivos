@@ -30,7 +30,7 @@ public class loginController {
     }
 
     public void login(Usuario typed, Dependencia choosed) throws Exception{
-        Usuario _user = activos.data.UsuariosDB.UsuarioGet(typed.getId(), typed.getClave());
+        Usuario _user = activos.data.UsuariosDB.get(typed.getId(), typed.getClave());
         model.setCurrent(_user,choosed);
         view.setVisible(false);
     }   
@@ -41,12 +41,12 @@ public class loginController {
         exit();
     }
     
-    public Usuario validar(String id, String clave){
+    public Usuario validar(String id, String clave, Dependencia actual){
    
         Usuario _user = null;
         
         try {
-            _user = activos.data.UsuariosDB.UsuarioGet(id, clave);
+            _user = activos.data.UsuariosDB.get(id, clave);
         } catch (SQLException ex) {
             Logger.getLogger(loginController.class.getName()).log(Level.SEVERE, null, ex);
         }
