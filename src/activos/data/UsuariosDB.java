@@ -42,12 +42,8 @@ public class UsuariosDB {
             _user.setId(rs.getString("id"));
             _user.setClave( rs.getString("clave"));
             _user.setTipoUsuario(rs.getInt("tipo"));
-          //  _user.setDependencia(rs.getInt("Dependencias_codigo"));
+            _user.setDependencia(rs.getInt("Dependencias_codigo"));
             _user.setFuncionario(rs.getInt("Funcionarios_cedula"));
-            if(_user.getTipoUsuario() == 4){
-                List<Bien> bienes = activos.data.BienesDB.listaPorRegistrador(_user);
-                 _user.setListaBienes(bienes);
-            }
             return _user;
         }
         else{
@@ -67,8 +63,6 @@ public class UsuariosDB {
             _user.setTipoUsuario(rs.getInt("tipo"));
             _user.setDependencia(rs.getInt("Dependencias_codigo"));
             _user.setFuncionario(rs.getInt("Funcionarios_cedula"));
-             List<Bien> bienes = activos.data.BienesDB.listaPorRegistrador(_user);
-             _user.setListaBienes(bienes);
             return _user;
         }
         else{

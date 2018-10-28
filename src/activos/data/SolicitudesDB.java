@@ -52,7 +52,7 @@ public class SolicitudesDB {
         soli.setCodigoSolicitud(consecutivo);
     }
     
-    public static Solicitud get(int codigo) throws SQLException{
+    public static Solicitud get(int codigo) throws SQLException, Exception{
         
         Solicitud _solicitud = new Solicitud();
         String sql="select * from solicitudes where codigo= %d" ;
@@ -75,7 +75,7 @@ public class SolicitudesDB {
         }
     }
     
-    public static List<Solicitud> getListaPorDependencia(Dependencia dependencia) throws SQLException{
+    public static List<Solicitud> getListaPorDependencia(Dependencia dependencia) throws SQLException, Exception{
         List<Solicitud> solicitudes = new ArrayList<>();
         Solicitud _solicitud = null;
         String sql="select * from solicitudes where Dependencias_codigo= %d" ;

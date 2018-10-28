@@ -6,11 +6,8 @@
 package activos.data;
 
 import activos.logic.Dependencia;
-import activos.logic.Solicitud;
-import activos.logic.Usuario;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
 /**
  *
@@ -43,14 +40,6 @@ public class DependenciasDB {
             _dependencia.setCodigoPostal(rs.getInt("codigo"));
             _dependencia.setNombre(rs.getString("nombre"));
             _dependencia.setUbicacion(rs.getString("Ubicacion"));
-            
-             List<Solicitud> solicitudes = activos.data.SolicitudesDB.getListaPorDependencia(_dependencia);
-             List<Usuario> usuarios = activos.data.UsuariosDB.getListaPorDependencia(_dependencia);
-            
-            
-            _dependencia.setUsuarios(usuarios);
-            _dependencia.setSolicitudes(solicitudes);
-           
             return _dependencia;
         }
         else{

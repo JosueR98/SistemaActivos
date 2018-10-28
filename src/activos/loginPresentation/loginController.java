@@ -41,7 +41,7 @@ public class loginController {
         exit();
     }
     
-    public Usuario validar(String id, String clave, Dependencia actual){
+    public Usuario validar(String id, String clave, Dependencia actual) throws Exception{
    
         Usuario _user = null;
         

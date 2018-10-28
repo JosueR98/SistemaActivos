@@ -21,7 +21,6 @@ public class Bien {
     private Solicitud solicitud;
     private Usuario registrador;
  
-     
    // Atributo comodin  
     private int cantidad;
 
@@ -108,7 +107,7 @@ public class Bien {
         this.registrador = registrador;
     }
     
-    public void setRegistrador(String id_registrador) throws SQLException {
+    public void setRegistrador(String id_registrador) throws Exception {
         this.registrador = activos.data.UsuariosDB.get(id_registrador);
     }
 

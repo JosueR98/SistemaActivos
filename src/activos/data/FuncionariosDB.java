@@ -42,8 +42,6 @@ public class FuncionariosDB {
             _funcionario.setCedula(rs.getInt("cedula"));
             _funcionario.setNombre(rs.getString("nombre"));
             _funcionario.setPuesto(rs.getString("puesto"));
-             List<Activo> activvos = activos.data.ActivosDB.getListaPorFuncionario(_funcionario);
-            _funcionario.setActivos(activvos);
             return _funcionario;
         }
         else{

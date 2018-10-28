@@ -6,7 +6,6 @@
 package activos.logic;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -31,7 +30,6 @@ public class Usuario {
     private int tipo;
     private Dependencia dependencia;
     private Funcionario funcionario;
-    private List<Bien> listaBienes; // Si y solo si tipo = REGISTRADOR_BIENES
     
     
     public Usuario() {
@@ -49,20 +47,12 @@ public class Usuario {
     
     //Para obtener
 
-    public Usuario(String id, String clave, int tipo, Dependencia dependencia, Funcionario funcionario, List<Bien> listaBienes) throws Exception {
+    public Usuario(String id, String clave, int tipo, Dependencia dependencia, Funcionario funcionario, List<Bien> listaBienes){
         this.id = id;
         this.clave = clave;
         this.tipo = tipo;
         this.dependencia = dependencia;
         this.funcionario = funcionario;
-        this.listaBienes = listaBienes;
-        
-        if(this.tipo == REGISTRADOR_BIENES){
-           for(Bien bien : this.listaBienes){
-            bien.setRegistrador(this);
-           }
-        }else
-            throw new Exception("No es registrador");
     }
 
     public Usuario(String id, String clave, int tipo, Dependencia dependencia, Funcionario funcionario) {
@@ -122,25 +112,5 @@ public class Usuario {
      public void setFuncionario(Funcionario funcionario) throws SQLException {
         this.funcionario = funcionario;
     }
-    
-    public List<Bien> getListaBienes() {
-        return listaBienes;
-    }
-
-    public void setListaBienes(List<Bien> listaBienes) throws Exception {
-        this.listaBienes = listaBienes;
-        if(this.tipo == REGISTRADOR_BIENES){
-           for(Bien bien : this.listaBienes){
-            bien.setRegistrador(this);
-           }
-        }else
-            throw new Exception("No es registrador");
-    }
-
-    @Override
-    public String toString() {
-        return "Usuario{" + "id=" + id + ", clave=" + clave + ", tipo=" + tipo + ", dependencia=" + dependencia + ", funcionario=" + funcionario + ", listaBienes=" + listaBienes + '}';
-    }
-    
     
 }

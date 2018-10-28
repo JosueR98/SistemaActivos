@@ -48,7 +48,7 @@ public class BienesDB {
         bien.setCodigo(consecutivo);
     }
     
-    public static Bien get(int codigo) throws SQLException{
+    public static Bien get(int codigo) throws SQLException, Exception{
         
         Bien _bien = new Bien();
         String sql="select * from Bienes where codigo= %d";
@@ -69,7 +69,7 @@ public class BienesDB {
         }
     }
     
-    public static List<Bien> listaPorSolicitud(Solicitud solicitud){
+    public static List<Bien> listaPorSolicitud(Solicitud solicitud) throws Exception{
           List<Bien> resultado = new ArrayList<Bien>();
           Bien _bien =null;
         try {
