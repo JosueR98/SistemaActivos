@@ -22,11 +22,11 @@ public class BienesDB {
     static final RelDatabase db = new RelDatabase();
     
     public static void  add(Bien bien) throws Exception{
-      String sql="insert into bienes (codigo, descripcion, marca, modelo, precioUnitario, Solicitudes_codigo, Usuarios_id)"+
-                "values(0,'%s','%s','%s',%f,%d,NULL)";
+      String sql="insert into bienes (codigo, descripcion, marca, modelo, precioUnitario, estaRegistrado, Solicitudes_codigo, Usuarios_id)"+
+                "values(0,'%s','%s','%s',%f,%b,%d,NULL)";
   
-        sql=String.format(sql,bien.getDescripcion(),bien.getMarca(),bien.getModelo(),
-                bien.getPrecio_unitario(),bien.getSolicitud().getCodigoSolicitud());
+        sql=String.format(sql,bien.getDescripcion(),bien.getMarca(),bien.getModelo(), 
+                bien.getPrecio_unitario(),bien.isEstaRegistrado(),bien.getSolicitud().getCodigoSolicitud());
 
         int count=db.executeUpdate(sql);
         if (count==0){
@@ -62,6 +62,7 @@ public class BienesDB {
             _bien.setPrecio_unitario(rs.getDouble("precioUnitario"));
             _bien.setSolicitud(rs.getInt("Solicitudes_codigo"));
             _bien.setRegistrador(rs.getString("Registador_id"));
+            _bien.setEstaRegistrado(rs.getBoolean("estaRegistrado"));
             return _bien;
         }
         else{
@@ -88,6 +89,7 @@ public class BienesDB {
             _bien.setPrecio_unitario(rs.getDouble("precioUnitario"));
             _bien.setSolicitud(solicitud);
             _bien.setRegistrador(rs.getString("Usuarios_id"));
+            _bien.setEstaRegistrado(rs.getBoolean("estaRegistrado"));
             resultado.add(_bien);
             }
         } catch (SQLException ex) { }
@@ -96,7 +98,7 @@ public class BienesDB {
         return resultado;
     }
 
-    static List<Bien> listaPorRegistrador(Usuario _usuario) throws Exception {
+    public static List<Bien> listaPorRegistrador(Usuario _usuario) throws Exception {
        List<Bien> salida = null;
             
        Bien _bien = null;
@@ -118,6 +120,7 @@ public class BienesDB {
             _bien.setPrecio_unitario(rs.getDouble("precioUnitario"));
             _bien.setSolicitud(rs.getInt("Solicitudes_codigo"));
             _bien.setRegistrador(_usuario);
+            _bien.setEstaRegistrado(rs.getBoolean("estaRegistrado"));
             salida.add(_bien);
             }
             }
@@ -126,7 +129,24 @@ public class BienesDB {
         }
         return salida;
     }
-     
+    
+    public static void addRegistrador(int codigoBien, Usuario registrador) throws Exception{
+        String query = "update bienes set Usuarios_id = '%s' where codigo = %d";
+        query = String.format(query, registrador.getId(), codigoBien);
+        int count = db.executeUpdate(query);
+        if(count == 0){
+            throw new  Exception("No sea actualizo nada");
+        }
+    }
+    
+     public static void registrar(int codigo) throws Exception{
+        String query = "update bienes set estaRegistrado = 1 where codigo = %d";
+        query = String.format(query, codigo);
+        int count = db.executeUpdate(query);
+        if(count == 0){
+            throw new  Exception("No sea registro nada");
+        }
+    }
 
     
 }

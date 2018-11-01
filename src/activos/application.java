@@ -18,7 +18,7 @@ import java.util.List;
  */
 
 public class application {
-    // Ultimos cambios xD
+    // CAMBIOS MARTES MA;ANA 
      public static loginModel login_model = new loginModel();
      public static loginView login_view = new loginView();
      public static loginController login_controller= new loginController(login_model,login_view);
@@ -27,6 +27,7 @@ public class application {
     public static void main(String[] args) throws Exception {
 
     login_view.setVisible(true);
+    
     // login_controller.ingresoAdmin();
      //Usuario user = activos.data.UsuariosDB.get("admin_dependencia","clave_admin_dependencia", new Dependencia(1234,"Benjamin Nuñez","Lagunilla-Heredia"));
      //System.out.print(user.toString());

@@ -42,7 +42,7 @@ public class AdminModel extends Observable {
         agregarControlador = new agregarController(agregarModel,agregarView);
     }
     
-    public void verTrio(int codigo) throws SQLException{
+    public void verTrio(int codigo) throws SQLException, Exception{
         verModel = new verModel(codigo);
         verView = new verView();
         verController = new verController(verModel,verView);

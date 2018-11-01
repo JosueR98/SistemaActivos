@@ -12,6 +12,7 @@ import java.util.List;
 import activos.logic.Bien;
 import activos.logic.Dependencia;
 import activos.logic.Solicitud;
+import activos.logic.Usuario;
 import java.util.ArrayList;
 
 /**
@@ -134,4 +135,15 @@ public class SolicitudesDB {
         }
     }
    
+   
+   public static void asignarRegistrador(int codigoSolicitud, Usuario regitrador) throws Exception{
+       
+       Solicitud soli = get(codigoSolicitud);
+       List<Bien> listaBienes = activos.data.BienesDB.listaPorSolicitud(soli);
+       
+       for(Bien bien : listaBienes){
+           activos.data.BienesDB.addRegistrador(bien.getCodigo(), regitrador);
+       }
+  
+   }
 }

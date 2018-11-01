@@ -96,6 +96,7 @@ CREATE TABLE IF NOT EXISTS `activos`.`Bienes` (
   `marca` VARCHAR(45) NOT NULL,
   `modelo` VARCHAR(45) NULL,
   `precioUnitario` DOUBLE NOT NULL,
+  `estaRegistrado` TINYINT NOT NULL DEFAULT 0,
   `Solicitudes_codigo` INT(45) NOT NULL,
   `Usuarios_id` VARCHAR(45) NULL DEFAULT 'No asignado',
   INDEX `fk_Bienes_Solicitudes1_idx` (`Solicitudes_codigo` ASC) VISIBLE,
@@ -197,7 +198,6 @@ insert into Usuarios(id,clave,tipo,Dependencias_codigo,Funcionarios_cedula) valu
 insert into Usuarios(id,clave,tipo,Dependencias_codigo,Funcionarios_cedula) values("registrador3","ddd",4,1234,421412423);
 insert into Usuarios(id,clave,tipo,Dependencias_codigo,Funcionarios_cedula) values("jefe_RRHH","eeee",5,1234,550240204);
 insert into Usuarios(id,clave,tipo,Dependencias_codigo,Funcionarios_cedula) values("jefe_OCCB_RRHH","fff",7,1234,634203014);
-
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

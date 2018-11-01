@@ -20,7 +20,7 @@ public class Bien {
     private double precio_unitario;
     private Solicitud solicitud;
     private Usuario registrador;
- 
+    private boolean estaRegistrado;
    // Atributo comodin  
     private int cantidad;
 
@@ -34,6 +34,7 @@ public class Bien {
         this.precio_unitario = precio_unitario;
         solicitud = null;
         registrador = null;
+        estaRegistrado = false;
     }
 
     public Bien(int codigo, String marca, String modelo, double precio_unitario, Solicitud solicitud, Usuario registrador) {
@@ -43,6 +44,7 @@ public class Bien {
         this.precio_unitario = precio_unitario;
         this.solicitud = solicitud;
         this.registrador = registrador;
+        estaRegistrado = false;
     }
     
  
@@ -116,6 +118,14 @@ public class Bien {
 
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
+    }
+
+    public boolean isEstaRegistrado() {
+        return estaRegistrado;
+    }
+
+    public void setEstaRegistrado(boolean estaRegistrado) {
+        this.estaRegistrado = estaRegistrado;
     }
     
 }

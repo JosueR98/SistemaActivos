@@ -88,6 +88,23 @@ public class UsuariosDB {
        return salida;
     }
     
+    public static List<Usuario> getListaPorTipo(int tipo) throws SQLException {
+       List<Usuario> salida = new ArrayList<>();
+       Usuario _usuario = null;
+       String sql="select * from usuarios where tipo= %d" ;
+        sql = String.format(sql,tipo);
+        ResultSet rs =  db.executeQuery(sql);
+        while(rs.next()){
+            _usuario = new Usuario();
+            _usuario.setId(rs.getString("id"));
+            _usuario.setClave(rs.getString("clave"));
+            _usuario.setDependencia(rs.getInt("Dependencias_codigo"));
+            _usuario.setTipoUsuario(rs.getInt("tipo"));
+            _usuario.setFuncionario(rs.getInt("Funcionarios_cedula"));
+            salida.add(_usuario);
+        }
+       return salida;
+    }
     
     
 }

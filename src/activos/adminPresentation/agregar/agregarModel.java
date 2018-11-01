@@ -24,7 +24,7 @@ public class agregarModel extends Observable {
      private Usuario usuarioActual;
      private Dependencia dependenciaActual; 
      private List<Bien> bienes;
-     private Solicitud solicitud;
+     private Solicitud solicitud;   
      
      private AdminController _controladorPadre;
      

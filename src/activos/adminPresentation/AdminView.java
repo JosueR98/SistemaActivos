@@ -226,6 +226,7 @@ public class AdminView extends javax.swing.JFrame implements Observer{
             }
         
                 this.jTable1.setModel(modelo);
+                
                 this.jTable1.getColumnModel().getColumn(0).setPreferredWidth(20);
                 this.jTable1.getColumnModel().getColumn(1).setPreferredWidth(200);
                 this.jTable1.getColumnModel().getColumn(2).setPreferredWidth(15);
@@ -280,12 +281,16 @@ public class AdminView extends javax.swing.JFrame implements Observer{
             return;
         }
     
+        
+        
         try {
             model.verTrio(codigo);
             model.getVerModel().setControladorPadre(controller);
             model.getVerView().setVisible(true);
             this.setVisible(false);
         } catch (SQLException ex) {
+            Logger.getLogger(AdminView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
             Logger.getLogger(AdminView.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton2ActionPerformed

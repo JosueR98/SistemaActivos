@@ -146,6 +146,7 @@ public class loginView extends javax.swing.JFrame implements Observer {
                 switch(_user.getTipoUsuario()){
                     case 1: controller.ingresoAdmin(); break;
                     case 2: controller.ingresoAdmin(); break;
+                    case 3: controller.ingresoJefe(); break;
                     // case para cada tipo de usuario
                 }
             } catch (Exception ex) {

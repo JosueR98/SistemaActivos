@@ -335,7 +335,6 @@ public class verView extends javax.swing.JFrame implements Observer {
     public void paint(Graphics g){
        super.paint(g);
        this.setTitle("Ver Especifica");
-       
        if(activos.loginPresentation.loginModel.getUsuarioActual().getTipoUsuario()!= 2){
            Aceptar.setVisible(false);
            rechazar.setVisible(false);
@@ -428,7 +427,8 @@ public class verView extends javax.swing.JFrame implements Observer {
         modelo.addColumn("Modelo");
         modelo.addColumn("Precio Unitario");
         modelo.addColumn("Registrador Asignado");
-        String[] datos = new String[6];
+        modelo.addColumn("Esta registrado");
+        String[] datos = new String[7];
 
         this.Tabla.setModel(modelo);
             
@@ -446,7 +446,11 @@ public class verView extends javax.swing.JFrame implements Observer {
             datos[5] = "" + model.getSolicitud().getLista_bienes().get(i).getRegistrador().getId();
             }else
                 datos[5] = "No Asignado";
-            
+            if(model.getSolicitud().getLista_bienes().get(i).isEstaRegistrado()){
+                datos[6] = "Si.";
+            }else{
+                datos[6] = "No.";
+            }
             modelo.addRow(datos);
  
         }   

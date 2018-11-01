@@ -11,6 +11,9 @@ import java.util.logging.Logger;
 import activos.adminPresentation.AdminController;
 import activos.adminPresentation.AdminModel;
 import activos.adminPresentation.AdminView;
+import activos.jefePresentation.JefeController;
+import activos.jefePresentation.JefeModel;
+import activos.jefePresentation.JefeView;
 import activos.logic.Dependencia;
 import activos.logic.Usuario;
 
@@ -61,6 +64,14 @@ public class loginController {
        AdminModel _model = new AdminModel();
        AdminView _view = new AdminView();
        AdminController _control = new AdminController(_model,_view);
+       _view.setVisible(true);
+       view.setVisible(false);
+    }
+      
+    public void ingresoJefe(){
+       JefeModel _model = new JefeModel();
+       JefeView _view = new JefeView();
+       JefeController _control = new JefeController(_model,_view);
        _view.setVisible(true);
        view.setVisible(false);
     }
