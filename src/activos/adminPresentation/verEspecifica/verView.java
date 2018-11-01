@@ -217,11 +217,11 @@ public class verView extends javax.swing.JFrame implements Observer {
                                         .addGap(34, 34, 34)))))))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(71, 71, 71)
+                .addGap(165, 165, 165)
                 .addComponent(Aceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(rechazar, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(137, 137, 137))
+                .addGap(158, 158, 158))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -261,11 +261,11 @@ public class verView extends javax.swing.JFrame implements Observer {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Aceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(rechazar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         pack();
@@ -296,11 +296,10 @@ public class verView extends javax.swing.JFrame implements Observer {
         // TODO add your handling code here:
         model.getSolicitud().setEstado(3);
         try {
-            activos.data.SolicitudesDB.aceptar(model.getSolicitud().getCodigoSolicitud());
+            activos.data.SolicitudesDB.setEstado(model.getSolicitud().getCodigoSolicitud(),2);
         } catch (SQLException ex) {
             Logger.getLogger(verView.class.getName()).log(Level.SEVERE, null, ex);
         }
-     //   this.model._controladorPadre.getView().update(model, evt);
         this.setVisible(false);
         model._controladorPadre.getView().setVisible(true);
     }//GEN-LAST:event_AceptarActionPerformed

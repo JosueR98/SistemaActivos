@@ -27,8 +27,8 @@ public class Solicitud {
     public static int RECIBIDA = 1;
     public static int POR_VERIFICAR = 2;
     public static int RECHAZADA = 3;
-    public static int PROCESADA = 4;
-    public static int ESPERA_ROTULACION = 5;
+    public static int ESPERA_ROTULACION = 4;
+    public static int PROCESADA = 5;
     
     private int codigoSolicitud;
     private Date fecha;

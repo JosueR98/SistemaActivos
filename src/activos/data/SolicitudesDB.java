@@ -116,9 +116,9 @@ public class SolicitudesDB {
         }
     }
     
-     public static void aceptar(int codigo) throws SQLException{
-        String str= "update solicitudes set estado = 2 where codigo= %d";
-        str =  String.format(str, codigo);
+     public static void setEstado(int codigo, int estado) throws SQLException{
+        String str= "update solicitudes set estado = %d where codigo= %d";
+        str =  String.format(str, estado, codigo);
         int count = db.executeUpdate(str);
         if(count == 0){
             throw new SQLException("No existe registro en bien asociado con codigo de solitiud " + codigo);

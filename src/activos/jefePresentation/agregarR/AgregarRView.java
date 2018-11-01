@@ -50,22 +50,19 @@ public class AgregarRView extends javax.swing.JFrame implements Observer {
     
     
     private void muestraTabla() throws SQLException, Exception{
-    RelDatabase r = new RelDatabase();
-    
+ 
     List<Usuario> Usuarios = activos.data.UsuariosDB.getListaPorTipo(4);
     DefaultTableModel modelo = new DefaultTableModel();
     modelo.addColumn("Id");
-    modelo.addColumn("Tipo");
     modelo.addColumn("Cedula del Funcionario");
-    modelo.addColumn("Codigo de la dependencia");
+    modelo.addColumn("Nombre de la dependencia");
     
-    String[] datos = new String[5];
+    String[] datos = new String[3];
     for(Usuario usuario : Usuarios){
             
             datos[0] = "" + usuario.getId();
-            datos[1]="Registrador";
-            datos[2]=""+ usuario.getFuncionario().getCedula();
-            datos[3]= ""+ usuario.getDependencia().getCodigoPostal();
+            datos[1]=""+ usuario.getFuncionario().getCedula();
+            datos[2]= ""+ usuario.getDependencia().getNombre();
             modelo.addRow(datos);
         }
     
@@ -74,7 +71,7 @@ public class AgregarRView extends javax.swing.JFrame implements Observer {
             this.jTable1.getColumnModel().getColumn(0).setPreferredWidth(20);
             this.jTable1.getColumnModel().getColumn(1).setPreferredWidth(100);
             this.jTable1.getColumnModel().getColumn(2).setPreferredWidth(65);
-            this.jTable1.getColumnModel().getColumn(3).setPreferredWidth(65);
+
 
     
     
@@ -133,12 +130,8 @@ public class AgregarRView extends javax.swing.JFrame implements Observer {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 738, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(74, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(256, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -148,6 +141,10 @@ public class AgregarRView extends javax.swing.JFrame implements Observer {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(248, 248, 248))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 756, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,10 +172,10 @@ public class AgregarRView extends javax.swing.JFrame implements Observer {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         
-    int rowIndex = 0; int id = 0;
+    int rowIndex = 0; String id;
     try{
         rowIndex = this.jTable1.getSelectedRow();
-        id = Integer.parseInt((String) this.jTable1.getValueAt(rowIndex, 0));
+        id = (String) this.jTable1.getValueAt(rowIndex, 0);
         }catch(Exception e){
         JOptionPane.showMessageDialog(rootPane, "No has seleccionado ninguna celda.");
         return;
@@ -186,19 +183,19 @@ public class AgregarRView extends javax.swing.JFrame implements Observer {
         
         List<Bien> bienes = null;
         try {
-            // TODO add your handling code here:
             bienes = activos.data.BienesDB.listaPorSolicitud(model.getSolicitud());
         } catch (Exception ex) {
             Logger.getLogger(AgregarRView.class.getName()).log(Level.SEVERE, null, ex);
         }
         for( Bien bien: bienes ){
                 try {
-                    activos.data.BienesDB.addRegistrador( bien.getCodigo(), activos.data.UsuariosDB.get(""+id));
+                    activos.data.BienesDB.addRegistrador( bien.getCodigo(), activos.data.UsuariosDB.get(id));
+                    activos.data.SolicitudesDB.setEstado(model.getSolicitud().getCodigoSolicitud(),4 );
                 } catch (Exception ex) {
                     Logger.getLogger(AgregarRView.class.getName()).log(Level.SEVERE, null, ex);
                 }
         }
-        
+      JOptionPane.showMessageDialog(rootPane, "Registrador asignado correctamente");  
       model.getControladorPadre().getView().setVisible(true);
       this.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed

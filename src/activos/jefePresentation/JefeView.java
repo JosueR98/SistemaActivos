@@ -75,12 +75,12 @@ public class JefeView extends javax.swing.JFrame implements Observer {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 843, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(252, 252, 252)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(322, Short.MAX_VALUE))
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,7 +146,7 @@ public class JefeView extends javax.swing.JFrame implements Observer {
     
     String[] datos = new String[6];
     for(Solicitud solicitud : solicitudes){
-            
+        if(solicitud.getEstado() == 2){    
             datos[0] = "" + solicitud.getCodigoSolicitud();
             datos[1] = solicitud.getFecha().toString();
             datos[2] = "" + solicitud.getMontoTotal();
@@ -167,6 +167,7 @@ public class JefeView extends javax.swing.JFrame implements Observer {
             }
             modelo.addRow(datos);
         }
+    }
     
             this.jTable1.setModel(modelo);
             
