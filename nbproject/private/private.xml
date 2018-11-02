@@ -3,29 +3,27 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/jorac/Desktop/Universidad%204%20semestre/Programacion%203/SistemaActivos/src/activos/logic/Usuario.java</file>
-            <file>file:/C:/Users/jorac/Desktop/Universidad%204%20semestre/Programacion%203/SistemaActivos/src/activos/data/UsuariosDB.java</file>
-            <file>file:/C:/Users/jorac/Desktop/Universidad%204%20semestre/Programacion%203/SistemaActivos/src/activos/loginPresentation/loginView.java</file>
             <file>file:/C:/Users/jorac/Desktop/Universidad%204%20semestre/Programacion%203/SistemaActivos/src/activos/adminPresentation/agregar/agregarView.java</file>
+            <file>file:/C:/Users/jorac/Desktop/Universidad%204%20semestre/Programacion%203/SistemaActivos/src/activos/jefePresentation/agregarR/AgregarRModel.java</file>
             <file>file:/C:/Users/jorac/Desktop/Universidad%204%20semestre/Programacion%203/SistemaActivos/src/activos/data/BienesDB.java</file>
             <file>file:/C:/Users/jorac/Desktop/Universidad%204%20semestre/Programacion%203/SistemaActivos/src/activos/adminPresentation/verEspecifica/verModel.java</file>
-            <file>file:/C:/Users/jorac/Desktop/Universidad%204%20semestre/Programacion%203/SistemaActivos/src/activos/logic/Puesto.java</file>
+            <file>file:/C:/Users/jorac/Desktop/Universidad%204%20semestre/Programacion%203/SistemaActivos/src/activos/adminPresentation/verEspecifica/verController.java</file>
             <file>file:/C:/Users/jorac/Desktop/Universidad%204%20semestre/Programacion%203/SistemaActivos/src/activos/logic/Bien.java</file>
-            <file>file:/C:/Users/jorac/Desktop/Universidad%204%20semestre/Programacion%203/SistemaActivos/src/activos/data/ActivosDB.java</file>
-            <file>file:/C:/Users/jorac/Desktop/Universidad%204%20semestre/Programacion%203/SistemaActivos/src/activos/data/PuestosDB.java</file>
-            <file>file:/C:/Users/jorac/Desktop/Universidad%204%20semestre/Programacion%203/SistemaActivos/src/activosDB.properties</file>
+            <file>file:/C:/Users/jorac/Desktop/Universidad%204%20semestre/Programacion%203/SistemaActivos/src/activos/jefePresentation/agregarR/AgregarRController.java</file>
+            <file>file:/C:/Users/jorac/Desktop/Universidad%204%20semestre/Programacion%203/SistemaActivos/src/activos/jefePresentation/agregarR/AgregarRView.java</file>
             <file>file:/C:/Users/jorac/Desktop/Universidad%204%20semestre/Programacion%203/SistemaActivos/src/activos/adminPresentation/AdminModel.java</file>
-            <file>file:/C:/Users/jorac/Desktop/Universidad%204%20semestre/Programacion%203/SistemaActivos/src/activos/logic/Dependencia.java</file>
-            <file>file:/C:/Users/jorac/Desktop/Universidad%204%20semestre/Programacion%203/SistemaActivos/src/activos/data/RelDatabase.java</file>
-            <file>file:/C:/Users/jorac/Desktop/Universidad%204%20semestre/Programacion%203/SistemaActivos/src/activos/logic/Solicitud.java</file>
-            <file>file:/C:/Users/jorac/Desktop/Universidad%204%20semestre/Programacion%203/SistemaActivos/src/activos/logic/Activo.java</file>
-            <file>file:/C:/Users/jorac/Desktop/Universidad%204%20semestre/Programacion%203/SistemaActivos/src/activos/data/DependenciasDB.java</file>
-            <file>file:/C:/Users/jorac/Desktop/Universidad%204%20semestre/Programacion%203/SistemaActivos/src/activos/data/SolicitudesDB.java</file>
+            <file>file:/C:/Users/jorac/Desktop/Universidad%204%20semestre/Programacion%203/SistemaActivos/src/activos/registrador/RegistradorController.java</file>
+            <file>file:/C:/Users/jorac/Desktop/Universidad%204%20semestre/Programacion%203/SistemaActivos/src/activos/registrador/RegistradorView.java</file>
+            <file>file:/C:/Users/jorac/Desktop/Universidad%204%20semestre/Programacion%203/SistemaActivos/src/activos/registrador/verBienes/bienesModel.java</file>
             <file>file:/C:/Users/jorac/Desktop/Universidad%204%20semestre/Programacion%203/SistemaActivos/src/activos/adminPresentation/AdminView.java</file>
+            <file>file:/C:/Users/jorac/Desktop/Universidad%204%20semestre/Programacion%203/SistemaActivos/src/activos/data/SolicitudesDB.java</file>
+            <file>file:/C:/Users/jorac/Desktop/Universidad%204%20semestre/Programacion%203/SistemaActivos/src/activos/registrador/verBienes/bienesController.java</file>
+            <file>file:/C:/Users/jorac/Desktop/Universidad%204%20semestre/Programacion%203/SistemaActivos/src/activos/registrador/RegistradorModel.java</file>
+            <file>file:/C:/Users/jorac/Desktop/Universidad%204%20semestre/Programacion%203/SistemaActivos/src/activos/registrador/verBienes/bienesView.java</file>
             <file>file:/C:/Users/jorac/Desktop/Universidad%204%20semestre/Programacion%203/SistemaActivos/src/activos/adminPresentation/verEspecifica/verView.java</file>
-            <file>file:/C:/Users/jorac/Desktop/Universidad%204%20semestre/Programacion%203/SistemaActivos/src/activos/application.java</file>
+            <file>file:/C:/Users/jorac/Desktop/Universidad%204%20semestre/Programacion%203/SistemaActivos/src/activos/adminPresentation/agregar/agregarController.java</file>
+            <file>file:/C:/Users/jorac/Desktop/Universidad%204%20semestre/Programacion%203/SistemaActivos/src/activos/adminPresentation/AdminController.java</file>
             <file>file:/C:/Users/jorac/Desktop/Universidad%204%20semestre/Programacion%203/SistemaActivos/src/activos/data/FuncionariosDB.java</file>
-            <file>file:/C:/Users/jorac/Desktop/Universidad%204%20semestre/Programacion%203/SistemaActivos/src/activos/logic/Funcionario.java</file>
         </group>
     </open-files>
 </project-private>

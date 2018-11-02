@@ -140,7 +140,6 @@ public class SolicitudesDB {
        
        Solicitud soli = get(codigoSolicitud);
        List<Bien> listaBienes = activos.data.BienesDB.listaPorSolicitud(soli);
-       
        for(Bien bien : listaBienes){
            activos.data.BienesDB.addRegistrador(bien.getCodigo(), regitrador);
        }

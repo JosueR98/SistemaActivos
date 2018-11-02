@@ -99,8 +99,7 @@ public class BienesDB {
     }
 
     public static List<Bien> listaPorRegistrador(Usuario _usuario) throws Exception {
-       List<Bien> salida = null;
-            
+       List<Bien> salida = new ArrayList<>();
        Bien _bien = null;
         try {
             String sql="select * from "+
@@ -110,7 +109,7 @@ public class BienesDB {
             sql=String.format(sql,_usuario.getId());
             ResultSet rs =  db.executeQuery(sql);
             
-            if(rs.next()){
+   
             while (rs.next()) {
             _bien = new Bien();
             _bien.setCodigo(rs.getInt("codigo"));
@@ -123,7 +122,7 @@ public class BienesDB {
             _bien.setEstaRegistrado(rs.getBoolean("estaRegistrado"));
             salida.add(_bien);
             }
-            }
+            
         } catch (SQLException ex) {
             return null;
         }

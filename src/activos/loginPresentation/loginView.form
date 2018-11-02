@@ -63,7 +63,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="idTextField">
       <Properties>
-        <Property name="text" type="java.lang.String" value="admin_dependencia"/>
+        <Property name="text" type="java.lang.String" value="registrador2"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="idTextFieldActionPerformed"/>
@@ -102,7 +102,7 @@
     </Component>
     <Component class="javax.swing.JPasswordField" name="ClaveTextField">
       <Properties>
-        <Property name="text" type="java.lang.String" value="clave_admin_dependencia"/>
+        <Property name="text" type="java.lang.String" value="ddd"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ClaveTextFieldActionPerformed"/>

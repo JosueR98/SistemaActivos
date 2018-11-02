@@ -16,6 +16,9 @@ import activos.jefePresentation.JefeModel;
 import activos.jefePresentation.JefeView;
 import activos.logic.Dependencia;
 import activos.logic.Usuario;
+import activos.registrador.RegistradorController;
+import activos.registrador.RegistradorModel;
+import activos.registrador.RegistradorView;
 
 /**
  *
@@ -78,5 +81,13 @@ public class loginController {
       
     public void exit(){
         System.exit(0);
+    }
+
+    void ingresoRegistrador() throws Exception {
+        RegistradorModel _model = new RegistradorModel();
+        RegistradorView _view = new RegistradorView();
+        RegistradorController _controller = new RegistradorController(_model,_view);
+        _view.setVisible(true);
+        view.setVisible(false);
     }
 }

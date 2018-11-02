@@ -84,7 +84,7 @@ public class loginView extends javax.swing.JFrame implements Observer {
         ClaveLabel.setText("Clave :");
         getContentPane().add(ClaveLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
 
-        idTextField.setText("admin_dependencia");
+        idTextField.setText("registrador2");
         idTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 idTextFieldActionPerformed(evt);
@@ -108,7 +108,7 @@ public class loginView extends javax.swing.JFrame implements Observer {
         });
         getContentPane().add(SalirButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 150, 73, -1));
 
-        ClaveTextField.setText("clave_admin_dependencia");
+        ClaveTextField.setText("ddd");
         ClaveTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ClaveTextFieldActionPerformed(evt);
@@ -147,6 +147,7 @@ public class loginView extends javax.swing.JFrame implements Observer {
                     case 1: controller.ingresoAdmin(); break;
                     case 2: controller.ingresoAdmin(); break;
                     case 3: controller.ingresoJefe(); break;
+                    case 4: controller.ingresoRegistrador(); break;
                     // case para cada tipo de usuario
                 }
             } catch (Exception ex) {
