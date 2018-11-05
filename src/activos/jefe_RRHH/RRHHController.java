@@ -3,17 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package activos.funcionarios;
+package activos.jefe_RRHH;
 
 /**
  *
  * @author Josue R
  */
-public class FuncionariosController {
-    FuncionariosModel model;
-    FuncionariosView view;
+public class RRHHController {
+    RRHHModel model;
+    RRHHView view;
 
-    public FuncionariosController(FuncionariosModel model, FuncionariosView view) {
+    public RRHHController(RRHHModel model, RRHHView view) {
         this.model = model;
         this.view = view;
         view.setModel(model);
@@ -21,11 +21,11 @@ public class FuncionariosController {
         model.getAgregarModel().setControladorPadre(this);
     }
 
-    public FuncionariosModel getModel() {
+    public RRHHModel getModel() {
         return model;
     }
 
-    public FuncionariosView getView() {
+    public RRHHView getView() {
         return view;
     }
     

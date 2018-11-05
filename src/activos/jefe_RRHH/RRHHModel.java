@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package activos.funcionarios;
+package activos.jefe_RRHH;
 
 import activos.funcionarios.agregar.agregarFController;
 import activos.funcionarios.agregar.agregarFModel;
@@ -19,7 +19,7 @@ import java.util.Observer;
  *
  * @author Josue R
  */
-public class FuncionariosModel extends Observable {
+public class RRHHModel extends Observable {
     private Usuario current;
     private List<Funcionario> funcionarios;
     
@@ -29,7 +29,7 @@ public class FuncionariosModel extends Observable {
     private agregarFView agregarView;
     
     
-    public FuncionariosModel() throws SQLException {
+    public RRHHModel() throws SQLException {
         this.current = activos.loginPresentation.loginModel.getUsuarioActual();
         cargarLista();
         agregarModel = new agregarFModel();

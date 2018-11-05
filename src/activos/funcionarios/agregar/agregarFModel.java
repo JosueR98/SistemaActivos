@@ -5,7 +5,7 @@
  */
 package activos.funcionarios.agregar;
 
-import activos.funcionarios.FuncionariosController;
+import activos.jefe_RRHH.RRHHController;
 import activos.logic.Usuario;
 import java.util.Observable;
 import java.util.Observer;
@@ -15,18 +15,18 @@ import java.util.Observer;
  * @author Josue R
  */
 public class agregarFModel extends Observable{
-    FuncionariosController controladorPadre;
+    RRHHController controladorPadre;
     Usuario current;
 
     public agregarFModel() {
         this.current = activos.loginPresentation.loginModel.getUsuarioActual();
     }
 
-    public FuncionariosController getControladorPadre() {
+    public RRHHController getControladorPadre() {
         return controladorPadre;
     }
 
-    public void setControladorPadre(FuncionariosController controladorPadre) {
+    public void setControladorPadre(RRHHController controladorPadre) {
         this.controladorPadre = controladorPadre;
     }
 

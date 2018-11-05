@@ -11,9 +11,9 @@ import java.util.logging.Logger;
 import activos.adminPresentation.AdminController;
 import activos.adminPresentation.AdminModel;
 import activos.adminPresentation.AdminView;
-import activos.funcionarios.FuncionariosController;
-import activos.funcionarios.FuncionariosModel;
-import activos.funcionarios.FuncionariosView;
+import activos.jefe_RRHH.RRHHController;
+import activos.jefe_RRHH.RRHHModel;
+import activos.jefe_RRHH.RRHHView;
 import activos.jefePresentation.JefeController;
 import activos.jefePresentation.JefeModel;
 import activos.jefePresentation.JefeView;
@@ -94,9 +94,9 @@ public class loginController {
     }
 
     void ingresoJefeRHHH() throws SQLException {
-       FuncionariosModel _model = new FuncionariosModel();
-       FuncionariosView _view = new FuncionariosView();
-       FuncionariosController _controller = new FuncionariosController(_model,_view);
+       RRHHModel _model = new RRHHModel();
+       RRHHView _view = new RRHHView();
+       RRHHController _controller = new RRHHController(_model,_view);
        _view.setVisible(true);
        view.setVisible(false);
     }
