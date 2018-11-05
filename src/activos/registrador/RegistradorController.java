@@ -5,6 +5,9 @@
  */
 package activos.registrador;
 
+import activos.logic.Bien;
+import activos.logic.Solicitud;
+
 /**
  *
  * @author Josue R
@@ -26,6 +29,25 @@ public class RegistradorController {
 
    public RegistradorView getView() {
         return view;
+    }
+
+    public void setModel(RegistradorModel model) {
+        this.model = model;
+    }
+
+    public void setView(RegistradorView view) {
+        this.view = view;
+    }
+
+    boolean todosLosBienesRegistrados(Solicitud soli) {
+        boolean todos = true;
+        
+        for(Bien bien : soli.getLista_bienes()){
+            if(!bien.isEstaRegistrado())
+                todos = false;
+        }
+        
+    return todos;
     }
     
     

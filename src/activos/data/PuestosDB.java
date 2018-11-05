@@ -66,8 +66,8 @@ public class PuestosDB {
       public static List<Puesto> getListaPorDependencia(Dependencia _dependencia) throws SQLException {
        List<Puesto> salida = new ArrayList<>();
        Puesto _puesto = null;
-       String sql="select * from puestos where Dependencias_codigo= %d" ;
-        sql = String.format(sql,_dependencia.getCodigoPostal());
+       String sql="select * from puestos where Dependencias_codigo = %d";
+       sql = String.format(sql, _dependencia.getCodigoPostal());
         ResultSet rs =  db.executeQuery(sql);
         while(rs.next()){
            _puesto = new Puesto();
@@ -80,6 +80,39 @@ public class PuestosDB {
        return salida;
     }
     
+    public static int getSiguienteCodigo() throws SQLException{
+        int consecutivo= -1;
+        ResultSet rs= db.executeQuery("select max(codigo) from activos");
+            if(rs.next()){
+                consecutivo= rs.getInt(1);
+            }
+            consecutivo+=1;
+            return consecutivo;   
+    }
     
+    public static List<Puesto> getVacantes() throws SQLException{
+        List<Puesto> salida = new ArrayList<>();
+        Puesto _puesto = null;
+        String sql="select * from puestos where Funcionarios_cedula IS NULL";
+        ResultSet rs = db.executeQuery(sql);
+          while(rs.next()){
+           _puesto = new Puesto();
+           _puesto.setCodigo(rs.getInt("codigo"));
+           _puesto.setRol(rs.getString("rol"));
+            _puesto.setDependencia(rs.getInt("Dependencias_codigo"));
+            salida.add(_puesto);
+        }
+   
+        return salida;
+    }
+    
+    public static void ocupar(int puestoCodigo, int cedula) throws Exception{
+        String sql="update puestos set Funcionarios_cedula = %d where codigo = %d";
+        sql = String.format(sql, cedula, puestoCodigo);
+        int count = db.executeUpdate(sql);
+        if(count == 0){
+            throw new Exception("ERROR A LA HORA DE OCUPAR PUESTO");
+        }
+    }
     
 }

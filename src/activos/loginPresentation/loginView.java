@@ -66,7 +66,6 @@ public class loginView extends javax.swing.JFrame implements Observer {
         IngresarButton = new javax.swing.JButton();
         SalirButton = new javax.swing.JButton();
         ClaveTextField = new javax.swing.JPasswordField();
-        Dependencia = new javax.swing.JComboBox<>();
         FONDO = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -84,7 +83,7 @@ public class loginView extends javax.swing.JFrame implements Observer {
         ClaveLabel.setText("Clave :");
         getContentPane().add(ClaveLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
 
-        idTextField.setText("registrador2");
+        idTextField.setText("jefe_RRHH");
         idTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 idTextFieldActionPerformed(evt);
@@ -98,7 +97,7 @@ public class loginView extends javax.swing.JFrame implements Observer {
                 IngresarButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(IngresarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, -1, -1));
+        getContentPane().add(IngresarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, -1, -1));
 
         SalirButton.setText("Salir");
         SalirButton.addActionListener(new java.awt.event.ActionListener() {
@@ -106,9 +105,9 @@ public class loginView extends javax.swing.JFrame implements Observer {
                 SalirButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(SalirButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 150, 73, -1));
+        getContentPane().add(SalirButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, 73, -1));
 
-        ClaveTextField.setText("ddd");
+        ClaveTextField.setText("eeee");
         ClaveTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ClaveTextFieldActionPerformed(evt);
@@ -116,13 +115,10 @@ public class loginView extends javax.swing.JFrame implements Observer {
         });
         getContentPane().add(ClaveTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 180, -1));
 
-        Dependencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Benjamin Nunez", "Omar Dengo", " " }));
-        getContentPane().add(Dependencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, 180, -1));
-
         FONDO.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         FONDO.setForeground(new java.awt.Color(255, 255, 255));
         FONDO.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/fondo.jpg"))); // NOI18N
-        getContentPane().add(FONDO, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 290, 210));
+        getContentPane().add(FONDO, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 290, 180));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -130,17 +126,15 @@ public class loginView extends javax.swing.JFrame implements Observer {
     private void IngresarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IngresarButtonActionPerformed
         String id = this.idTextField.getText();
         String clave = this.ClaveTextField.getText();
-        String nombreDependencia = this.Dependencia.getPrototypeDisplayValue();
-        Dependencia dependencia = new Dependencia(1234,"Benjamin","Lagunilla-Heredia");
         Usuario _user = null;
         try {
-            _user = controller.validar(id, clave, dependencia);
+            _user = controller.validar(id, clave);
         } catch (Exception ex) {
             Logger.getLogger(loginView.class.getName()).log(Level.SEVERE, null, ex);
         }
         if(_user != null){
             try {
-                controller.login(_user,dependencia);
+                controller.login(_user);
                 //JOptionPane.showMessageDialog(rootPane, "Ingresado Correctamente");
                  
                 switch(_user.getTipoUsuario()){
@@ -148,6 +142,7 @@ public class loginView extends javax.swing.JFrame implements Observer {
                     case 2: controller.ingresoAdmin(); break;
                     case 3: controller.ingresoJefe(); break;
                     case 4: controller.ingresoRegistrador(); break;
+                    case 5 : controller.ingresoJefeRHHH(); break;
                     // case para cada tipo de usuario
                 }
             } catch (Exception ex) {
@@ -186,7 +181,6 @@ public class loginView extends javax.swing.JFrame implements Observer {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ClaveLabel;
     private javax.swing.JPasswordField ClaveTextField;
-    private javax.swing.JComboBox<String> Dependencia;
     private javax.swing.JLabel FONDO;
     private javax.swing.JButton IngresarButton;
     private javax.swing.JButton SalirButton;

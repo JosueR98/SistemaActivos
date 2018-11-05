@@ -8,11 +8,9 @@ package activos.adminPresentation.agregar;
 import activos.logic.Bien;
 import activos.logic.Solicitud;
 import java.awt.Graphics;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.logging.Level;
@@ -60,7 +58,9 @@ public class agregarView extends javax.swing.JFrame implements Observer {
     public void paint(Graphics g) {
         super.paint(g);
         if(tipo != -1){
-            this.TipoSelector.setEditable(false);
+            this.TipoSelector.setEnabled(false);
+        }else{
+            this.TipoSelector.setEnabled(true);
         }
         this.setTitle("Agregar Solicitud");
         muestraTabla();
@@ -302,7 +302,7 @@ public class agregarView extends javax.swing.JFrame implements Observer {
     private void AgregarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarButtonActionPerformed
 
         try {
-            model.setSolicitud(new Solicitud(new Date(), model.getBienes(),tipo, model.getDependenciaActual()));
+            model.setSolicitud(new Solicitud(new Date(), model.getBienes(),tipo, model.getUsuarioActual().getDependencia()));
 
             activos.data.SolicitudesDB.add(model.getSolicitud()); 
 
@@ -325,6 +325,9 @@ public class agregarView extends javax.swing.JFrame implements Observer {
        
         
         this.model.setSolicitud(new Solicitud());
+        this.model.setBienes(new ArrayList<>());
+         this.tipo = -1;
+          this.total.setText("0.0");
     }//GEN-LAST:event_AgregarButtonActionPerformed
         
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -367,7 +370,7 @@ public class agregarView extends javax.swing.JFrame implements Observer {
   
                 tipo = this.TipoSelector.getSelectedIndex()+1;
               
-               
+
                 for (int i = 0; i < cantidad; i++) {
                     _bien = new Bien(marca, modelo, descripcion, precio);
                      model.getBienes().add(_bien);
@@ -388,6 +391,9 @@ public class agregarView extends javax.swing.JFrame implements Observer {
          this.setVisible(false);
          this.model.getControladorPadre().getView().setVisible(true);
          model.setSolicitud(new Solicitud());
+          this.model.setBienes(new ArrayList<>());
+          this.tipo = -1;
+          this.total.setText("0.0");
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void TipoSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TipoSelectorActionPerformed

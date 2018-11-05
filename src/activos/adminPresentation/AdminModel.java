@@ -12,7 +12,6 @@ import activos.adminPresentation.agregar.agregarView;
 import activos.adminPresentation.verEspecifica.verController;
 import activos.adminPresentation.verEspecifica.verModel;
 import activos.adminPresentation.verEspecifica.verView;
-import activos.logic.Dependencia;
 import activos.logic.Usuario;
 import java.sql.SQLException;
 
@@ -23,7 +22,7 @@ import java.sql.SQLException;
 public class AdminModel extends Observable {
     
     private Usuario usuarioActual;
-    private  Dependencia dependenciaActual;
+
      //Agregar
    private  agregarModel agregarModel;
    private agregarController agregarControlador;
@@ -36,7 +35,6 @@ public class AdminModel extends Observable {
      
     public AdminModel() {
         usuarioActual = activos.loginPresentation.loginModel.getUsuarioActual();
-        dependenciaActual = activos.loginPresentation.loginModel.getDependenciaActual();
         agregarModel = new agregarModel();
         agregarView = new agregarView();
         agregarControlador = new agregarController(agregarModel,agregarView);
@@ -59,9 +57,6 @@ public class AdminModel extends Observable {
         notifyObservers();
     }
 
-    public Dependencia getDependenciaActual() {
-        return dependenciaActual;
-    }
 
     public agregarModel getAgregarModel() {
         return agregarModel;

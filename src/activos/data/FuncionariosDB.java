@@ -8,6 +8,8 @@ package activos.data;
 import activos.logic.Funcionario;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -45,5 +47,21 @@ public class FuncionariosDB {
         else{
             return null;
         }
+    }
+    
+    public static List<Funcionario> getLista() throws SQLException{
+        List<Funcionario> salida = new ArrayList<>();
+        Funcionario _funcionario = null;
+        String sql = "select * from funcionarios";
+        ResultSet rs = db.executeQuery(sql);
+        while(rs.next()){
+            _funcionario = new Funcionario();
+            _funcionario.setCedula(rs.getInt("cedula"));
+            _funcionario.setNombre(rs.getString("nombre"));
+            _funcionario.setCorreo(rs.getString("correo"));
+            salida.add(_funcionario);    
+        }
+
+        return salida;
     }
 }

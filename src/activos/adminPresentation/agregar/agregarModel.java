@@ -7,11 +7,9 @@ package activos.adminPresentation.agregar;
 
 import activos.adminPresentation.AdminController;
 import java.util.Observable;
-import java.util.Observer;
 import activos.logic.Usuario;
 import java.util.List;
 import activos.logic.Bien;
-import activos.logic.Dependencia;
 import activos.logic.Solicitud;
 import java.util.ArrayList;
 
@@ -22,7 +20,7 @@ import java.util.ArrayList;
 public class agregarModel extends Observable {
         
      private Usuario usuarioActual;
-     private Dependencia dependenciaActual; 
+
      private List<Bien> bienes;
      private Solicitud solicitud;   
      
@@ -30,7 +28,6 @@ public class agregarModel extends Observable {
      
     public agregarModel() {
         usuarioActual = activos.loginPresentation.loginModel.getUsuarioActual();
-        dependenciaActual = activos.loginPresentation.loginModel.getDependenciaActual();
         bienes = new ArrayList<>();
         solicitud = new Solicitud();
     }
@@ -72,10 +69,6 @@ public class agregarModel extends Observable {
             total += bien.getPrecio_unitario();
         }
         return total;
-    }
-
-    public Dependencia getDependenciaActual() {
-        return dependenciaActual;
     }
 
     public AdminController getControladorPadre() {

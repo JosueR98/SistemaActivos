@@ -346,8 +346,8 @@ public class verView extends javax.swing.JFrame implements Observer {
                     case 1: _estado = "Recibida"; break;
                     case 2: _estado = "Por verificar";break;
                     case 3: _estado = "Cancelada";break;
-                    case 4: _estado = "Procesada";break;
-                    case 5: _estado = "Espera de rotulacion";break;
+                    case 4: _estado = "Espera de rotulacion";break;
+                    case 5: _estado = "Procesada";break;
                 }
        this.Estado.setText(_estado);
        this.Fecha.setText(model.getSolicitud().getFecha().toString());
@@ -419,7 +419,6 @@ public class verView extends javax.swing.JFrame implements Observer {
     }
 };
        
-       
         modelo.addColumn("Codigo");
         modelo.addColumn("Descripcion");
         modelo.addColumn("Marca");
@@ -453,12 +452,10 @@ public class verView extends javax.swing.JFrame implements Observer {
             modelo.addRow(datos);
  
         }   
-    }else
-            System.out.print("Hola");
-    
-
     }
     
+    
   
+}
 }
 

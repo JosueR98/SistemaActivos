@@ -5,11 +5,7 @@
  */
 package activos.registrador;
 
-import activos.adminPresentation.verEspecifica.verController;
-import activos.adminPresentation.verEspecifica.verModel;
-import activos.adminPresentation.verEspecifica.verView;
 import activos.logic.Bien;
-import activos.logic.Dependencia;
 import activos.logic.Solicitud;
 import activos.logic.Usuario;
 import activos.registrador.verBienes.bienesController;
@@ -26,7 +22,7 @@ import java.util.Observer;
  */
 public class RegistradorModel extends Observable {
     Usuario usuarioActual;
-    Dependencia dependenciaActual;
+
     List<Bien> bienesPorRegistrar;
     List<Solicitud> solicitudes;
     
@@ -37,7 +33,7 @@ public class RegistradorModel extends Observable {
     
     public RegistradorModel() throws Exception {
         this.usuarioActual = activos.loginPresentation.loginModel.getUsuarioActual();
-        this.dependenciaActual = activos.loginPresentation.loginModel.getDependenciaActual();
+
         this.bienesPorRegistrar = activos.data.BienesDB.listaPorRegistrador(usuarioActual);
         solicitudes = new ArrayList<>();
         
@@ -54,9 +50,6 @@ public class RegistradorModel extends Observable {
         return usuarioActual;
     }
 
-    public Dependencia getDependenciaActual() {
-        return dependenciaActual;
-    }
 
     public List<Bien> getBienesPorRegistrar() {
         return bienesPorRegistrar;

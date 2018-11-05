@@ -33,6 +33,7 @@ public class Puesto {
 
     public Puesto() {
        dependencia = null;
+       funcionario = null;
     }
 
     public int getCodigo() {

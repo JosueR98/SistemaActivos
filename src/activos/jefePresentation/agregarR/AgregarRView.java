@@ -47,34 +47,28 @@ public class AgregarRView extends javax.swing.JFrame implements Observer {
        
     }
 
-    
-    
+ 
     private void muestraTabla() throws SQLException, Exception{
  
     List<Usuario> Usuarios = activos.data.UsuariosDB.getListaPorTipo(4);
     DefaultTableModel modelo = new DefaultTableModel();
     modelo.addColumn("Id");
     modelo.addColumn("Cedula del Funcionario");
-    modelo.addColumn("Nombre de la dependencia");
+
     
-    String[] datos = new String[3];
+    String[] datos = new String[2];
     for(Usuario usuario : Usuarios){
             
             datos[0] = "" + usuario.getId();
             datos[1]=""+ usuario.getFuncionario().getCedula();
-            datos[2]= ""+ usuario.getDependencia().getNombre();
             modelo.addRow(datos);
         }
     
             this.jTable1.setModel(modelo);
             
-            this.jTable1.getColumnModel().getColumn(0).setPreferredWidth(20);
-            this.jTable1.getColumnModel().getColumn(1).setPreferredWidth(100);
-            this.jTable1.getColumnModel().getColumn(2).setPreferredWidth(65);
-
-
-    
-    
+            this.jTable1.getColumnModel().getColumn(0).setPreferredWidth(50);
+            this.jTable1.getColumnModel().getColumn(1).setPreferredWidth(50);
+   
 }
     
     

@@ -16,7 +16,6 @@ import activos.logic.Usuario;
 public class loginModel extends Observable {
     
     static Usuario usuarioActual;
-    static Dependencia dependenciaActual;
     
     public loginModel() {
         usuarioActual = new Usuario();
@@ -26,13 +25,8 @@ public class loginModel extends Observable {
         return usuarioActual;
     }
 
-    public static Dependencia getDependenciaActual() {
-        return dependenciaActual;
-    }
-
-    public void setCurrent(Usuario usuarioActual, Dependencia dependencia) {
+    public void setCurrent(Usuario usuarioActual) {
         this.usuarioActual = usuarioActual;
-        this.dependenciaActual = dependencia;
         setChanged();
         notifyObservers();
     }

@@ -175,16 +175,16 @@ insert into Funcionarios(cedula,nombre,correo) values(532525276,"Oscar Ortega", 
 insert into Funcionarios(cedula,nombre,correo) values(421412423,"Felipe Ruiz", "felie@gmail.com");
 
 
-insert into puestos(codigo,rol,Funcionarios_cedula,Dependencias_codigo) values (0,"Administrador de la dependencia", 403013010,2345);
-insert into puestos(codigo,rol,Funcionarios_cedula,Dependencias_codigo) values (0,"Secretaria de la OCCB", 104294103,2345);
-insert into puestos(codigo,rol,Funcionarios_cedula,Dependencias_codigo) values (0,"Jefe de la OCCB", 204030103,2345);
-insert into puestos(codigo,rol,Funcionarios_cedula,Dependencias_codigo) values (0,"Registrador de bienes", 304014014,2345);
-insert into puestos(codigo,rol,Funcionarios_cedula,Dependencias_codigo) values (0,"Registrador de bienes", 532525276,2345);
-insert into puestos(codigo,rol,Funcionarios_cedula,Dependencias_codigo) values (0,"Registrador de bienes", 421412423,2345);
-insert into puestos(codigo,rol,Funcionarios_cedula,Dependencias_codigo) values (0,"Jefe de RRHH", 550240204,2345 );
-insert into puestos(codigo,rol,Funcionarios_cedula,Dependencias_codigo) values (0,"Jefe de RRHH Y OCCB", 634203014,2345 );
-insert into puestos(codigo,rol,Funcionarios_cedula,Dependencias_codigo) values (0,"Profesor", 421421412,2345 );
-insert into puestos(codigo,rol,Funcionarios_cedula,Dependencias_codigo) values (0,"Conserje", 532523523,2345 );
+insert into puestos(codigo,rol,Funcionarios_cedula,Dependencias_codigo) values (0,"Administrador de la dependencia", 403013010,1234);
+insert into puestos(codigo,rol,Funcionarios_cedula,Dependencias_codigo) values (0,"Secretaria de la OCCB", 104294103,1234);
+insert into puestos(codigo,rol,Funcionarios_cedula,Dependencias_codigo) values (0,"Jefe de la OCCB", 204030103,1234);
+insert into puestos(codigo,rol,Funcionarios_cedula,Dependencias_codigo) values (0,"Registrador de bienes", 304014014,1234);
+insert into puestos(codigo,rol,Funcionarios_cedula,Dependencias_codigo) values (0,"Registrador de bienes", 532525276,1234);
+insert into puestos(codigo,rol,Funcionarios_cedula,Dependencias_codigo) values (0,"Registrador de bienes", 421412423,1234);
+insert into puestos(codigo,rol,Funcionarios_cedula,Dependencias_codigo) values (0,"Jefe de RRHH", 550240204,1234 );
+insert into puestos(codigo,rol,Funcionarios_cedula,Dependencias_codigo) values (0,"Jefe de RRHH Y OCCB", 634203014,1234 );
+insert into puestos(codigo,rol,Funcionarios_cedula,Dependencias_codigo) values (0,"Profesor", 421421412,1234 );
+insert into puestos(codigo,rol,Funcionarios_cedula,Dependencias_codigo) values (0,"Conserje", 532523523,1234 );
 
 insert into puestos(codigo,rol,Funcionarios_cedula,Dependencias_codigo) values (0,"Profesor ", NULL,2345 );
 insert into puestos(codigo,rol,Funcionarios_cedula,Dependencias_codigo) values (0,"Contador", NULL,2345);

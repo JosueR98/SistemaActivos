@@ -26,6 +26,14 @@ public class Activo {
         this.descripcion = descripcion;
         this.encargado = encargado;
     }
+    
+    
+    public Activo(String categoria, String descripcion, Puesto encargado) {
+        this.codigo = -1;
+        this.categoria = categoria;
+        this.descripcion = descripcion;
+        this.encargado = encargado;
+    }
 
     public String getCategoria() {
         return categoria;

@@ -6,14 +6,9 @@
 package activos.registrador;
 
 import activos.adminPresentation.AdminView;
-import activos.data.RelDatabase;
 import activos.logic.Solicitud;
-import activos.registrador.verBienes.bienesController;
-import activos.registrador.verBienes.bienesModel;
-import activos.registrador.verBienes.bienesView;
 import java.awt.Graphics;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.logging.Level;
@@ -74,7 +69,9 @@ public class RegistradorView extends javax.swing.JFrame implements Observer {
         
         String[] datos = new String[6];
         for(Solicitud solicitud : model.getSolicitudes()){
-                
+                if(!model.bienesPorRegistrar.isEmpty()){
+                    
+                    if(!controller.todosLosBienesRegistrados(solicitud)){
                 datos[0] = "" + solicitud.getCodigoSolicitud();
                 datos[1] = solicitud.getFecha().toString();
                 datos[2] = "" + solicitud.getMontoTotal();
@@ -90,10 +87,12 @@ public class RegistradorView extends javax.swing.JFrame implements Observer {
                     case 1: datos[4] = "Recibida"; break;
                     case 2: datos[4]= "Por verificar";break;
                     case 3: datos[4] = "Cancelada";break;
-                    case 4: datos[4]= "Procesada";break;
-                    case 5: datos[4] = "Espera de rotulacion";break;
+                    case 4: datos[4]= "Espera de rotulacion";break;
+                    case 5: datos[4] = "Procesada";break;
                 }
                 modelo.addRow(datos);
+                    }
+                }
             }
         
                 this.jTable1.setModel(modelo);

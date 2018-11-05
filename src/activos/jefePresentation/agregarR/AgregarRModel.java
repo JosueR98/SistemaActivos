@@ -6,7 +6,6 @@
 package activos.jefePresentation.agregarR;
 
 import activos.jefePresentation.JefeController;
-import activos.logic.Dependencia;
 import activos.logic.Solicitud;
 import activos.logic.Usuario;
 import java.util.Observable;
@@ -17,13 +16,12 @@ import java.util.Observable;
  */
 public class AgregarRModel extends Observable {
     private Usuario usuarioActual;
-    private  Dependencia dependenciaActual;
+   
     private Solicitud solicitud;
     public JefeController _controladorPadre;
     
     public AgregarRModel(int soli) throws Exception {
         usuarioActual = activos.loginPresentation.loginModel.getUsuarioActual();
-        dependenciaActual = activos.loginPresentation.loginModel.getDependenciaActual();
         this.solicitud = activos.data.SolicitudesDB.get(soli);
         
     }
@@ -36,13 +34,6 @@ public class AgregarRModel extends Observable {
         this.usuarioActual = usuarioActual;
     }
 
-    public Dependencia getDependenciaActual() {
-        return dependenciaActual;
-    }
-
-   public void setDependenciaActual(Dependencia dependenciaActual) {
-        this.dependenciaActual = dependenciaActual;
-    }
 
     public JefeController getControladorPadre() {
         return _controladorPadre;

@@ -106,7 +106,7 @@ public class JefeView extends javax.swing.JFrame implements Observer {
         return;
     }
     try {
-        model.AgregarRTrio(codigo); 
+       model.AgregarRTrio(codigo); 
        model.getARview().setVisible(true);
        model.getARmodel().setControladorPadre(controller);
        this.setVisible(false);
@@ -136,7 +136,7 @@ public class JefeView extends javax.swing.JFrame implements Observer {
     private void muestraTabla() throws SQLException, Exception{
     RelDatabase r = new RelDatabase();
     
-    List<Solicitud> solicitudes = activos.data.SolicitudesDB.getListaPorDependencia(model.getDependenciaActual());
+    List<Solicitud> solicitudes = activos.data.SolicitudesDB.getListaPorDependencia(model.getUsuarioActual().getDependencia());
     DefaultTableModel modelo = new DefaultTableModel();
     modelo.addColumn("Codigo");
     modelo.addColumn("Fecha");

@@ -192,8 +192,8 @@ public class AdminView extends javax.swing.JFrame implements Observer{
     
     private void muestraTabla() throws SQLException, Exception{
         RelDatabase r = new RelDatabase();
-        
-        List<Solicitud> solicitudes = activos.data.SolicitudesDB.getListaPorDependencia(model.getDependenciaActual());
+        boolean esSecretaria = (model.getUsuarioActual().getTipoUsuario() == 2);
+        List<Solicitud> solicitudes = activos.data.SolicitudesDB.getListaPorDependencia(model.getUsuarioActual().getDependencia());
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("Codigo");
         modelo.addColumn("Fecha");
@@ -203,7 +203,7 @@ public class AdminView extends javax.swing.JFrame implements Observer{
         
         String[] datos = new String[6];
         for(Solicitud solicitud : solicitudes){
-                
+                if(!(solicitud.getEstado() != 1 && esSecretaria)){
                 datos[0] = "" + solicitud.getCodigoSolicitud();
                 datos[1] = solicitud.getFecha().toString();
                 datos[2] = "" + solicitud.getMontoTotal();
@@ -223,6 +223,7 @@ public class AdminView extends javax.swing.JFrame implements Observer{
                     case 5: datos[4] = "Espera de rotulacion";break;
                 }
                 modelo.addRow(datos);
+                }
             }
         
                 this.jTable1.setModel(modelo);
@@ -233,8 +234,6 @@ public class AdminView extends javax.swing.JFrame implements Observer{
                 this.jTable1.getColumnModel().getColumn(3).setPreferredWidth(15);
                 this.jTable1.getColumnModel().getColumn(4).setPreferredWidth(20);
     
-        
-        
     }
     private void borrarSeleccionadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarSeleccionadoActionPerformed
         // TODO add your handling code here:
@@ -279,10 +278,7 @@ public class AdminView extends javax.swing.JFrame implements Observer{
         }catch(Exception e){
             JOptionPane.showMessageDialog(rootPane, "No has seleccionado ninguna celda.");
             return;
-        }
-    
-        
-        
+        }        
         try {
             model.verTrio(codigo);
             model.getVerModel().setControladorPadre(controller);

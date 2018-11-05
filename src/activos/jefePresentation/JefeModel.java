@@ -5,13 +5,9 @@
  */
 package activos.jefePresentation;
 
-import activos.adminPresentation.agregar.agregarController;
-import activos.adminPresentation.agregar.agregarModel;
-import activos.adminPresentation.agregar.agregarView;
 import activos.jefePresentation.agregarR.AgregarRController;
 import activos.jefePresentation.agregarR.AgregarRModel;
 import activos.jefePresentation.agregarR.AgregarRView;
-import activos.logic.Dependencia;
 import activos.logic.Usuario;
 import java.util.Observable;
 
@@ -21,16 +17,14 @@ import java.util.Observable;
  */
 public class JefeModel extends Observable{
     private Usuario usuarioActual;
-    private  Dependencia dependenciaActual;
+
     
     private AgregarRController ARcontroller;
     private AgregarRModel ARmodel;
     private AgregarRView ARview;
     
     public JefeModel() {
-        usuarioActual = activos.loginPresentation.loginModel.getUsuarioActual();
-        dependenciaActual = activos.loginPresentation.loginModel.getDependenciaActual();
-        
+        usuarioActual = activos.loginPresentation.loginModel.getUsuarioActual();     
     }
     
     public void AgregarRTrio(int codigo) throws Exception{
@@ -46,15 +40,7 @@ public class JefeModel extends Observable{
     public void setUsuarioActual(Usuario usuarioActual) {
         this.usuarioActual = usuarioActual;
     }
-
-    public Dependencia getDependenciaActual() {
-        return dependenciaActual;
-    }
-
-   public void setDependenciaActual(Dependencia dependenciaActual) {
-        this.dependenciaActual = dependenciaActual;
-    }
-
+    
     public AgregarRController getARcontroller() {
         return ARcontroller;
     }

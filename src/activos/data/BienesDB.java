@@ -61,7 +61,7 @@ public class BienesDB {
             _bien.setModelo(rs.getString("modelo"));
             _bien.setPrecio_unitario(rs.getDouble("precioUnitario"));
             _bien.setSolicitud(rs.getInt("Solicitudes_codigo"));
-            _bien.setRegistrador(rs.getString("Registador_id"));
+            _bien.setRegistrador(rs.getString("Usuarios_id"));
             _bien.setEstaRegistrado(rs.getBoolean("estaRegistrado"));
             return _bien;
         }

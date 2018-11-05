@@ -11,10 +11,12 @@ import java.util.logging.Logger;
 import activos.adminPresentation.AdminController;
 import activos.adminPresentation.AdminModel;
 import activos.adminPresentation.AdminView;
+import activos.funcionarios.FuncionariosController;
+import activos.funcionarios.FuncionariosModel;
+import activos.funcionarios.FuncionariosView;
 import activos.jefePresentation.JefeController;
 import activos.jefePresentation.JefeModel;
 import activos.jefePresentation.JefeView;
-import activos.logic.Dependencia;
 import activos.logic.Usuario;
 import activos.registrador.RegistradorController;
 import activos.registrador.RegistradorModel;
@@ -35,19 +37,19 @@ public class loginController {
         view.setModel(model);
     }
 
-    public void login(Usuario typed, Dependencia choosed) throws Exception{
+    public void login(Usuario typed) throws Exception{
         Usuario _user = activos.data.UsuariosDB.get(typed.getId(), typed.getClave());
-        model.setCurrent(_user,choosed);
+        model.setCurrent(_user);
         view.setVisible(false);
     }   
 
     public void logout(){
-        model.setCurrent(new Usuario(), new Dependencia());
+        model.setCurrent(new Usuario());
         view.setVisible(true);
         exit();
     }
     
-    public Usuario validar(String id, String clave, Dependencia actual) throws Exception{
+    public Usuario validar(String id, String clave) throws Exception{
    
         Usuario _user = null;
         
@@ -89,5 +91,13 @@ public class loginController {
         RegistradorController _controller = new RegistradorController(_model,_view);
         _view.setVisible(true);
         view.setVisible(false);
+    }
+
+    void ingresoJefeRHHH() throws SQLException {
+       FuncionariosModel _model = new FuncionariosModel();
+       FuncionariosView _view = new FuncionariosView();
+       FuncionariosController _controller = new FuncionariosController(_model,_view);
+       _view.setVisible(true);
+       view.setVisible(false);
     }
 }
