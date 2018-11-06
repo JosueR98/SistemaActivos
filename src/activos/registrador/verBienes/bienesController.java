@@ -12,6 +12,7 @@ import activos.logic.Bien;
  * @author Josue R
  */
 public class bienesController {
+
     bienesModel model;
     bienesView view;
 
@@ -28,14 +29,15 @@ public class bienesController {
 
     public bienesView getView() {
         return view;
-    } 
+    }
 
     public boolean verificar() {
-   
-       for(Bien bien: model.getBienes()){
-           if(!bien.isEstaRegistrado())
-               return false;
+
+        for (Bien bien : model.getBienes()) {
+            if (!bien.isEstaRegistrado()) {
+                return false;
+            }
+        }
+        return true;
     }
-       return true;
-}
 }

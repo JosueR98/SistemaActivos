@@ -20,32 +20,32 @@ import java.sql.SQLException;
  * @author Josue R
  */
 public class AdminModel extends Observable {
-    
+
     private Usuario usuarioActual;
 
-     //Agregar
-   private  agregarModel agregarModel;
-   private agregarController agregarControlador;
-   private  agregarView agregarView;
-     
-     //Ver
-   private  verModel verModel;
-   private  verController verController;
-   private  verView verView;
-     
+    //Agregar
+    private agregarModel agregarModel;
+    private agregarController agregarControlador;
+    private agregarView agregarView;
+
+    //Ver
+    private verModel verModel;
+    private verController verController;
+    private verView verView;
+
     public AdminModel() {
         usuarioActual = activos.loginPresentation.loginModel.getUsuarioActual();
         agregarModel = new agregarModel();
         agregarView = new agregarView();
-        agregarControlador = new agregarController(agregarModel,agregarView);
+        agregarControlador = new agregarController(agregarModel, agregarView);
     }
-    
-    public void verTrio(int codigo) throws SQLException, Exception{
+
+    public void verTrio(int codigo) throws SQLException, Exception {
         verModel = new verModel(codigo);
         verView = new verView();
-        verController = new verController(verModel,verView);
+        verController = new verController(verModel, verView);
     }
-    
+
     public Usuario getUsuarioActual() {
         return usuarioActual;
     }
@@ -56,7 +56,6 @@ public class AdminModel extends Observable {
         setChanged();
         notifyObservers();
     }
-
 
     public agregarModel getAgregarModel() {
         return agregarModel;
@@ -81,8 +80,5 @@ public class AdminModel extends Observable {
     public verView getVerView() {
         return verView;
     }
-    
-  
-    
-    
+
 }

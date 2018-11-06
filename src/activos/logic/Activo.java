@@ -12,11 +12,12 @@ import java.sql.SQLException;
  * @author Josue R
  */
 public class Activo {
+
     private int codigo;
     private String categoria;
     private String descripcion;
     private Puesto encargado;
-    
+
     public Activo() {
     }
 
@@ -26,8 +27,7 @@ public class Activo {
         this.descripcion = descripcion;
         this.encargado = encargado;
     }
-    
-    
+
     public Activo(String categoria, String descripcion, Puesto encargado) {
         this.codigo = -1;
         this.categoria = categoria;
@@ -66,9 +66,9 @@ public class Activo {
     public void setEncargado(Puesto encargado) {
         this.encargado = encargado;
     }
-    
-     public void setEncargado(int encargado) throws SQLException {
-         this.encargado = activos.data.PuestosDB.get(encargado);
+
+    public void setEncargado(int encargado) throws SQLException {
+        this.encargado = activos.data.PuestosDB.get(encargado);
     }
-    
+
 }

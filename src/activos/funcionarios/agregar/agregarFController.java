@@ -36,7 +36,5 @@ public class agregarFController {
     public void setView(agregarFView view) {
         this.view = view;
     }
-    
-    
 
 }

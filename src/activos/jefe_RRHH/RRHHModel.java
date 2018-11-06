@@ -8,7 +8,9 @@ package activos.jefe_RRHH;
 import activos.funcionarios.agregar.agregarFController;
 import activos.funcionarios.agregar.agregarFModel;
 import activos.funcionarios.agregar.agregarFView;
+import activos.logic.Dependencia;
 import activos.logic.Funcionario;
+import activos.logic.Puesto;
 import activos.logic.Usuario;
 import java.sql.SQLException;
 import java.util.List;
@@ -20,22 +22,26 @@ import java.util.Observer;
  * @author Josue R
  */
 public class RRHHModel extends Observable {
+
     private Usuario current;
     private List<Funcionario> funcionarios;
-    
+    private List<Dependencia> dependencias;
+    private List<Puesto> puestos;
+
     //Hijos
     private agregarFModel agregarModel;
-    private  agregarFController agregarController;
+    private agregarFController agregarController;
     private agregarFView agregarView;
-    
-    
+
     public RRHHModel() throws SQLException {
         this.current = activos.loginPresentation.loginModel.getUsuarioActual();
-        cargarLista();
+        cargarListaFuncionarios();
+        cargarListaPuestos();
+        cargarListaDependencias();
         agregarModel = new agregarFModel();
         agregarView = new agregarFView();
-        agregarController = new agregarFController(agregarModel,agregarView);
-        
+        agregarController = new agregarFController(agregarModel, agregarView);
+
     }
 
     public Usuario getCurrent() {
@@ -48,9 +54,17 @@ public class RRHHModel extends Observable {
         setChanged();
         notifyObservers();
     }
-    
-    public void cargarLista() throws SQLException{
+
+    public void cargarListaFuncionarios() throws SQLException {
         funcionarios = activos.data.FuncionariosDB.getLista();
+    }
+
+    public void cargarListaPuestos() throws SQLException {
+        puestos = activos.data.PuestosDB.getLista();
+    }
+
+    public void cargarListaDependencias() throws SQLException {
+        dependencias = activos.data.DependenciasDB.getLista();
     }
 
     public List<Funcionario> getFuncionarios() {
@@ -68,5 +82,13 @@ public class RRHHModel extends Observable {
     public agregarFView getAgregarView() {
         return agregarView;
     }
-    
+
+    public List<Dependencia> getDependencias() {
+        return dependencias;
+    }
+
+    public List<Puesto> getPuestos() {
+        return puestos;
+    }
+
 }

@@ -17,49 +17,47 @@ import java.util.List;
  */
 public class FuncionariosDB {
 
-     static final RelDatabase db = new RelDatabase();
-     
+    static final RelDatabase db = new RelDatabase();
 
-    public static void add(Funcionario funcionario) throws Exception{
-      String sql="insert into Funcionarios (cedula, nombre, correo)"+
-                "values(%d,'%s','%s')";
-  
-        sql=String.format(sql,funcionario.getCedula(),funcionario.getNombre(),funcionario.getCorreo());
+    public static void add(Funcionario funcionario) throws Exception {
+        String sql = "insert into Funcionarios (cedula, nombre, correo)"
+                + "values(%d,'%s','%s')";
 
-        int count=db.executeUpdate(sql);
-        if (count==0){
+        sql = String.format(sql, funcionario.getCedula(), funcionario.getNombre(), funcionario.getCorreo());
+
+        int count = db.executeUpdate(sql);
+        if (count == 0) {
             throw new Exception();
         }
     }
-    
+
     public static Funcionario get(int cedula) throws SQLException {
         Funcionario _funcionario = new Funcionario();
-        String sql="select * from Funcionarios where cedula= %d";
-        sql = String.format(sql,cedula);
-        ResultSet rs =  db.executeQuery(sql);
+        String sql = "select * from Funcionarios where cedula= %d";
+        sql = String.format(sql, cedula);
+        ResultSet rs = db.executeQuery(sql);
         if (rs.next()) {
             _funcionario = new Funcionario();
             _funcionario.setCedula(rs.getInt("cedula"));
             _funcionario.setNombre(rs.getString("nombre"));
             _funcionario.setCorreo(rs.getString("correo"));
             return _funcionario;
-        }
-        else{
+        } else {
             return null;
         }
     }
-    
-    public static List<Funcionario> getLista() throws SQLException{
+
+    public static List<Funcionario> getLista() throws SQLException {
         List<Funcionario> salida = new ArrayList<>();
         Funcionario _funcionario = null;
         String sql = "select * from funcionarios";
         ResultSet rs = db.executeQuery(sql);
-        while(rs.next()){
+        while (rs.next()) {
             _funcionario = new Funcionario();
             _funcionario.setCedula(rs.getInt("cedula"));
             _funcionario.setNombre(rs.getString("nombre"));
             _funcionario.setCorreo(rs.getString("correo"));
-            salida.add(_funcionario);    
+            salida.add(_funcionario);
         }
 
         return salida;

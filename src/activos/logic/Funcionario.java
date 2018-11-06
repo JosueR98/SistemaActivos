@@ -10,20 +10,21 @@ package activos.logic;
  * @author Josue R
  */
 public class Funcionario {
+
     private int cedula;
     private String nombre;
     private String correo;
-    
+
     public Funcionario() {
-  
+
     }
-    
+
     public Funcionario(int cedula, String nombre, String correo) {
         this.cedula = cedula;
         this.nombre = nombre;
         this.correo = correo;
     }
-    
+
     public int getCedula() {
         return cedula;
     }
@@ -47,5 +48,5 @@ public class Funcionario {
     public void setCorreo(String correo) {
         this.correo = correo;
     }
-    
+
 }

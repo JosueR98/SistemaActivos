@@ -20,12 +20,12 @@ import javax.swing.JOptionPane;
  *
  * @author Josue R
  */
-public class bienesModel extends Observable{
-    
+public class bienesModel extends Observable {
+
     private Solicitud solicitud;
     private List<Bien> bienes;
     private RegistradorController controladorPadre;
-    
+
     private RegistrarController Rcontroller;
     private RegistrarModel Rmodel;
     private RegistrarView Rview;
@@ -38,18 +38,19 @@ public class bienesModel extends Observable{
     public Solicitud getSolicitud() {
         return solicitud;
     }
-    
-    public void recargarLista() throws Exception{
+
+    public void recargarLista() throws Exception {
         bienes = null;
         bienes = activos.data.BienesDB.listaPorSolicitud(solicitud);
     }
 
-    public void RegistrarTrio(int cod) throws Exception{
-        Rmodel= new RegistrarModel(cod);
-        Rview=  new RegistrarView();
-        Rcontroller= new RegistrarController(Rmodel, Rview);
-    
+    public void RegistrarTrio(int cod) throws Exception {
+        Rmodel = new RegistrarModel(cod);
+        Rview = new RegistrarView();
+        Rcontroller = new RegistrarController(Rmodel, Rview);
+
     }
+
     public void setSolicitud(int soli) throws Exception {
         solicitud = activos.data.SolicitudesDB.get(soli);
         bienes = activos.data.BienesDB.listaPorSolicitud(solicitud);
@@ -99,6 +100,5 @@ public class bienesModel extends Observable{
     public void setRview(RegistrarView Rview) {
         this.Rview = Rview;
     }
-    
-    
+
 }

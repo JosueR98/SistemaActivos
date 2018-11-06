@@ -29,7 +29,6 @@ public class agregarView extends javax.swing.JFrame implements Observer {
 
     private int tipo = -1;
 
-    
     public agregarModel getModel() {
         return model;
     }
@@ -57,48 +56,53 @@ public class agregarView extends javax.swing.JFrame implements Observer {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        if(tipo != -1){
+        if (tipo != -1) {
             this.TipoSelector.setEnabled(false);
-        }else{
+        } else {
             this.TipoSelector.setEnabled(true);
         }
         this.setTitle("Agregar Solicitud");
         muestraTabla();
-        
+
     }
 
-    
-    private void muestraTabla(){
-        DefaultTableModel modelo = new DefaultTableModel();
+    private void muestraTabla() {
+        DefaultTableModel modelo = new DefaultTableModel() {
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
 
         modelo.addColumn("Descripcion");
         modelo.addColumn("Marca");
         modelo.addColumn("Modelo");
-        modelo.addColumn("Precio Unitario");
+        modelo.addColumn("Precio por unidad");
         modelo.addColumn("Cantidad");
-        
+
         String[] datos = new String[5];
 
         this.BienesTable.setModel(modelo);
-        
-      
-        if(!model.getBienes().isEmpty()){
-        
-        for(int i=0; i<model.getBienes().size(); i++) {
-            datos[0] =  model.getBienes().get(i).getDescripcion();
-            datos[1] =  model.getBienes().get(i).getMarca();
-            datos[2] =  model.getBienes().get(i).getModelo();
-            datos[3] = "" +  model.getBienes().get(i).getPrecio_unitario();
-            datos[4] = "" +  model.getBienes().get(i).getCantidad();
-            modelo.addRow(datos);
-            
-            for(int e=0;e<model.getBienes().get(i).getCantidad()-1;e++){
-                i++;
+
+        if (!model.getBienes().isEmpty()) {
+
+            for (int i = 0; i < model.getBienes().size(); i++) {
+                datos[0] = model.getBienes().get(i).getDescripcion();
+                datos[1] = model.getBienes().get(i).getMarca();
+                datos[2] = model.getBienes().get(i).getModelo();
+                datos[3] = "" + model.getBienes().get(i).getPrecio_unitario();
+                datos[4] = "" + model.getBienes().get(i).getCantidad();
+                modelo.addRow(datos);
+
+                for (int e = 0; e < model.getBienes().get(i).getCantidad() - 1; e++) {
+                    i++;
+                }
             }
-        }   
-        this.total.setText(("" + model.getTotal() + ""));
+            this.total.setText(("" + model.getTotal() + ""));
+        }
     }
-    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -129,6 +133,7 @@ public class agregarView extends javax.swing.JFrame implements Observer {
         jButton2 = new javax.swing.JButton();
         tipoLabel = new javax.swing.JLabel();
         TipoSelector = new javax.swing.JComboBox<>();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -141,7 +146,7 @@ public class agregarView extends javax.swing.JFrame implements Observer {
 
         jLabel4.setText("Precio unitario :");
 
-        PrecioUnitarioTextField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        PrecioUnitarioTextField.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         PrecioUnitarioTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 PrecioUnitarioTextFieldActionPerformed(evt);
@@ -170,6 +175,7 @@ public class agregarView extends javax.swing.JFrame implements Observer {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        BienesTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane2.setViewportView(BienesTable);
 
         jButton1.setText("Agregar Bienes");
@@ -198,6 +204,8 @@ public class agregarView extends javax.swing.JFrame implements Observer {
                 TipoSelectorActionPerformed(evt);
             }
         });
+
+        jLabel7.setText("Lista de bienes");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -254,6 +262,10 @@ public class agregarView extends javax.swing.JFrame implements Observer {
                                 .addComponent(TipoSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 701, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(151, 151, 151)
+                .addComponent(jLabel7)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -284,7 +296,9 @@ public class agregarView extends javax.swing.JFrame implements Observer {
                     .addComponent(jLabel5)
                     .addComponent(CantidadSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(3, 3, 3)
+                .addComponent(jLabel7)
+                .addGap(1, 1, 1)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -302,9 +316,9 @@ public class agregarView extends javax.swing.JFrame implements Observer {
     private void AgregarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarButtonActionPerformed
 
         try {
-            model.setSolicitud(new Solicitud(new Date(), model.getBienes(),tipo, model.getUsuarioActual().getDependencia()));
+            model.setSolicitud(new Solicitud(new Date(), model.getBienes(), tipo, model.getUsuarioActual().getDependencia()));
 
-            activos.data.SolicitudesDB.add(model.getSolicitud()); 
+            activos.data.SolicitudesDB.add(model.getSolicitud());
 
             for (Bien _bien : model.getBienes()) {
                 activos.data.BienesDB.add(_bien);
@@ -319,81 +333,79 @@ public class agregarView extends javax.swing.JFrame implements Observer {
         } catch (Exception ex) {
             Logger.getLogger(agregarView.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         this.model.getControladorPadre().getView().update(model, evt);
         this.model.getControladorPadre().getView().setVisible(true);
-       
-        
+
         this.model.setSolicitud(new Solicitud());
         this.model.setBienes(new ArrayList<>());
-         this.tipo = -1;
-          this.total.setText("0.0");
+        this.tipo = -1;
+        this.total.setText("0.0");
     }//GEN-LAST:event_AgregarButtonActionPerformed
-        
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+
         Bien _bien = new Bien();
         double precio = 1.0;
         String marca = "", modelo = "", descripcion = "";
         int cantidad = 0;
         boolean res = true;
-        
-            try {
-                _bien = new Bien();
-                descripcion = this.DescripcionTextField.getText();
-                if (descripcion.isEmpty()) {
-                    throw new Exception("Campo de descripcion no puede estar vacio");
-                }
-                marca = this.MarcaTextField.getText();
-                if (marca.isEmpty()) {
-                    throw new Exception("Campo de marca no puede estar vacio");
-                }
-                modelo = this.ModeloTextField.getText();
-                if (modelo.isEmpty()) {
-                    throw new Exception("Campo de modelo no puede estar vacio");
-                }
-                String precioU = this.PrecioUnitarioTextField.getText();
-                if (precioU.isEmpty()) {
-                    throw new Exception("Campo de precio no puede estar vacio");
-                }
-                if (controller.esNumero(precioU)) {
-                    precio = (double) Double.parseDouble(precioU);
-                    cantidad = (Integer) this.CantidadSpinner.getValue();
-                    if (cantidad == 0) {
-                        throw new Exception("Cantidad no puede ser 0");
-                    }
-            
-                } else {
-                    throw new Exception("El precio ingresado contiene caracteres invalidos.");
 
-                }
-  
-                tipo = this.TipoSelector.getSelectedIndex()+1;
-              
-
-                for (int i = 0; i < cantidad; i++) {
-                    _bien = new Bien(marca, modelo, descripcion, precio);
-                     model.getBienes().add(_bien);
-                     _bien.setCantidad(cantidad);
-                }
-
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(rootPane, e.getMessage());
-                this.limpiar();
+        try {
+            _bien = new Bien();
+            descripcion = this.DescripcionTextField.getText();
+            if (descripcion.isEmpty()) {
+                throw new Exception("Campo de descripcion no puede estar vacio");
             }
-       
-            this.update(model, res);
-            limpiar();
+            marca = this.MarcaTextField.getText();
+            if (marca.isEmpty()) {
+                throw new Exception("Campo de marca no puede estar vacio");
+            }
+            modelo = this.ModeloTextField.getText();
+            if (modelo.isEmpty()) {
+                throw new Exception("Campo de modelo no puede estar vacio");
+            }
+            String precioU = this.PrecioUnitarioTextField.getText();
+            if (precioU.isEmpty()) {
+                throw new Exception("Campo de precio no puede estar vacio");
+            }
+            if (controller.esNumero(precioU)) {
+                precio = (double) Double.parseDouble(precioU);
+                cantidad = (Integer) this.CantidadSpinner.getValue();
+                if (cantidad == 0) {
+                    throw new Exception("Cantidad no puede ser 0");
+                }
+
+            } else {
+                throw new Exception("El precio ingresado contiene caracteres invalidos.");
+
+            }
+
+            tipo = this.TipoSelector.getSelectedIndex() + 1;
+
+            for (int i = 0; i < cantidad; i++) {
+                _bien = new Bien(marca, modelo, descripcion, precio);
+                model.getBienes().add(_bien);
+                _bien.setCantidad(cantidad);
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+            this.limpiar();
+        }
+
+        this.update(model, res);
+        limpiar();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here
-         this.setVisible(false);
-         this.model.getControladorPadre().getView().setVisible(true);
-         model.setSolicitud(new Solicitud());
-          this.model.setBienes(new ArrayList<>());
-          this.tipo = -1;
-          this.total.setText("0.0");
+        this.setVisible(false);
+        this.model.getControladorPadre().getView().setVisible(true);
+        model.setSolicitud(new Solicitud());
+        this.model.setBienes(new ArrayList<>());
+        this.tipo = -1;
+        this.total.setText("0.0");
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void TipoSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TipoSelectorActionPerformed
@@ -403,9 +415,7 @@ public class agregarView extends javax.swing.JFrame implements Observer {
     private void PrecioUnitarioTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrecioUnitarioTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_PrecioUnitarioTextFieldActionPerformed
-        
-    
-    
+
     @Override
     public void update(Observable o, Object arg) {
         this.repaint();//  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -439,6 +449,7 @@ public class agregarView extends javax.swing.JFrame implements Observer {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

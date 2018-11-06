@@ -27,9 +27,10 @@ import activos.registrador.RegistradorView;
  * @author Josue R
  */
 public class loginController {
-    loginModel model;  
+
+    loginModel model;
     loginView view;
-    
+
     public loginController(loginModel model, loginView view) {
         this.view = view;
         this.model = model;
@@ -37,67 +38,69 @@ public class loginController {
         view.setModel(model);
     }
 
-    public void login(Usuario typed) throws Exception{
+    public void login(Usuario typed) throws Exception {
         Usuario _user = activos.data.UsuariosDB.get(typed.getId(), typed.getClave());
         model.setCurrent(_user);
         view.setVisible(false);
-    }   
+    }
 
-    public void logout(){
+    public void logout() {
         model.setCurrent(new Usuario());
         view.setVisible(true);
         exit();
     }
-    
-    public Usuario validar(String id, String clave) throws Exception{
-   
+
+    public Usuario validar(String id, String clave) throws Exception {
+
         Usuario _user = null;
-        
+
         try {
             _user = activos.data.UsuariosDB.get(id, clave);
         } catch (SQLException ex) {
             Logger.getLogger(loginController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        if(_user != null)
+
+        if (_user != null) {
             return _user;
-        else 
+        } else {
             return null;
+        }
 
     }
-      public void ingresoAdmin(){
-       AdminModel _model = new AdminModel();
-       AdminView _view = new AdminView();
-       AdminController _control = new AdminController(_model,_view);
-       _view.setVisible(true);
-       view.setVisible(false);
+
+    public void ingresoAdmin() {
+        AdminModel _model = new AdminModel();
+        AdminView _view = new AdminView();
+        AdminController _control = new AdminController(_model, _view);
+        _view.setVisible(true);
+        view.setVisible(false);
     }
-      
-    public void ingresoJefe(){
-       JefeModel _model = new JefeModel();
-       JefeView _view = new JefeView();
-       JefeController _control = new JefeController(_model,_view);
-       _view.setVisible(true);
-       view.setVisible(false);
+
+    public void ingresoJefe() {
+        JefeModel _model = new JefeModel();
+        JefeView _view = new JefeView();
+        JefeController _control = new JefeController(_model, _view);
+        _view.setVisible(true);
+        view.setVisible(false);
     }
-      
-    public void exit(){
+
+    public void exit() {
         System.exit(0);
     }
 
     void ingresoRegistrador() throws Exception {
         RegistradorModel _model = new RegistradorModel();
         RegistradorView _view = new RegistradorView();
-        RegistradorController _controller = new RegistradorController(_model,_view);
+        RegistradorController _controller = new RegistradorController(_model, _view);
         _view.setVisible(true);
         view.setVisible(false);
     }
 
     void ingresoJefeRHHH() throws SQLException {
-       RRHHModel _model = new RRHHModel();
-       RRHHView _view = new RRHHView();
-       RRHHController _controller = new RRHHController(_model,_view);
-       _view.setVisible(true);
-       view.setVisible(false);
+        RRHHModel _model = new RRHHModel();
+        RRHHView _view = new RRHHView();
+        RRHHController _controller = new RRHHController(_model, _view);
+        _view.setVisible(true);
+        view.setVisible(false);
     }
 }

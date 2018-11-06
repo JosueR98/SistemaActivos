@@ -17,21 +17,20 @@ import java.util.List;
  * @author Josue R
  */
 public class ActivosDB {
-    
-     static final RelDatabase db = new RelDatabase();
-     
-     
-    public static void add(Activo activo) throws Exception{
-      String sql="insert into Activos (codigo, categoria, descripcion, Puestos_codigo)"+
-                "values(0,'%s','%s',%d)";
-  
-        sql=String.format(sql,activo.getCategoria(),activo.getDescripcion(),activo.getEncargado().getCodigo());
 
-        int count=db.executeUpdate(sql);
-        if (count==0){
+    static final RelDatabase db = new RelDatabase();
+
+    public static void add(Activo activo) throws Exception {
+        String sql = "insert into Activos (codigo, categoria, descripcion, Puestos_codigo)"
+                + "values(0,'%s','%s',%d)";
+
+        sql = String.format(sql, activo.getCategoria(), activo.getDescripcion(), activo.getEncargado().getCodigo());
+
+        int count = db.executeUpdate(sql);
+        if (count == 0) {
             throw new Exception();
         }
-        
+
         // Obteniendo consecutivo
         int consecutivo = -1;
         ResultSet rs = db.executeQuery("SELECT max(codigo) FROM activos");
@@ -39,18 +38,18 @@ public class ActivosDB {
             if (rs.next()) {
                 consecutivo = rs.getInt(1);
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-       
+
         activo.setCodigo(consecutivo);
     }
-    
+
     public static Activo get(int codigo) throws SQLException {
         Activo _activo = new Activo();
-        String sql="select * from activos where codigo= %d";
-        sql = String.format(sql,codigo);
-        ResultSet rs =  db.executeQuery(sql);
+        String sql = "select * from activos where codigo= %d";
+        sql = String.format(sql, codigo);
+        ResultSet rs = db.executeQuery(sql);
         if (rs.next()) {
             _activo.setCodigo(rs.getInt("codigo"));
             _activo.setCategoria(rs.getString("categoria"));
@@ -58,8 +57,7 @@ public class ActivosDB {
             _activo.setEncargado(rs.getInt("Puestos_codigo"));
 
             return _activo;
-        }
-        else{
+        } else {
             return null;
         }
     }
@@ -67,10 +65,10 @@ public class ActivosDB {
     public static List<Activo> getListaPorPuesto(Puesto _puesto) throws SQLException {
         List<Activo> activoos = new ArrayList<>();
         Activo _activo = null;
-        String sql="select * from activos where Puestos_codigo= %d" ;
-        sql = String.format(sql,_puesto.getCodigo());
-        ResultSet rs =  db.executeQuery(sql);
-        while(rs.next()){
+        String sql = "select * from activos where Puestos_codigo= %d";
+        sql = String.format(sql, _puesto.getCodigo());
+        ResultSet rs = db.executeQuery(sql);
+        while (rs.next()) {
             _activo = new Activo();
             _activo.setCodigo(rs.getInt("codigo"));
             _activo.setCategoria(rs.getString("categoria"));
@@ -80,5 +78,5 @@ public class ActivosDB {
         }
         return activoos;
     }
-    
+
 }

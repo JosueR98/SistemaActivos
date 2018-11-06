@@ -3,14 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/jorac/Desktop/Universidad%204%20semestre/Programacion%203/SistemaActivos/src/activos/data/UsuariosDB.java</file>
             <file>file:/C:/Users/jorac/Desktop/Universidad%204%20semestre/Programacion%203/SistemaActivos/src/activos/funcionarios/agregar/agregarFView.java</file>
-            <file>file:/C:/Users/jorac/Desktop/Universidad%204%20semestre/Programacion%203/SistemaActivos/src/activos/data/BienesDB.java</file>
+            <file>file:/C:/Users/jorac/Desktop/Universidad%204%20semestre/Programacion%203/SistemaActivos/src/activos/jefe_RRHH/RRHHView.java</file>
+            <file>file:/C:/Users/jorac/Desktop/Universidad%204%20semestre/Programacion%203/SistemaActivos/src/activos/jefe_RRHH/RRHHModel.java</file>
             <file>file:/C:/Users/jorac/Desktop/Universidad%204%20semestre/Programacion%203/SistemaActivos/src/activos/funcionarios/agregar/agregarFModel.java</file>
-            <file>file:/C:/Users/jorac/Desktop/Universidad%204%20semestre/Programacion%203/SistemaActivos/src/activos/funcionarios/FuncionariosView.java</file>
-            <file>file:/C:/Users/jorac/Desktop/Universidad%204%20semestre/Programacion%203/SistemaActivos/src/activos/funcionarios/FuncionariosController.java</file>
-            <file>file:/C:/Users/jorac/Desktop/Universidad%204%20semestre/Programacion%203/SistemaActivos/src/activos/funcionarios/FuncionariosModel.java</file>
-            <file>file:/C:/Users/jorac/Desktop/Universidad%204%20semestre/Programacion%203/SistemaActivos/src/activos/funcionarios/agregar/agregarFController.java</file>
+            <file>file:/C:/Users/jorac/Desktop/Universidad%204%20semestre/Programacion%203/SistemaActivos/src/activos/adminPresentation/AdminView.java</file>
+            <file>file:/C:/Users/jorac/Desktop/Universidad%204%20semestre/Programacion%203/SistemaActivos/src/activos/logic/Puesto.java</file>
+            <file>file:/C:/Users/jorac/Desktop/Universidad%204%20semestre/Programacion%203/SistemaActivos/src/activos/loginPresentation/loginController.java</file>
             <file>file:/C:/Users/jorac/Desktop/Universidad%204%20semestre/Programacion%203/SistemaActivos/src/activos/data/PuestosDB.java</file>
         </group>
     </open-files>

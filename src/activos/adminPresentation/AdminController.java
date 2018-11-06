@@ -10,16 +10,17 @@ package activos.adminPresentation;
  * @author Josue R
  */
 public class AdminController {
-     AdminModel model;  
-     AdminView view;
-    
+
+    AdminModel model;
+    AdminView view;
+
     public AdminController(AdminModel model, AdminView view) {
         this.view = view;
         this.model = model;
         view.setController(this);
         view.setModel(model);
         model.getAgregarModel().setControllerPadre(this);
-      
+
     }
 
     public AdminModel getModel() {
@@ -37,10 +38,9 @@ public class AdminController {
     public void setView(AdminView view) {
         this.view = view;
     }
-    
-    public void exit(){
+
+    public void exit() {
         System.exit(0);
     }
 
- 
 }

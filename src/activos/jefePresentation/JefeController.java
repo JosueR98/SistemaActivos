@@ -10,10 +10,10 @@ package activos.jefePresentation;
  * @author Andrés
  */
 public class JefeController {
-    
+
     JefeView view;
     JefeModel model;
-    
+
     public JefeController(JefeModel model, JefeView view) {
         this.view = view;
         this.model = model;
@@ -35,5 +35,9 @@ public class JefeController {
 
     public void setModel(JefeModel model) {
         this.model = model;
+    }
+    
+    public void exit() {
+        System.exit(0);
     }
 }

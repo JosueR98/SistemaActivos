@@ -22,35 +22,35 @@ public class loginView extends javax.swing.JFrame implements Observer {
 
     private loginController controller;
     private loginModel model;
-    
+
     public loginView() {
         initComponents();
-  
+
     }
-      
-    public void setController(loginController controller){
-        this.controller=controller;
+
+    public void setController(loginController controller) {
+        this.controller = controller;
     }
 
     public loginController getController() {
         return controller;
     }
-    
-    public void setModel(loginModel model){
-        this.model=model;
-         model.addObserver(this);
+
+    public void setModel(loginModel model) {
+        this.model = model;
+        model.addObserver(this);
     }
 
     public loginModel getModel() {
         return model;
     }
-    
+
     @Override
-    public void paint(Graphics r){
+    public void paint(Graphics r) {
         super.paint(r);
         this.setTitle("LOG IN");
     }
- 
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -83,7 +83,6 @@ public class loginView extends javax.swing.JFrame implements Observer {
         ClaveLabel.setText("Clave :");
         getContentPane().add(ClaveLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
 
-        idTextField.setText("jefe_RRHH");
         idTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 idTextFieldActionPerformed(evt);
@@ -107,7 +106,6 @@ public class loginView extends javax.swing.JFrame implements Observer {
         });
         getContentPane().add(SalirButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, 73, -1));
 
-        ClaveTextField.setText("eeee");
         ClaveTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ClaveTextFieldActionPerformed(evt);
@@ -132,25 +130,35 @@ public class loginView extends javax.swing.JFrame implements Observer {
         } catch (Exception ex) {
             Logger.getLogger(loginView.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if(_user != null){
+        if (_user != null) {
             try {
                 controller.login(_user);
                 //JOptionPane.showMessageDialog(rootPane, "Ingresado Correctamente");
-                 
-                switch(_user.getTipoUsuario()){
-                    case 1: controller.ingresoAdmin(); break;
-                    case 2: controller.ingresoAdmin(); break;
-                    case 3: controller.ingresoJefe(); break;
-                    case 4: controller.ingresoRegistrador(); break;
-                    case 5 : controller.ingresoJefeRHHH(); break;
+
+                switch (_user.getTipoUsuario()) {
+                    case 1:
+                        controller.ingresoAdmin();
+                        break;
+                    case 2:
+                        controller.ingresoAdmin();
+                        break;
+                    case 3:
+                        controller.ingresoJefe();
+                        break;
+                    case 4:
+                        controller.ingresoRegistrador();
+                        break;
+                    case 5:
+                        controller.ingresoJefeRHHH();
+                        break;
                     // case para cada tipo de usuario
                 }
             } catch (Exception ex) {
                 Logger.getLogger(loginView.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-        }else{
-          JOptionPane.showMessageDialog(rootPane, "Clave Incorrecta");
+
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Clave Incorrecta");
         }
     }//GEN-LAST:event_IngresarButtonActionPerformed
 
@@ -166,15 +174,12 @@ public class loginView extends javax.swing.JFrame implements Observer {
     private void idTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_idTextFieldActionPerformed
-  
-    
-    
+
     @Override
     public void update(Observable o, Object arg) {
         this.repaint();
     }
 
-    
     /**
      * @param args the command line arguments
      */

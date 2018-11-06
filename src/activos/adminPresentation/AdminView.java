@@ -21,7 +21,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Josue R
  */
-public class AdminView extends javax.swing.JFrame implements Observer{
+public class AdminView extends javax.swing.JFrame implements Observer {
 
     AdminModel model;
     AdminController controller;
@@ -42,25 +42,25 @@ public class AdminView extends javax.swing.JFrame implements Observer{
     public void setController(AdminController controller) {
         this.controller = controller;
     }
-    
+
     /**
      * Creates new form AdminView
      */
     public AdminView() {
         initComponents();
     }
-    
+
     @Override
-    public void paint(Graphics g){
+    public void paint(Graphics g) {
         super.paint(g);
-         if(activos.loginPresentation.loginModel.getUsuarioActual().getTipoUsuario()==2){
+        if (activos.loginPresentation.loginModel.getUsuarioActual().getTipoUsuario() == 2) {
             jButton1.setVisible(false);
             borrarSeleccionado.setVisible(false);
             this.setTitle("Secretaria de la dependencia");
-        }
-        else
+        } else {
             this.setTitle("Administrador de la dependencia");
-        
+        }
+
         try {
             //
             muestraTabla();
@@ -69,7 +69,7 @@ public class AdminView extends javax.swing.JFrame implements Observer{
         } catch (Exception ex) {
             Logger.getLogger(AdminView.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 
     /**
@@ -86,6 +86,8 @@ public class AdminView extends javax.swing.JFrame implements Observer{
         jButton1 = new javax.swing.JButton();
         borrarSeleccionado = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(500, 250));
@@ -112,6 +114,7 @@ public class AdminView extends javax.swing.JFrame implements Observer{
             }
         });
         jTable1.setPreferredSize(new java.awt.Dimension(800, 600));
+        jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTable1.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jTable1FocusGained(evt);
@@ -146,11 +149,20 @@ public class AdminView extends javax.swing.JFrame implements Observer{
             }
         });
 
+        jLabel1.setText("Lista de solicitudes");
+
+        jButton3.setText("Salir");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -161,18 +173,30 @@ public class AdminView extends javax.swing.JFrame implements Observer{
                         .addGap(18, 18, 18)
                         .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jButton3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(382, 382, 382))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(borrarSeleccionado, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(41, 41, 41))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton3)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
+                    .addComponent(borrarSeleccionado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(22, 22, 22))
         );
 
         pack();
@@ -187,98 +211,123 @@ public class AdminView extends javax.swing.JFrame implements Observer{
 
     private void jTable1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTable1FocusGained
         // TODO add your handling code here:
-       
+
     }//GEN-LAST:event_jTable1FocusGained
-    
-    private void muestraTabla() throws SQLException, Exception{
+
+    private void muestraTabla() throws SQLException, Exception {
         RelDatabase r = new RelDatabase();
         boolean esSecretaria = (model.getUsuarioActual().getTipoUsuario() == 2);
         List<Solicitud> solicitudes = activos.data.SolicitudesDB.getListaPorDependencia(model.getUsuarioActual().getDependencia());
-        DefaultTableModel modelo = new DefaultTableModel();
+        DefaultTableModel modelo = new DefaultTableModel() {
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
         modelo.addColumn("Codigo");
         modelo.addColumn("Fecha");
         modelo.addColumn("Precio Total");
         modelo.addColumn("Tipo");
         modelo.addColumn("Estado");
-        
-        String[] datos = new String[6];
-        for(Solicitud solicitud : solicitudes){
-                if(!(solicitud.getEstado() != 1 && esSecretaria)){
+
+        String[] datos = new String[5];
+        for (Solicitud solicitud : solicitudes) {
+            if (!(solicitud.getEstado() != 1 && esSecretaria)) {
                 datos[0] = "" + solicitud.getCodigoSolicitud();
                 datos[1] = solicitud.getFecha().toString();
                 datos[2] = "" + solicitud.getMontoTotal();
-                int tipo =  solicitud.getTipo();
-                switch(tipo){
-                    case 1: datos[3] = "Compra"; break;
-                    case 2: datos[3] = "Donacion"; break;
-                    case 3: datos[3] = "Produccion"; break;
-                    
+                int tipo = solicitud.getTipo();
+                switch (tipo) {
+                    case 1:
+                        datos[3] = "Compra";
+                        break;
+                    case 2:
+                        datos[3] = "Donacion";
+                        break;
+                    case 3:
+                        datos[3] = "Produccion";
+                        break;
+
                 }
                 int estado = solicitud.getEstado();
-                switch(estado){
-                    case 1: datos[4] = "Recibida"; break;
-                    case 2: datos[4]= "Por verificar";break;
-                    case 3: datos[4] = "Cancelada";break;
-                    case 4: datos[4]= "Procesada";break;
-                    case 5: datos[4] = "Espera de rotulacion";break;
+                switch (estado) {
+                    case 1:
+                        datos[4] = "Recibida";
+                        break;
+                    case 2:
+                        datos[4] = "Por verificar";
+                        break;
+                    case 3:
+                        datos[4] = "Cancelada";
+                        break;
+                    case 4:
+                        datos[4] = "Espera de rotulacion";
+                        break;
+                    case 5:
+                        datos[4] = "Procesada";
+                        break;
                 }
                 modelo.addRow(datos);
-                }
             }
-        
-                this.jTable1.setModel(modelo);
-                
-                this.jTable1.getColumnModel().getColumn(0).setPreferredWidth(20);
-                this.jTable1.getColumnModel().getColumn(1).setPreferredWidth(200);
-                this.jTable1.getColumnModel().getColumn(2).setPreferredWidth(15);
-                this.jTable1.getColumnModel().getColumn(3).setPreferredWidth(15);
-                this.jTable1.getColumnModel().getColumn(4).setPreferredWidth(20);
-    
+        }
+
+        this.jTable1.setModel(modelo);
+
+        this.jTable1.getColumnModel().getColumn(0).setPreferredWidth(20);
+        this.jTable1.getColumnModel().getColumn(1).setPreferredWidth(200);
+        this.jTable1.getColumnModel().getColumn(2).setPreferredWidth(15);
+        this.jTable1.getColumnModel().getColumn(3).setPreferredWidth(15);
+        this.jTable1.getColumnModel().getColumn(4).setPreferredWidth(20);
+
     }
     private void borrarSeleccionadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarSeleccionadoActionPerformed
         // TODO add your handling code here:
-        int codigo =0;int rowIndex = 0;
-       try{
-         rowIndex = this.jTable1.getSelectedRow();
-         codigo = Integer.parseInt((String) this.jTable1.getValueAt(rowIndex, 0));
-       }catch(Exception e){
-           JOptionPane.showMessageDialog(rootPane, "No has seleccionado ninguna celda.");
-           return;
-       }
+        int codigo = 0;
+        int rowIndex = 0;
+        try {
+            rowIndex = this.jTable1.getSelectedRow();
+            codigo = Integer.parseInt((String) this.jTable1.getValueAt(rowIndex, 0));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "No has seleccionado ninguna celda.");
+            return;
+        }
         String tipo = (String) this.jTable1.getValueAt(rowIndex, 4);
-     
+
         //Verificaciones
         try {
-            if("Recibida".equals(tipo)) {
-            String message = "¿Seguro que deseas eliminar la solicitud #" + codigo;
-            int res = JOptionPane.showConfirmDialog(null, message, "Confirmacion de borrado", JOptionPane.YES_NO_OPTION);
-           if(res == JOptionPane.YES_OPTION){
-              activos.data.SolicitudesDB.delete(codigo);
-               this.update(model, evt);
-              throw new Exception("Borrado correctamente");
-           }else{
-               throw new Exception("Cancelado por el usuario");
-           }
-            }else{
+            if ("Recibida".equals(tipo)) {
+                String message = "¿Seguro que deseas eliminar la solicitud #" + codigo;
+                int res = JOptionPane.showConfirmDialog(null, message, "Confirmacion de borrado", JOptionPane.YES_NO_OPTION);
+                if (res == JOptionPane.YES_OPTION) {
+                    activos.data.SolicitudesDB.delete(codigo);
+                    this.update(model, evt);
+                    throw new Exception("Borrado correctamente");
+                } else {
+                    throw new Exception("Cancelado por el usuario");
+                }
+            } else {
                 throw new Exception("La solicitud no se puede eliminar porque ya esta en proceso");
             }
 
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage());
         }
-        
+
     }//GEN-LAST:event_borrarSeleccionadoActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        int rowIndex = 0;int codigo = 0;
-        try{
-         rowIndex = this.jTable1.getSelectedRow();
-         codigo = Integer.parseInt((String) this.jTable1.getValueAt(rowIndex, 0));
-        }catch(Exception e){
+        int rowIndex = 0;
+        int codigo = 0;
+        try {
+            rowIndex = this.jTable1.getSelectedRow();
+            codigo = Integer.parseInt((String) this.jTable1.getValueAt(rowIndex, 0));
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "No has seleccionado ninguna celda.");
             return;
-        }        
+        }
         try {
             model.verTrio(codigo);
             model.getVerModel().setControladorPadre(controller);
@@ -291,20 +340,25 @@ public class AdminView extends javax.swing.JFrame implements Observer{
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        controller.exit();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     @Override
     public void update(Observable o, Object arg) {
-      this.repaint();
+        this.repaint();
     }
 
     /**
      * @param args the command line arguments
      */
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton borrarSeleccionado;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables

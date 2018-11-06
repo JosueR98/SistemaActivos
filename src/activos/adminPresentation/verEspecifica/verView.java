@@ -23,7 +23,6 @@ public class verView extends javax.swing.JFrame implements Observer {
     private verModel model;
     private verController controller;
 
-    
     /**
      * Creates new form verView
      */
@@ -114,6 +113,7 @@ public class verView extends javax.swing.JFrame implements Observer {
                 return canEdit [columnIndex];
             }
         });
+        Tabla.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(Tabla);
         if (Tabla.getColumnModel().getColumnCount() > 0) {
             Tabla.getColumnModel().getColumn(0).setResizable(false);
@@ -214,14 +214,12 @@ public class verView extends javax.swing.JFrame implements Observer {
                                             .addComponent(tipo, javax.swing.GroupLayout.DEFAULT_SIZE, 604, Short.MAX_VALUE)
                                             .addComponent(Estado, javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(motivoC, javax.swing.GroupLayout.Alignment.LEADING))
-                                        .addGap(34, 34, 34)))))))
+                                        .addGap(34, 34, 34))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(Aceptar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(rechazar, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(165, 165, 165)
-                .addComponent(Aceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(rechazar, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(158, 158, 158))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -262,10 +260,10 @@ public class verView extends javax.swing.JFrame implements Observer {
                     .addComponent(jLabel7)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Aceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rechazar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(Aceptar, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                    .addComponent(rechazar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -284,8 +282,7 @@ public class verView extends javax.swing.JFrame implements Observer {
         // TODO add your handling code here:
         this.setVisible(false);
         model._controladorPadre.getView().setVisible(true);
-        
-      
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void CodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CodigoActionPerformed
@@ -296,7 +293,7 @@ public class verView extends javax.swing.JFrame implements Observer {
         // TODO add your handling code here:
         model.getSolicitud().setEstado(3);
         try {
-            activos.data.SolicitudesDB.setEstado(model.getSolicitud().getCodigoSolicitud(),2);
+            activos.data.SolicitudesDB.setEstado(model.getSolicitud().getCodigoSolicitud(), 2);
         } catch (SQLException ex) {
             Logger.getLogger(verView.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -307,7 +304,7 @@ public class verView extends javax.swing.JFrame implements Observer {
     private void rechazarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rechazarActionPerformed
         // TODO add your handling code here:
         String razon;
-        razon= JOptionPane.showInputDialog("Digite el motivo del rechazo");
+        razon = JOptionPane.showInputDialog("Digite el motivo del rechazo");
         model.getSolicitud().setMotivoC(razon);
         model.getSolicitud().setEstado(2);
         try {
@@ -331,59 +328,75 @@ public class verView extends javax.swing.JFrame implements Observer {
      * @param args the command line arguments
      */
     @Override
-    public void paint(Graphics g){
-       super.paint(g);
-       this.setTitle("Ver Especifica");
-       if(activos.loginPresentation.loginModel.getUsuarioActual().getTipoUsuario()!= 2){
-           Aceptar.setVisible(false);
-           rechazar.setVisible(false);
-       }
-       this.CantidadBienes.setText("" + model.getSolicitud().getCantidad_bienes());
-       this.Codigo.setText("" + model.getSolicitud().getCodigoSolicitud());
-    
-       String _estado = "";
-          switch(model.getSolicitud().getEstado()){
-                    case 1: _estado = "Recibida"; break;
-                    case 2: _estado = "Por verificar";break;
-                    case 3: _estado = "Cancelada";break;
-                    case 4: _estado = "Espera de rotulacion";break;
-                    case 5: _estado = "Procesada";break;
-                }
-       this.Estado.setText(_estado);
-       this.Fecha.setText(model.getSolicitud().getFecha().toString());
-       this.MontoTotal.setText("" + model.getSolicitud().getMontoTotal());
-       int _tipo =  model.getSolicitud().getTipo();
-       System.out.print(model.getSolicitud().getTipo());
-       String tipoS = "";
-                switch(_tipo){
-                    case 1: tipoS = "Compra"; break;
-                    case 2: tipoS = "Donacion"; break;
-                    case 3: tipoS = "Produccion"; break;
-                }
-       this.tipo.setText(tipoS);
-       
-       if(model.getSolicitud().getEstado() != 3){
-           this.motivoC.setVisible(false);
-           this.motivoCLABEL.setVisible(false);
-       }else{
-           this.motivoC.setText(model.getSolicitud().getMotivoC());
-       }
-       cargarTablaBienes();
-       
-     
+    public void paint(Graphics g) {
+        super.paint(g);
+        this.setTitle("Ver Especifica");
+        if (activos.loginPresentation.loginModel.getUsuarioActual().getTipoUsuario() != 2) {
+            Aceptar.setVisible(false);
+            rechazar.setVisible(false);
+        }
+        this.CantidadBienes.setText("" + model.getSolicitud().getCantidad_bienes());
+        this.Codigo.setText("" + model.getSolicitud().getCodigoSolicitud());
+
+        String _estado = "";
+        switch (model.getSolicitud().getEstado()) {
+            case 1:
+                _estado = "Recibida";
+                break;
+            case 2:
+                _estado = "Por verificar";
+                break;
+            case 3:
+                _estado = "Cancelada";
+                break;
+            case 4:
+                _estado = "Espera de rotulacion";
+                break;
+            case 5:
+                _estado = "Procesada";
+                break;
+        }
+        this.Estado.setText(_estado);
+        this.Fecha.setText(model.getSolicitud().getFecha().toString());
+        this.MontoTotal.setText("" + model.getSolicitud().getMontoTotal());
+        int _tipo = model.getSolicitud().getTipo();
+        System.out.print(model.getSolicitud().getTipo());
+        String tipoS = "";
+        switch (_tipo) {
+            case 1:
+                tipoS = "Compra";
+                break;
+            case 2:
+                tipoS = "Donacion";
+                break;
+            case 3:
+                tipoS = "Produccion";
+                break;
+        }
+        this.tipo.setText(tipoS);
+
+        if (model.getSolicitud().getEstado() != 3) {
+            this.motivoC.setVisible(false);
+            this.motivoCLABEL.setVisible(false);
+        } else {
+            this.motivoC.setText(model.getSolicitud().getMotivoC());
+        }
+        cargarTablaBienes();
+
     }
+
     void setController(verController aThis) {
         this.controller = aThis;
     }
 
     void setModel(verModel verModel) {
         this.model = verModel;
-         verModel.addObserver(this);
+        verModel.addObserver(this);
     }
 
     @Override
     public void update(Observable o, Object arg) {
-       this.repaint();
+        this.repaint();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -411,14 +424,14 @@ public class verView extends javax.swing.JFrame implements Observer {
     // End of variables declaration//GEN-END:variables
 
     private void cargarTablaBienes() {
-       DefaultTableModel modelo = new DefaultTableModel(){
+        DefaultTableModel modelo = new DefaultTableModel() {
 
-    @Override
-    public boolean isCellEditable(int row, int column) {
-       return false;
-    }
-};
-       
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
         modelo.addColumn("Codigo");
         modelo.addColumn("Descripcion");
         modelo.addColumn("Marca");
@@ -429,33 +442,29 @@ public class verView extends javax.swing.JFrame implements Observer {
         String[] datos = new String[7];
 
         this.Tabla.setModel(modelo);
-            
-     
-     
-        if(!model.getSolicitud().getLista_bienes().isEmpty()){
-        
-        for(int i=0; i<model.getSolicitud().getLista_bienes().size(); i++) {
-            datos[0] = "" + model.getSolicitud().getLista_bienes().get(i).getCodigo();
-            datos[1] =  model.getSolicitud().getLista_bienes().get(i).getDescripcion();
-            datos[2] =  model.getSolicitud().getLista_bienes().get(i).getMarca();
-            datos[3] =  model.getSolicitud().getLista_bienes().get(i).getModelo();
-            datos[4] = "" +  model.getSolicitud().getLista_bienes().get(i).getPrecio_unitario();
-            if(model.getSolicitud().getLista_bienes().get(i).getRegistrador() != null){
-            datos[5] = "" + model.getSolicitud().getLista_bienes().get(i).getRegistrador().getId();
-            }else
-                datos[5] = "No Asignado";
-            if(model.getSolicitud().getLista_bienes().get(i).isEstaRegistrado()){
-                datos[6] = "Si.";
-            }else{
-                datos[6] = "No.";
-            }
-            modelo.addRow(datos);
- 
-        }   
-    }
-    
-    
-  
-}
-}
 
+        if (!model.getSolicitud().getLista_bienes().isEmpty()) {
+
+            for (int i = 0; i < model.getSolicitud().getLista_bienes().size(); i++) {
+                datos[0] = "" + model.getSolicitud().getLista_bienes().get(i).getCodigo();
+                datos[1] = model.getSolicitud().getLista_bienes().get(i).getDescripcion();
+                datos[2] = model.getSolicitud().getLista_bienes().get(i).getMarca();
+                datos[3] = model.getSolicitud().getLista_bienes().get(i).getModelo();
+                datos[4] = "" + model.getSolicitud().getLista_bienes().get(i).getPrecio_unitario();
+                if (model.getSolicitud().getLista_bienes().get(i).getRegistrador() != null) {
+                    datos[5] = "" + model.getSolicitud().getLista_bienes().get(i).getRegistrador().getId();
+                } else {
+                    datos[5] = "No Asignado";
+                }
+                if (model.getSolicitud().getLista_bienes().get(i).isEstaRegistrado()) {
+                    datos[6] = "Si.";
+                } else {
+                    datos[6] = "No.";
+                }
+                modelo.addRow(datos);
+
+            }
+        }
+
+    }
+}

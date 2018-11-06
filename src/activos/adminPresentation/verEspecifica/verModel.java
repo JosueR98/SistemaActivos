@@ -16,10 +16,11 @@ import java.util.Observer;
  * @author Josue R
  */
 public class verModel extends Observable {
+
     private Solicitud solicitud;
-    
+
     public AdminController _controladorPadre;
-    
+
     public verModel(int solicitud) throws SQLException, Exception {
         this.solicitud = activos.data.SolicitudesDB.get(solicitud);
     }
@@ -29,9 +30,9 @@ public class verModel extends Observable {
     }
 
     public void setSolicitud(int solicitud) throws SQLException, Exception {
-       this.solicitud = activos.data.SolicitudesDB.get(solicitud);
-       setChanged();
-       notifyObservers();
+        this.solicitud = activos.data.SolicitudesDB.get(solicitud);
+        setChanged();
+        notifyObservers();
     }
 
     @Override
@@ -41,7 +42,6 @@ public class verModel extends Observable {
         notifyObservers();
     }
 
- 
     public AdminController getControladorPadre() {
         return _controladorPadre;
     }
@@ -49,6 +49,5 @@ public class verModel extends Observable {
     public void setControladorPadre(AdminController _controladorPadre) {
         this._controladorPadre = _controladorPadre;
     }
-    
-    
+
 }

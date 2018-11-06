@@ -15,21 +15,21 @@ import java.util.Observable;
  *
  * @author Andrés
  */
-public class JefeModel extends Observable{
+public class JefeModel extends Observable {
+
     private Usuario usuarioActual;
 
-    
     private AgregarRController ARcontroller;
     private AgregarRModel ARmodel;
     private AgregarRView ARview;
-    
+
     public JefeModel() {
-        usuarioActual = activos.loginPresentation.loginModel.getUsuarioActual();     
+        usuarioActual = activos.loginPresentation.loginModel.getUsuarioActual();
     }
-    
-    public void AgregarRTrio(int codigo) throws Exception{
-        ARmodel =  new AgregarRModel(codigo);
-        ARview= new AgregarRView();
+
+    public void AgregarRTrio(int codigo) throws Exception {
+        ARmodel = new AgregarRModel(codigo);
+        ARview = new AgregarRView();
         ARcontroller = new AgregarRController(ARmodel, ARview);
     }
 
@@ -40,7 +40,7 @@ public class JefeModel extends Observable{
     public void setUsuarioActual(Usuario usuarioActual) {
         this.usuarioActual = usuarioActual;
     }
-    
+
     public AgregarRController getARcontroller() {
         return ARcontroller;
     }
@@ -64,7 +64,5 @@ public class JefeModel extends Observable{
     public void setARview(AgregarRView ARview) {
         this.ARview = ARview;
     }
-    
-     
-    
+
 }

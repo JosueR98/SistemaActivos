@@ -14,7 +14,8 @@ import java.util.Observer;
  *
  * @author Josue R
  */
-public class agregarFModel extends Observable{
+public class agregarFModel extends Observable {
+
     RRHHController controladorPadre;
     Usuario current;
 
@@ -44,5 +45,5 @@ public class agregarFModel extends Observable{
         setChanged();
         notifyObservers();
     }
-    
+
 }

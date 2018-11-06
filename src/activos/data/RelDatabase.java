@@ -21,16 +21,19 @@ import java.util.Properties;
  * @author jsanchez
  */
 public final class RelDatabase {
-    public static final String PROPERTIES_FILE_NAME="/activosDB.properties";        
+
+    public static final String PROPERTIES_FILE_NAME = "/activosDB.properties";
     Connection cnx;
-    public RelDatabase(){
-        cnx=this.getConnection();            
+
+    public RelDatabase() {
+        cnx = this.getConnection();
     }
-    public Connection getConnection(){
+
+    public Connection getConnection() {
         try {
             Properties prop = new Properties();
             URL resourceUrl = getClass().getResource(PROPERTIES_FILE_NAME);
-            File file = new File(resourceUrl.toURI());            
+            File file = new File(resourceUrl.toURI());
             prop.load(new BufferedInputStream(new FileInputStream(file)));
             String driver = prop.getProperty("database_driver");
             String server = prop.getProperty("database_server");
@@ -38,14 +41,14 @@ public final class RelDatabase {
             String user = prop.getProperty("database_user");
             String password = prop.getProperty("database_password");
             String database = prop.getProperty("database_name");
-            
-            String URL_conexion="jdbc:mysql://"+ server+":"+port+"/"+database+"?user="+user+"&password="+password+ "&autoReconnect=true&useSSL=false";
+
+            String URL_conexion = "jdbc:mysql://" + server + ":" + port + "/" + database + "?user=" + user + "&password=" + password + "&autoReconnect=true&useSSL=false";
             Class.forName(driver).newInstance();
             return DriverManager.getConnection(URL_conexion);
         } catch (Exception e) {
             System.err.println(e.getMessage());
             System.exit(-1);
-        } 
+        }
         return null;
     }
 
@@ -58,7 +61,8 @@ public final class RelDatabase {
             return 0;
         }
     }
-    public ResultSet executeQuery(String statement){
+
+    public ResultSet executeQuery(String statement) {
         try {
             Statement stm = cnx.createStatement();
             return stm.executeQuery(statement);

@@ -14,13 +14,13 @@ import activos.logic.Usuario;
  * @author Josue R
  */
 public class loginModel extends Observable {
-    
+
     static Usuario usuarioActual;
-    
+
     public loginModel() {
         usuarioActual = new Usuario();
     }
-    
+
     public static Usuario getUsuarioActual() {
         return usuarioActual;
     }
@@ -30,7 +30,7 @@ public class loginModel extends Observable {
         setChanged();
         notifyObservers();
     }
-    
+
     @Override
     public void addObserver(java.util.Observer o) {
         super.addObserver(o);

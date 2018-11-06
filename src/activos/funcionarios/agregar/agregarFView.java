@@ -21,11 +21,11 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Josue R
  */
-public class agregarFView extends javax.swing.JFrame implements Observer{
+public class agregarFView extends javax.swing.JFrame implements Observer {
 
     agregarFModel model;
     agregarFController controller;
-    
+
     public agregarFView() {
         initComponents();
     }
@@ -46,7 +46,7 @@ public class agregarFView extends javax.swing.JFrame implements Observer{
     public void setController(agregarFController controller) {
         this.controller = controller;
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -97,6 +97,7 @@ public class agregarFView extends javax.swing.JFrame implements Observer{
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(jTable1);
 
         jButton2.setText("Registrar");
@@ -159,8 +160,8 @@ public class agregarFView extends javax.swing.JFrame implements Observer{
                 .addGap(54, 54, 54)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -177,44 +178,43 @@ public class agregarFView extends javax.swing.JFrame implements Observer{
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        String nombre,cedula,correo;
+        String nombre, cedula, correo;
         Funcionario funcionario = new Funcionario();
-        int rowIndex,codigo;
+        int rowIndex, codigo;
         Puesto p = new Puesto();
         nombre = this.jTextField1.getText();
         cedula = this.jTextField2.getText();
         correo = this.jTextField3.getText();
-        
-         try{
-         rowIndex = this.jTable1.getSelectedRow();
-         codigo = Integer.parseInt((String) this.jTable1.getValueAt(rowIndex, 0));
-         p = activos.data.PuestosDB.get(codigo);
-        }catch(Exception e){
+
+        try {
+            rowIndex = this.jTable1.getSelectedRow();
+            codigo = Integer.parseInt((String) this.jTable1.getValueAt(rowIndex, 0));
+            p = activos.data.PuestosDB.get(codigo);
+        } catch (Exception e) {
             codigo = -1;
             p = null;
-        } 
-         
-       funcionario.setCedula(Integer.parseInt(cedula));
-       funcionario.setNombre(nombre);
-       funcionario.setCorreo(correo);
-       try{
-       activos.data.FuncionariosDB.add(funcionario);
-       if(p!=null){
-           
-        activos.data.PuestosDB.ocupar(codigo, Integer.parseInt(cedula));
-           
-       }
-       }catch(Exception e){
-           
-       }
-       
-       JOptionPane.showMessageDialog(rootPane, "Funcionario ingresado correctamente al sistema");
-       this.setVisible(true);
-       this.getModel().getControladorPadre().getView().setVisible(true);
+        }
+
+        funcionario.setCedula(Integer.parseInt(cedula));
+        funcionario.setNombre(nombre);
+        funcionario.setCorreo(correo);
+        try {
+            activos.data.FuncionariosDB.add(funcionario);
+            if (p != null) {
+
+                activos.data.PuestosDB.ocupar(codigo, Integer.parseInt(cedula));
+
+            }
+        } catch (Exception e) {
+
+        }
+
+        JOptionPane.showMessageDialog(rootPane, "Funcionario ingresado correctamente al sistema");
+        this.setVisible(true);
+        this.getModel().getControladorPadre().getView().setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
-
-    public void paint(Graphics g){
+    public void paint(Graphics g) {
         super.paint(g);
         this.setTitle("Agregar nuevo funcionario");
         try {
@@ -226,32 +226,34 @@ public class agregarFView extends javax.swing.JFrame implements Observer{
 
     @Override
     public void update(Observable o, Object arg) {
-       this.repaint();
+        this.repaint();
     }
-    
-      private void cargarTablaPuestos() throws SQLException {
-       List<Puesto> puestos = activos.data.PuestosDB.getVacantes();
-       System.out.print("-->" + puestos.isEmpty());
-       DefaultTableModel modelo = new DefaultTableModel();
-       modelo.addColumn("Codigo");
-       modelo.addColumn("ROL");
-       modelo.addColumn("Dependencia");
-       
-       String[] row = new String[3];
-       
-       for(Puesto puesto : puestos){
-           row[0] = "" + puesto.getCodigo();
-           row[1] = puesto.getRol();
-           row[2] = puesto.getDependencia().getNombre();
-           modelo.addRow(row);
-       }
-       
-       this.jTable1.setModel(modelo);
+
+    private void cargarTablaPuestos() throws SQLException {
+        List<Puesto> puestos = activos.data.PuestosDB.getVacantes();
+        System.out.print("-->" + puestos.isEmpty());
+        DefaultTableModel modelo = new DefaultTableModel() {
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };;
+        modelo.addColumn("Codigo");
+        modelo.addColumn("ROL");
+        modelo.addColumn("Dependencia");
+
+        String[] row = new String[3];
+
+        for (Puesto puesto : puestos) {
+            row[0] = "" + puesto.getCodigo();
+            row[1] = puesto.getRol();
+            row[2] = puesto.getDependencia().getNombre();
+            modelo.addRow(row);
+        }
+
+        this.jTable1.setModel(modelo);
     }
-      
-      
-      
-      
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -267,5 +269,4 @@ public class agregarFView extends javax.swing.JFrame implements Observer{
     private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
 
-  
 }

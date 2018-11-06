@@ -5,9 +5,7 @@
  */
 package activos.jefePresentation.agregarR;
 
-import activos.data.RelDatabase;
 import activos.logic.Bien;
-import activos.logic.Solicitud;
 import activos.logic.Usuario;
 import java.awt.Graphics;
 import java.sql.SQLException;
@@ -24,56 +22,58 @@ import javax.swing.table.DefaultTableModel;
  * @author Andrés
  */
 public class AgregarRView extends javax.swing.JFrame implements Observer {
+
     /**
      * Creates new form AgregarRView
      */
     AgregarRModel model;
     AgregarRController controller;
-    
+
     public AgregarRView() {
         initComponents();
     }
-    public void paint(Graphics g){
+
+    public void paint(Graphics g) {
         super.paint(g);
         this.setTitle("Registradores");
         try {
-    muestraTabla();
-    } catch (SQLException ex) {
-        Logger.getLogger(AgregarRView.class.getName()).log(Level.SEVERE, null, ex);
-    } catch (Exception ex) {
-        Logger.getLogger(AgregarRView.class.getName()).log(Level.SEVERE, null, ex);
-    }
-        
-       
+            muestraTabla();
+        } catch (SQLException ex) {
+            Logger.getLogger(AgregarRView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(AgregarRView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
- 
-    private void muestraTabla() throws SQLException, Exception{
- 
-    List<Usuario> Usuarios = activos.data.UsuariosDB.getListaPorTipo(4);
-    DefaultTableModel modelo = new DefaultTableModel();
-    modelo.addColumn("Id");
-    modelo.addColumn("Cedula del Funcionario");
+    private void muestraTabla() throws SQLException, Exception {
 
-    
-    String[] datos = new String[2];
-    for(Usuario usuario : Usuarios){
-            
+        List<Usuario> Usuarios = activos.data.UsuariosDB.getListaPorTipo(4);
+        DefaultTableModel modelo = new DefaultTableModel() {
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        modelo.addColumn("Id");
+        modelo.addColumn("Cedula del Funcionario");
+
+        String[] datos = new String[2];
+        for (Usuario usuario : Usuarios) {
+
             datos[0] = "" + usuario.getId();
-            datos[1]=""+ usuario.getFuncionario().getCedula();
+            datos[1] = "" + usuario.getFuncionario().getCedula();
             modelo.addRow(datos);
         }
-    
-            this.jTable1.setModel(modelo);
-            
-            this.jTable1.getColumnModel().getColumn(0).setPreferredWidth(50);
-            this.jTable1.getColumnModel().getColumn(1).setPreferredWidth(50);
-   
-}
-    
-    
-    
-    
+
+        this.jTable1.setModel(modelo);
+
+        this.jTable1.getColumnModel().getColumn(0).setPreferredWidth(50);
+        this.jTable1.getColumnModel().getColumn(1).setPreferredWidth(50);
+
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -102,6 +102,7 @@ public class AgregarRView extends javax.swing.JFrame implements Observer {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane2.setViewportView(jTable1);
 
         jButton1.setText("Volver");
@@ -159,44 +160,44 @@ public class AgregarRView extends javax.swing.JFrame implements Observer {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      model.getControladorPadre().getView().setVisible(true);
-      this.setVisible(false);
+        model.getControladorPadre().getView().setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
-    int rowIndex = 0; String id;
-    try{
-        rowIndex = this.jTable1.getSelectedRow();
-        id = (String) this.jTable1.getValueAt(rowIndex, 0);
-        }catch(Exception e){
-        JOptionPane.showMessageDialog(rootPane, "No has seleccionado ninguna celda.");
-        return;
-    }
-        
+
+        int rowIndex = 0;
+        String id;
+        try {
+            rowIndex = this.jTable1.getSelectedRow();
+            id = (String) this.jTable1.getValueAt(rowIndex, 0);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "No has seleccionado ninguna celda.");
+            return;
+        }
+
         List<Bien> bienes = null;
         try {
             bienes = activos.data.BienesDB.listaPorSolicitud(model.getSolicitud());
         } catch (Exception ex) {
             Logger.getLogger(AgregarRView.class.getName()).log(Level.SEVERE, null, ex);
         }
-        for( Bien bien: bienes ){
-                try {
-                    activos.data.BienesDB.addRegistrador( bien.getCodigo(), activos.data.UsuariosDB.get(id));
-                    activos.data.SolicitudesDB.setEstado(model.getSolicitud().getCodigoSolicitud(),4 );
-                } catch (Exception ex) {
-                    Logger.getLogger(AgregarRView.class.getName()).log(Level.SEVERE, null, ex);
-                }
+        for (Bien bien : bienes) {
+            try {
+                activos.data.BienesDB.addRegistrador(bien.getCodigo(), activos.data.UsuariosDB.get(id));
+                activos.data.SolicitudesDB.setEstado(model.getSolicitud().getCodigoSolicitud(), 4);
+            } catch (Exception ex) {
+                Logger.getLogger(AgregarRView.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-      JOptionPane.showMessageDialog(rootPane, "Registrador asignado correctamente");  
-      model.getControladorPadre().getView().setVisible(true);
-      this.setVisible(false);
+        JOptionPane.showMessageDialog(rootPane, "Registrador asignado correctamente");
+        model.getControladorPadre().getView().setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
      */
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -225,5 +226,5 @@ public class AgregarRView extends javax.swing.JFrame implements Observer {
     public void setController(AgregarRController controller) {
         this.controller = controller;
     }
-    
+
 }

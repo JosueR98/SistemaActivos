@@ -8,12 +8,12 @@ package activos.logic;
 import java.sql.SQLException;
 import java.util.List;
 
-
 /**
  *
  * @author Josue R
  */
 public class Usuario {
+
     // Usuarios por tipo
     public static final int INDEFINIDO = 0;
     public static final int ADMINISTRADOR_DEPENDENCIA = 1;
@@ -21,14 +21,14 @@ public class Usuario {
     public static final int JEFE_OCCB = 3;
     public static final int REGISTRADOR_BIENES = 4;
     public static final int JEFE_RRH = 5;
-    public static final int JEFE_OCBB_RHH= 7;
+    public static final int JEFE_OCBB_RHH = 7;
 
     private String id;
     private String clave;
     private int tipo;
     private Dependencia dependencia;
     private Funcionario funcionario;
-    
+
     public Usuario() {
     }
 
@@ -46,8 +46,7 @@ public class Usuario {
         this.tipo = tipo;
         this.dependencia = dependencia;
     }
-    
-    
+
     public String getId() {
         return id;
     }
@@ -79,9 +78,9 @@ public class Usuario {
     public void setDependencia(Dependencia dependencia) {
         this.dependencia = dependencia;
     }
-    
+
     public void setDependencia(int dependencia) throws SQLException {
-       this.dependencia = activos.data.DependenciasDB.get(dependencia);
+        this.dependencia = activos.data.DependenciasDB.get(dependencia);
     }
 
     public Funcionario getFuncionario() {
@@ -91,9 +90,9 @@ public class Usuario {
     public void setFuncionario(int funcionario) throws SQLException {
         this.funcionario = activos.data.FuncionariosDB.get(funcionario);
     }
-    
-     public void setFuncionario(Funcionario funcionario) throws SQLException {
+
+    public void setFuncionario(Funcionario funcionario) throws SQLException {
         this.funcionario = funcionario;
     }
-    
+
 }

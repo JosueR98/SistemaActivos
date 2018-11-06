@@ -183,12 +183,12 @@ insert into puestos(codigo,rol,Funcionarios_cedula,Dependencias_codigo) values (
 insert into puestos(codigo,rol,Funcionarios_cedula,Dependencias_codigo) values (0,"Registrador de bienes", 421412423,1234);
 insert into puestos(codigo,rol,Funcionarios_cedula,Dependencias_codigo) values (0,"Jefe de RRHH", 550240204,1234 );
 insert into puestos(codigo,rol,Funcionarios_cedula,Dependencias_codigo) values (0,"Jefe de RRHH Y OCCB", 634203014,1234 );
-insert into puestos(codigo,rol,Funcionarios_cedula,Dependencias_codigo) values (0,"Profesor", 421421412,1234 );
+insert into puestos(codigo,rol,Funcionarios_cedula,Dependencias_codigo) values (0,"Profesor Arqui", 421421412,1234 );
 insert into puestos(codigo,rol,Funcionarios_cedula,Dependencias_codigo) values (0,"Conserje", 532523523,1234 );
 
-insert into puestos(codigo,rol,Funcionarios_cedula,Dependencias_codigo) values (0,"Profesor ", NULL,2345 );
-insert into puestos(codigo,rol,Funcionarios_cedula,Dependencias_codigo) values (0,"Contador", NULL,2345);
-insert into puestos(codigo,rol,Funcionarios_cedula,Dependencias_codigo) values (0,"Conserje", NULL,2345);
+insert into puestos(codigo,rol,Funcionarios_cedula,Dependencias_codigo) values (0,"Profesor programacion 1", NULL,1234 );
+insert into puestos(codigo,rol,Funcionarios_cedula,Dependencias_codigo) values (0,"Contador", NULL,1234);
+insert into puestos(codigo,rol,Funcionarios_cedula,Dependencias_codigo) values (0,"Conserje", NULL,1234);
 
 insert into Usuarios(id,clave,tipo,Dependencias_codigo,Funcionarios_cedula) values("admin_dependencia","aaa",1,1234,403013010);
 insert into Usuarios(id,clave,tipo,Dependencias_codigo,Funcionarios_cedula) values("secretaria_OCCB","bbb",2,1234,104294103);

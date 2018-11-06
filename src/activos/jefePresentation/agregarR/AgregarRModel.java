@@ -15,15 +15,16 @@ import java.util.Observable;
  * @author Andrés
  */
 public class AgregarRModel extends Observable {
+
     private Usuario usuarioActual;
-   
+
     private Solicitud solicitud;
     public JefeController _controladorPadre;
-    
+
     public AgregarRModel(int soli) throws Exception {
         usuarioActual = activos.loginPresentation.loginModel.getUsuarioActual();
         this.solicitud = activos.data.SolicitudesDB.get(soli);
-        
+
     }
 
     public Usuario getUsuarioActual() {
@@ -33,7 +34,6 @@ public class AgregarRModel extends Observable {
     public void setUsuarioActual(Usuario usuarioActual) {
         this.usuarioActual = usuarioActual;
     }
-
 
     public JefeController getControladorPadre() {
         return _controladorPadre;
@@ -50,5 +50,5 @@ public class AgregarRModel extends Observable {
     public void setSolicitud(Solicitud solicitud) {
         this.solicitud = solicitud;
     }
-   
+
 }

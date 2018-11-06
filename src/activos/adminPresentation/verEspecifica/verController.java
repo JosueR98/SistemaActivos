@@ -13,13 +13,12 @@ public class verController {
 
     private verModel model;
     private verView view;
-    
-    
+
     public verController(verModel verModel, verView verView) {
-       this.model = verModel;
-       this.view = verView;
-       view.setController(this);
-       view.setModel(verModel);
+        this.model = verModel;
+        this.view = verView;
+        view.setController(this);
+        view.setModel(verModel);
     }
 
     public verModel getModel() {
@@ -36,9 +35,7 @@ public class verController {
 
     public void setView(verView view) {
         this.view = view;
-      
+
     }
 
-    
-    
 }

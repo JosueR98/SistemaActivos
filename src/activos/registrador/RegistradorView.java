@@ -41,14 +41,13 @@ public class RegistradorView extends javax.swing.JFrame implements Observer {
         this.model = model;
         model.addObserver(this);
     }
-    
-    
+
     public RegistradorView() {
         initComponents();
     }
-    
+
     @Override
-    public void paint(Graphics g){
+    public void paint(Graphics g) {
         super.paint(g);
         this.setTitle("Registrador");
         try {
@@ -56,53 +55,54 @@ public class RegistradorView extends javax.swing.JFrame implements Observer {
         } catch (Exception ex) {
         }
     }
-    
-    private void muestraTabla() throws SQLException, Exception{
-     
-        
-       DefaultTableModel modelo = new DefaultTableModel();
+
+    private void muestraTabla() throws SQLException, Exception {
+        model.cargarListas();
+        DefaultTableModel modelo = new DefaultTableModel() {
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
         modelo.addColumn("Codigo");
         modelo.addColumn("Fecha");
         modelo.addColumn("Precio Total");
         modelo.addColumn("Tipo");
-        modelo.addColumn("Estado");
-        
-        String[] datos = new String[6];
-        for(Solicitud solicitud : model.getSolicitudes()){
-                if(!model.bienesPorRegistrar.isEmpty()){
-                    
-                    if(!controller.todosLosBienesRegistrados(solicitud)){
-                datos[0] = "" + solicitud.getCodigoSolicitud();
-                datos[1] = solicitud.getFecha().toString();
-                datos[2] = "" + solicitud.getMontoTotal();
-                int tipo =  solicitud.getTipo();
-                switch(tipo){
-                    case 1: datos[3] = "Compra"; break;
-                    case 2: datos[3] = "Donacion"; break;
-                    case 3: datos[3] = "Produccion"; break;
-                    
-                }
-                int estado = solicitud.getEstado();
-                switch(estado){
-                    case 1: datos[4] = "Recibida"; break;
-                    case 2: datos[4]= "Por verificar";break;
-                    case 3: datos[4] = "Cancelada";break;
-                    case 4: datos[4]= "Espera de rotulacion";break;
-                    case 5: datos[4] = "Procesada";break;
-                }
-                modelo.addRow(datos);
+
+        String[] datos = new String[4];
+        for (Solicitud solicitud : model.getSolicitudes()) {
+            if (!model.bienesPorRegistrar.isEmpty()) {
+
+                if (!controller.todosLosBienesRegistrados(solicitud)) {
+                    datos[0] = "" + solicitud.getCodigoSolicitud();
+                    datos[1] = solicitud.getFecha().toString();
+                    datos[2] = "" + solicitud.getMontoTotal();
+                    int tipo = solicitud.getTipo();
+                    switch (tipo) {
+                        case 1:
+                            datos[3] = "Compra";
+                            break;
+                        case 2:
+                            datos[3] = "Donacion";
+                            break;
+                        case 3:
+                            datos[3] = "Produccion";
+                            break;
+
                     }
+                    modelo.addRow(datos);
                 }
             }
-        
-                this.jTable1.setModel(modelo);
-                
-                this.jTable1.getColumnModel().getColumn(0).setPreferredWidth(20);
-                this.jTable1.getColumnModel().getColumn(1).setPreferredWidth(200);
-                this.jTable1.getColumnModel().getColumn(2).setPreferredWidth(15);
-                this.jTable1.getColumnModel().getColumn(3).setPreferredWidth(15);
-                this.jTable1.getColumnModel().getColumn(4).setPreferredWidth(20);
-    
+        }
+
+        this.jTable1.setModel(modelo);
+
+        this.jTable1.getColumnModel().getColumn(0).setPreferredWidth(20);
+        this.jTable1.getColumnModel().getColumn(1).setPreferredWidth(200);
+        this.jTable1.getColumnModel().getColumn(2).setPreferredWidth(15);
+        this.jTable1.getColumnModel().getColumn(3).setPreferredWidth(15);
+
     }
 
     /**
@@ -118,6 +118,7 @@ public class RegistradorView extends javax.swing.JFrame implements Observer {
         jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(800, 600));
@@ -133,14 +134,22 @@ public class RegistradorView extends javax.swing.JFrame implements Observer {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(jTable1);
 
-        jLabel1.setText("Solicitudes pendientes para su registro :");
+        jLabel1.setText("Solicitudes pendientes para su registro ");
 
         jButton1.setText("Seleccionar Solicitud");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Salir");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
             }
         });
 
@@ -152,18 +161,22 @@ public class RegistradorView extends javax.swing.JFrame implements Observer {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(279, 279, 279)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton2)
+                        .addGap(225, 225, 225)
+                        .addComponent(jLabel1)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton2))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -177,11 +190,12 @@ public class RegistradorView extends javax.swing.JFrame implements Observer {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        int rowIndex = 0;int codigo = 0;
-        try{
-         rowIndex = this.jTable1.getSelectedRow();
-         codigo = Integer.parseInt((String) this.jTable1.getValueAt(rowIndex, 0));
-        }catch(Exception e){
+        int rowIndex = 0;
+        int codigo = 0;
+        try {
+            rowIndex = this.jTable1.getSelectedRow();
+            codigo = Integer.parseInt((String) this.jTable1.getValueAt(rowIndex, 0));
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "No has seleccionado ninguna celda.");
             return;
         }
@@ -195,6 +209,11 @@ public class RegistradorView extends javax.swing.JFrame implements Observer {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        controller.exit();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     @Override
     public void update(Observable o, Object arg) {
         this.repaint();
@@ -202,8 +221,11 @@ public class RegistradorView extends javax.swing.JFrame implements Observer {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+
+  
 }

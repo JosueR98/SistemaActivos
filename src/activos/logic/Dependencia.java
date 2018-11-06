@@ -12,10 +12,10 @@ import java.util.List;
  * @author Josue R
  */
 public class Dependencia {
+
     private int codigoPostal;
     private String nombre;
     private String ubicacion;
-
 
     public Dependencia(int codigoPostal, String nombre, String ubicacion) {
         this.codigoPostal = codigoPostal;
@@ -27,8 +27,6 @@ public class Dependencia {
     public Dependencia() {
     }
 
-    
-
     public Dependencia(int codigoPostal, String nombre, String ubicacion, List<Usuario> usuarios, List<Solicitud> solicitudes, List<Activo> activos) {
         this.codigoPostal = codigoPostal;
         this.nombre = nombre;
@@ -36,7 +34,6 @@ public class Dependencia {
 
     }
 
-    
     public int getCodigoPostal() {
         return codigoPostal;
     }
@@ -60,5 +57,5 @@ public class Dependencia {
     public void setUbicacion(String ubicacion) {
         this.ubicacion = ubicacion;
     }
-    
+
 }

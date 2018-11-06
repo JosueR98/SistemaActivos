@@ -10,6 +10,7 @@ package activos.jefe_RRHH;
  * @author Josue R
  */
 public class RRHHController {
+
     RRHHModel model;
     RRHHView view;
 
@@ -28,5 +29,5 @@ public class RRHHController {
     public RRHHView getView() {
         return view;
     }
-    
+
 }

@@ -12,7 +12,7 @@ import java.sql.SQLException;
  * @author Josue R
  */
 public class Bien {
-     
+
     private int codigo;
     private String marca;
     private String modelo;
@@ -21,7 +21,7 @@ public class Bien {
     private Solicitud solicitud;
     private Usuario registrador;
     private boolean estaRegistrado;
-   // Atributo comodin  
+    // Atributo comodin  
     private int cantidad;
 
     public Bien() {
@@ -46,8 +46,7 @@ public class Bien {
         this.registrador = registrador;
         estaRegistrado = false;
     }
-    
- 
+
     public int getCodigo() {
         return codigo;
     }
@@ -93,11 +92,11 @@ public class Bien {
     }
 
     public void setSolicitud(int solicitud) throws SQLException, Exception {
-         this.solicitud = activos.data.SolicitudesDB.get(solicitud);
+        this.solicitud = activos.data.SolicitudesDB.get(solicitud);
     }
-    
-     public void setSolicitud(Solicitud solicitud) throws SQLException {
-         this.solicitud = solicitud;
+
+    public void setSolicitud(Solicitud solicitud) throws SQLException {
+        this.solicitud = solicitud;
     }
 
     public Usuario getRegistrador() {
@@ -107,7 +106,7 @@ public class Bien {
     public void setRegistrador(Usuario registrador) {
         this.registrador = registrador;
     }
-    
+
     public void setRegistrador(String id_registrador) throws Exception {
         this.registrador = activos.data.UsuariosDB.get(id_registrador);
     }
@@ -127,5 +126,5 @@ public class Bien {
     public void setEstaRegistrado(boolean estaRegistrado) {
         this.estaRegistrado = estaRegistrado;
     }
-    
+
 }

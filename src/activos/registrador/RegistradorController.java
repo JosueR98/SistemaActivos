@@ -13,6 +13,7 @@ import activos.logic.Solicitud;
  * @author Josue R
  */
 public class RegistradorController {
+
     RegistradorModel model;
     RegistradorView view;
 
@@ -27,7 +28,7 @@ public class RegistradorController {
         return model;
     }
 
-   public RegistradorView getView() {
+    public RegistradorView getView() {
         return view;
     }
 
@@ -41,14 +42,17 @@ public class RegistradorController {
 
     boolean todosLosBienesRegistrados(Solicitud soli) {
         boolean todos = true;
-        
-        for(Bien bien : soli.getLista_bienes()){
-            if(!bien.isEstaRegistrado())
+
+        for (Bien bien : soli.getLista_bienes()) {
+            if (!bien.isEstaRegistrado()) {
                 todos = false;
+            }
         }
-        
-    return todos;
+
+        return todos;
     }
     
-    
+    public void exit() {
+        System.exit(0);
+    }
 }

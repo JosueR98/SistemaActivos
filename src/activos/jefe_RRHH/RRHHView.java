@@ -6,6 +6,7 @@
 package activos.jefe_RRHH;
 
 import activos.logic.Funcionario;
+import activos.logic.Puesto;
 import java.awt.Graphics;
 import java.sql.SQLException;
 import java.util.Observable;
@@ -18,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Josue R
  */
-public class RRHHView extends javax.swing.JFrame implements Observer{
+public class RRHHView extends javax.swing.JFrame implements Observer {
 
     RRHHController controller;
     RRHHModel model;
@@ -30,7 +31,7 @@ public class RRHHView extends javax.swing.JFrame implements Observer{
 
     public void setController(RRHHController controller) {
         this.controller = controller;
-        
+
     }
 
     public RRHHModel getModel() {
@@ -41,7 +42,7 @@ public class RRHHView extends javax.swing.JFrame implements Observer{
         this.model = model;
         model.addObserver(this);
     }
-    
+
     public RRHHView() {
         initComponents();
     }
@@ -56,6 +57,7 @@ public class RRHHView extends javax.swing.JFrame implements Observer{
     private void initComponents() {
 
         jFrame1 = new javax.swing.JFrame();
+        jScrollBar1 = new javax.swing.JScrollBar();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
@@ -88,6 +90,7 @@ public class RRHHView extends javax.swing.JFrame implements Observer{
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setText("Agregar nuevo funcionario");
@@ -97,6 +100,7 @@ public class RRHHView extends javax.swing.JFrame implements Observer{
             }
         });
 
+        jButton2.setBackground(new java.awt.Color(102, 153, 255));
         jButton2.setText("Funcionarios");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -104,6 +108,7 @@ public class RRHHView extends javax.swing.JFrame implements Observer{
             }
         });
 
+        jButton3.setBackground(new java.awt.Color(102, 153, 255));
         jButton3.setText("Puestos");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -111,6 +116,7 @@ public class RRHHView extends javax.swing.JFrame implements Observer{
             }
         });
 
+        jButton4.setBackground(new java.awt.Color(102, 153, 255));
         jButton4.setText("Dependencias");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -123,17 +129,19 @@ public class RRHHView extends javax.swing.JFrame implements Observer{
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 802, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 10, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(233, 233, 233))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,10 +151,10 @@ public class RRHHView extends javax.swing.JFrame implements Observer{
                     .addComponent(jButton3)
                     .addComponent(jButton4))
                 .addGap(20, 20, 20)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -172,7 +180,7 @@ public class RRHHView extends javax.swing.JFrame implements Observer{
         this.selectedOption = 2;
         this.update(model, evt);
         this.jTable1.setModel(new DefaultTableModel());
-         this.jButton1.setVisible(false);
+        this.jButton1.setVisible(false);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -180,42 +188,94 @@ public class RRHHView extends javax.swing.JFrame implements Observer{
         this.selectedOption = 3;
         this.update(model, evt);
         this.jTable1.setModel(new DefaultTableModel());
-         this.jButton1.setVisible(false);
+        this.jButton1.setVisible(false);
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    
     @Override
-    public void paint(Graphics g){
+    public void paint(Graphics g) {
         super.paint(g);
-        if(selectedOption == 1){
         this.setTitle("Funcionarios");
-        try {
-            verTablaFuncionarios();
-        } catch (SQLException ex) {
-            Logger.getLogger(RRHHView.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        }else{
-            
+        if (selectedOption == 1) {
+            try {
+                verTablaFuncionarios();
+            } catch (SQLException ex) {
+                Logger.getLogger(RRHHView.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else if (selectedOption == 2) {
+            try {
+                verTablaPuestos();
+            } catch (SQLException ex) {
+                Logger.getLogger(RRHHView.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
-    
-    public void verTablaFuncionarios() throws SQLException{
-        model.cargarLista();
-        DefaultTableModel tabla = new DefaultTableModel();
+
+    public void verTablaFuncionarios() throws SQLException {
+        model.cargarListaFuncionarios();
+        DefaultTableModel tabla = new DefaultTableModel() {
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
         tabla.addColumn("Cedula");
         tabla.addColumn("Nombre");
         tabla.addColumn("Correo");
-        
+
         String[] row = new String[3];
-        for(Funcionario funcionario : model.getFuncionarios()){
+        for (Funcionario funcionario : model.getFuncionarios()) {
             row[0] = "" + funcionario.getCedula();
             row[1] = funcionario.getNombre();
             row[2] = funcionario.getCorreo();
             tabla.addRow(row);
-         }
-       this.jTable1.setModel(tabla);
-       
+        }
+        this.jTable1.setModel(tabla);
+        this.jTable1.getColumnModel().getColumn(0).setPreferredWidth(100);
+        this.jTable1.getColumnModel().getColumn(1).setPreferredWidth(100);
+        this.jTable1.getColumnModel().getColumn(2).setPreferredWidth(100);
+
     }
+
+    private void verTablaPuestos() throws SQLException {
+
+        model.cargarListaPuestos();
+        DefaultTableModel tabla = new DefaultTableModel() {
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        tabla.addColumn("Codigo");
+        tabla.addColumn("Rol");
+        tabla.addColumn("Funcionario encargado");
+        tabla.addColumn("Dependencia");
+
+        String[] row = new String[4];
+        for (Puesto puesto : model.getPuestos()) {
+            row[0] = "" + puesto.getCodigo();
+            row[1] = puesto.getRol();
+            if (puesto.getFuncionario() != null) {
+                row[2] = "" + puesto.getFuncionario().getCedula() + ": " + puesto.getFuncionario().getNombre();
+            } else {
+                row[2] = "Nadie";
+            }
+            if (puesto.getDependencia() != null) {
+                row[3] = puesto.getDependencia().getNombre() + " (" + puesto.getDependencia().getUbicacion() + ") ";
+            } else {
+                row[3] = "Nadie";
+            }
+            tabla.addRow(row);
+        }
+        this.jTable1.setModel(tabla);
+        this.jTable1.getColumnModel().getColumn(0).setPreferredWidth(10);
+        this.jTable1.getColumnModel().getColumn(1).setPreferredWidth(50);
+        this.jTable1.getColumnModel().getColumn(2).setPreferredWidth(200);
+        this.jTable1.getColumnModel().getColumn(3).setPreferredWidth(200);
+
+    }
+
     @Override
     public void update(Observable o, Object arg) {
         this.repaint();
@@ -227,7 +287,9 @@ public class RRHHView extends javax.swing.JFrame implements Observer{
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JFrame jFrame1;
+    private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+
 }

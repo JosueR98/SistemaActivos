@@ -21,10 +21,10 @@ public class RegistrarModel extends Observable {
     private Bien bien;
     List<Puesto> puestos;
     private bienesController controllerPadre;
-    
+
     public RegistrarModel(int codigo) throws Exception {
-        bien=activos.data.BienesDB.get(codigo);
-        puestos=activos.data.PuestosDB.getListaPorDependencia(activos.loginPresentation.loginModel.getUsuarioActual().getDependencia());
+        bien = activos.data.BienesDB.get(codigo);
+        puestos = activos.data.PuestosDB.getListaPorDependencia(activos.loginPresentation.loginModel.getUsuarioActual().getDependencia());
     }
 
     public Bien getBien() {
@@ -50,9 +50,5 @@ public class RegistrarModel extends Observable {
     public void setPuestos(List<Puesto> puestos) {
         this.puestos = puestos;
     }
-    
-    
-    
-    
-    
+
 }

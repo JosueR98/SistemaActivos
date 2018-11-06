@@ -10,9 +10,10 @@ package activos.registrador.Registrar;
  * @author Andrés
  */
 public class RegistrarController {
+
     RegistrarModel model;
     RegistrarView view;
-    
+
     public RegistrarController(RegistrarModel _model, RegistrarView _view) {
         this.model = _model;
         this.view = _view;
@@ -36,6 +37,4 @@ public class RegistrarController {
         this.view = view;
     }
 
-
-    
 }

@@ -18,24 +18,24 @@ import java.util.ArrayList;
  * @author Josue R
  */
 public class agregarModel extends Observable {
-        
-     private Usuario usuarioActual;
 
-     private List<Bien> bienes;
-     private Solicitud solicitud;   
-     
-     private AdminController _controladorPadre;
-     
+    private Usuario usuarioActual;
+
+    private List<Bien> bienes;
+    private Solicitud solicitud;
+
+    private AdminController _controladorPadre;
+
     public agregarModel() {
         usuarioActual = activos.loginPresentation.loginModel.getUsuarioActual();
         bienes = new ArrayList<>();
         solicitud = new Solicitud();
     }
-    
-    public void setControllerPadre(AdminController cp){
+
+    public void setControllerPadre(AdminController cp) {
         this._controladorPadre = cp;
     }
-    
+
     public Usuario getUsuarioActual() {
         return usuarioActual;
     }
@@ -62,10 +62,10 @@ public class agregarModel extends Observable {
     public void setSolicitud(Solicitud solicitud) {
         this.solicitud = solicitud;
     }
-    
-    public double getTotal(){
+
+    public double getTotal() {
         double total = 0;
-        for(Bien bien: bienes){
+        for (Bien bien : bienes) {
             total += bien.getPrecio_unitario();
         }
         return total;
@@ -74,7 +74,5 @@ public class agregarModel extends Observable {
     public AdminController getControladorPadre() {
         return _controladorPadre;
     }
-    
-    
-    
+
 }
