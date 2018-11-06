@@ -5,9 +5,15 @@
  */
 package activos.jefe_RRHH;
 
-import activos.funcionarios.agregar.agregarFController;
-import activos.funcionarios.agregar.agregarFModel;
-import activos.funcionarios.agregar.agregarFView;
+import activos.jefe_RRHH.agregarDep.agregarDController;
+import activos.jefe_RRHH.agregarDep.agregarDModel;
+import activos.jefe_RRHH.agregarDep.agregarDView;
+import activos.jefe_RRHH.agregarFunc.agregarFController;
+import activos.jefe_RRHH.agregarFunc.agregarFModel;
+import activos.jefe_RRHH.agregarFunc.agregarFView;
+import activos.jefe_RRHH.agregarPuesto.agregarPController;
+import activos.jefe_RRHH.agregarPuesto.agregarPModel;
+import activos.jefe_RRHH.agregarPuesto.agregarPView;
 import activos.logic.Dependencia;
 import activos.logic.Funcionario;
 import activos.logic.Puesto;
@@ -29,18 +35,37 @@ public class RRHHModel extends Observable {
     private List<Puesto> puestos;
 
     //Hijos
-    private agregarFModel agregarModel;
-    private agregarFController agregarController;
-    private agregarFView agregarView;
+    private agregarFModel agregarFModel;
+    private agregarFController agregarFController;
+    private agregarFView agregarFView;
+    
+    private agregarPModel agregarPModel;
+    private agregarPController agregarPController;
+    private agregarPView agregarPView;
 
+    private agregarDModel agregarDModel;
+    private agregarDView agregarDView;
+    agregarDController agregarDController;
+    
+    
     public RRHHModel() throws SQLException {
         this.current = activos.loginPresentation.loginModel.getUsuarioActual();
         cargarListaFuncionarios();
         cargarListaPuestos();
         cargarListaDependencias();
-        agregarModel = new agregarFModel();
-        agregarView = new agregarFView();
-        agregarController = new agregarFController(agregarModel, agregarView);
+        
+        //LOADING MVC
+        agregarFModel = new agregarFModel();
+        agregarFView = new agregarFView();
+        agregarFController = new agregarFController(agregarFModel, agregarFView);
+        
+        agregarPModel = new agregarPModel();
+        agregarPView = new agregarPView();
+        agregarPController = new agregarPController(agregarPModel, agregarPView);
+        
+        agregarDModel = new agregarDModel();
+        agregarDView = new agregarDView();
+        agregarDController = new agregarDController(agregarDModel,agregarDView);
 
     }
 
@@ -71,16 +96,16 @@ public class RRHHModel extends Observable {
         return funcionarios;
     }
 
-    public agregarFModel getAgregarModel() {
-        return agregarModel;
+    public agregarFModel getAgregarFModel() {
+        return agregarFModel;
     }
 
-    public agregarFController getAgregarController() {
-        return agregarController;
+    public agregarFController getAgregarFController() {
+        return agregarFController;
     }
 
-    public agregarFView getAgregarView() {
-        return agregarView;
+    public agregarFView getAgregarFView() {
+        return agregarFView;
     }
 
     public List<Dependencia> getDependencias() {
@@ -91,4 +116,40 @@ public class RRHHModel extends Observable {
         return puestos;
     }
 
+    public agregarPModel getAgregarPModel() {
+        return agregarPModel;
+    }
+
+    public agregarPController getAgregarPController() {
+        return agregarPController;
+    }
+
+    public agregarPView getAgregarPView() {
+        return agregarPView;
+    }
+
+    public agregarDModel getAgregarDModel() {
+        return agregarDModel;
+    }
+
+    public void setAgregarDModel(agregarDModel agregarDModel) {
+        this.agregarDModel = agregarDModel;
+    }
+
+    public agregarDView getAgregarDView() {
+        return agregarDView;
+    }
+
+    public void setAgregarDView(agregarDView agregarDView) {
+        this.agregarDView = agregarDView;
+    }
+
+    public agregarDController getAgregarDController() {
+        return agregarDController;
+    }
+
+    public void setAgregarDController(agregarDController agregarDController) {
+        this.agregarDController = agregarDController;
+    }
+    
 }

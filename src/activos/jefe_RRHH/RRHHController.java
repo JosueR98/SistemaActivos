@@ -19,7 +19,9 @@ public class RRHHController {
         this.view = view;
         view.setModel(model);
         view.setController(this);
-        model.getAgregarModel().setControladorPadre(this);
+        model.getAgregarFModel().setControladorPadre(this);
+        model.getAgregarPModel().setControladorPadre(this);
+        model.getAgregarDModel().setControladorPadre(this);
     }
 
     public RRHHModel getModel() {

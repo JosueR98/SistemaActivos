@@ -44,6 +44,30 @@ public class PuestosDB {
         puesto.setCodigo(consecutivo);
     }
     
+        public static void addSinF(Puesto puesto) throws Exception {
+        String sql = "insert into Puestos (codigo, rol, Funcionarios_cedula, Dependencias_codigo)"
+                + "values(0,'%s',NULL, %d)";
+        
+        sql = String.format(sql, puesto.getRol(),puesto.getDependencia().getCodigoPostal());
+        int count = db.executeUpdate(sql);
+        if (count == 0) {
+            throw new Exception();
+        }
+
+        // Obteniendo consecutivo
+        int consecutivo = -1;
+        ResultSet rs = db.executeQuery("SELECT max(codigo) FROM puestos");
+        try {
+            if (rs.next()) {
+                consecutivo = rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        puesto.setCodigo(consecutivo);
+    }
+    
     public static Puesto get(int codigo) throws SQLException {
         Puesto _puesto = new Puesto();
         String sql = "select * from puestos where codigo= %d";
@@ -96,7 +120,7 @@ public class PuestosDB {
     
     public static int getSiguienteCodigo() throws SQLException {
         int consecutivo = -1;
-        ResultSet rs = db.executeQuery("select max(codigo) from activos");
+        ResultSet rs = db.executeQuery("select max(codigo) from puestos");
         if (rs.next()) {
             consecutivo = rs.getInt(1);
         }

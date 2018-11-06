@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package activos.funcionarios.agregar;
+package activos.jefe_RRHH.agregarFunc;
 
 import activos.jefe_RRHH.RRHHController;
 import activos.logic.Usuario;

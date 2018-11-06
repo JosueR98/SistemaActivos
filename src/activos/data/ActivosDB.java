@@ -78,5 +78,21 @@ public class ActivosDB {
         }
         return activoos;
     }
+    
+    public static int proximoConsecutivo(){
+        int n = -1;
+        int consecutivo = -1;
+        ResultSet rs = db.executeQuery("SELECT max(codigo) FROM activos");
+        try {
+            if (rs.next()) {
+                consecutivo = rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        consecutivo+=1;
+        return consecutivo;
+    }
 
 }

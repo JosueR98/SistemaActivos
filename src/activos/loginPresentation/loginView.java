@@ -83,6 +83,7 @@ public class loginView extends javax.swing.JFrame implements Observer {
         ClaveLabel.setText("Clave :");
         getContentPane().add(ClaveLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
 
+        idTextField.setText("jefe_RRHH");
         idTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 idTextFieldActionPerformed(evt);
@@ -106,6 +107,7 @@ public class loginView extends javax.swing.JFrame implements Observer {
         });
         getContentPane().add(SalirButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, 73, -1));
 
+        ClaveTextField.setText("eeee");
         ClaveTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ClaveTextFieldActionPerformed(evt);
